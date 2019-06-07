@@ -1,0 +1,112 @@
+package at.fh.swenga.jpa.model;
+
+import java.util.Calendar;
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Version;
+@Entity
+@Table(name = "Song")
+public class SongModel implements java.io.Serializable {
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	private String interpret;
+	private Calendar publishDate;
+	private String Title;
+	@OneToOne(cascade = CascadeType.ALL)
+	private DocumentModel document;
+	@Version
+	long version;
+	@ManyToMany (mappedBy = "songs")
+    private Collection<QuizModel> quizzes;
+	@OneToMany(mappedBy="song",fetch=FetchType.EAGER)
+	private Collection<ResultModel> results;
+	public SongModel(String interpret, Calendar publishDate, String title) {
+		super();
+		this.interpret = interpret;
+		this.publishDate = publishDate;
+		Title = title;
+	}
+
+	public SongModel() {
+		super();
+	}
+
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getInterpret() {
+		return interpret;
+	}
+	public void setInterpret(String interpret) {
+		this.interpret = interpret;
+	}
+	public Calendar getPublishDate() {
+		return publishDate;
+	}
+	public void setPublishDate(Calendar publishDate) {
+		this.publishDate = publishDate;
+	}
+	public String getTitle() {
+		return Title;
+	}
+	public void setTitle(String title) {
+		Title = title;
+	}
+	public DocumentModel getDocument() {
+		return document;
+	}
+	public void setDocument(DocumentModel document) {
+		this.document = document;
+	}
+	
+	public Collection<ResultModel> getResults() {
+		return results;
+	}
+
+	public void setResults(Collection<ResultModel> results) {
+		this.results = results;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((Title == null) ? 0 : Title.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SongModel other = (SongModel) obj;
+		if (Title == null) {
+			if (other.Title != null)
+				return false;
+		} else if (!Title.equals(other.Title))
+			return false;
+		return true;
+	}
+	
+	
+}

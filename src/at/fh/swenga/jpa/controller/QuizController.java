@@ -1,0 +1,43 @@
+package at.fh.swenga.jpa.controller;
+
+import java.util.Calendar;
+import java.util.List;
+
+import org.fluttercode.datafactory.impl.DataFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import at.fh.swenga.jpa.dao.DocumentRepository;
+import at.fh.swenga.jpa.dao.QuizRepository;
+import at.fh.swenga.jpa.dao.SongRepository;
+import at.fh.swenga.jpa.model.QuizModel;
+
+@Controller
+public class QuizController {
+	@Autowired
+	QuizRepository quizRepository;
+	@Autowired
+	SongRepository songRepository;
+	@Autowired
+	DocumentRepository documentRepository;
+	@RequestMapping(value = { "/quizzes", "listquizzes" })
+	public String index(Model model) {
+		List<QuizModel> quizzes = quizRepository.findAll();
+		model.addAttribute("quizzes", quizzes);
+		return "indexQuiz";
+	}
+	@RequestMapping("/fillquizzes")
+	@Transactional
+	public String fillData(Model model) {
+		DataFactory df = new DataFactory();
+		Calendar publishDate = Calendar.getInstance();
+		publishDate.setTime(df.getDateBetween(df.getDate(2000, 1, 1), df.getDate(2019, 1, 1)));
+		QuizModel quizModel = new QuizModel ("Test",1,publishDate);
+		quizModel.setSongs(songRepository.findAll());
+		quizRepository.save(quizModel);
+		return "forward:listquizzes";
+	}
+}
