@@ -47,7 +47,8 @@
 								<th>title</th>
 								<th>Difficulty</th>
 								<th>Creation Date</th>
-								<th>Crazy Shit</th>				
+								<th>Crazy Shit</th>
+								<th>BarCode</th>				
 							</tr>
 						</thead>
 						<tbody>
@@ -59,6 +60,9 @@
 								<td th:text="${quiz.difficulty}"></td>
 								<td	th:text="${#calendars.format(quiz.creationDate,'dd.MM.yyyy')}"></td>
 								<td th:text="${quiz.songs[0].title}"></td>
+									<td><img
+									th:src="@{${'qrcode/' + quiz.id}}"
+									width="100" height="100"></td>
 							</tr>
 						</tbody>
 					</table>

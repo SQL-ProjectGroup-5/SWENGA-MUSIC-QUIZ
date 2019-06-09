@@ -1,18 +1,25 @@
 package at.fh.swenga.jpa.controller;
 
+import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import at.fh.swenga.jpa.dao.DocumentRepository;
 import at.fh.swenga.jpa.dao.QuizRepository;
 import at.fh.swenga.jpa.dao.SongRepository;
+import at.fh.swenga.jpa.helper.ZXingHelper;
 import at.fh.swenga.jpa.model.QuizModel;
 
 @Controller
@@ -39,5 +46,14 @@ public class QuizController {
 		quizModel.setSongs(songRepository.findAll());
 		quizRepository.save(quizModel);
 		return "forward:listquizzes";
+	}
+	@RequestMapping(value = "qrcode/{id}", method = RequestMethod.GET)
+	public void qrcode(@PathVariable("id") String id, HttpServletResponse response,HttpServletRequest request) throws Exception {
+		response.setContentType("image/png");
+		OutputStream outputStream = response.getOutputStream();
+		String reqSrc = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/quizzes/";
+		outputStream.write(ZXingHelper.getQRCodeImage(reqSrc+id, 200, 200));
+		outputStream.flush();
+		outputStream.close();
 	}
 }
