@@ -24,3 +24,6 @@ hs_err_pid*
 /build/
 /target/
 /src/db.properties
+.settings/org.eclipse.wst.common.project.facet.core.xml
+.classpath
+WebContent/WEB-INF/templates/AdminLTE-2.4.12/bower_components/jquery-sparkline/src/header.js

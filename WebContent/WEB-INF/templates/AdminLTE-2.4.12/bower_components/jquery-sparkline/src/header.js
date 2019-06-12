@@ -209,7 +209,7 @@
     } else if (jQuery && !jQuery.fn.sparkline) {
         factory(jQuery);
     }
-}
+})
 (function($) {
     'use strict';
 
@@ -219,4 +219,4 @@
         MouseHandler, Tooltip, barHighlightMixin,
         line, bar, tristate, discrete, bullet, pie, box, defaultStyles, initStyles,
         VShape, VCanvas_base, VCanvas_canvas, VCanvas_vml, pending, shapeCount = 0;
-
+});
