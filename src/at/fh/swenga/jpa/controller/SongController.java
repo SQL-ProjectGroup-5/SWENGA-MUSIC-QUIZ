@@ -32,6 +32,11 @@ public class SongController {
 
 	@Autowired
 	DocumentRepository documentRepository;
+	
+	@RequestMapping(value = {"/"})
+	public String handleLogin() {
+		return "login";
+	}
 
 	@RequestMapping(value = { "/songs", "listsongs" })
 	public String index(Model model) {
@@ -50,6 +55,11 @@ public class SongController {
 		songRepository.save(songModel);
 		return "forward:listsongs";
 	}
+	/*
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String handleLogin() {
+		return "login";
+	}*/
 
 	@RequestMapping("/delete")
 	public String deleteData(Model model, @RequestParam int id) {
