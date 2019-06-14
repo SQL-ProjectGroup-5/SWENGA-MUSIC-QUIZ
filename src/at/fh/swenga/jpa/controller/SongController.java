@@ -68,6 +68,13 @@ public class SongController {
 		return "forward:list";
 	}
 
+	@RequestMapping(value = "/testing", method = RequestMethod.GET)
+	public String handleTest() {
+		return "admin";
+	}
+	
+	
+	
 	/**
 	 * Display the upload form
 	 * @param model

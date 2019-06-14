@@ -14,7 +14,9 @@
 		
 		
 		<intercept-url pattern="/*" access="permitAll" />
-		<intercept-url pattern="/qrcode/**" access="permitAll" />
+		<intercept-url pattern="/static/**" access="permitAll" />
+		<intercept-url pattern="/static/**/**" access="permitAll" />
+		<intercept-url pattern="/static/**/**/**" access="permitAll" />
 		
 		
 		<intercept-url pattern="/login" access="permitAll" />

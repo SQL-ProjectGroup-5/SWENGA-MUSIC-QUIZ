@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="~{includes/bootstrap :: bootstrapMeta}" />
+<title>Quiz Manager</title>
+<div th:replace="~{includes/bootstrap :: bootstrapCSS}" />
+</head>
+<body>
+	<div class="container" role="main">
+		<!--  Error message ----------------------------------------------------------- -->
+		<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
+			class="alert alert-danger" role="alert"></div>
+		<!--  Error message ----------------------------------------------------------- -->
+
+		<!--  Warning message ----------------------------------------------------------- -->
+		<div th:unless="${warningMessage} == null"
+			th:utext="${warningMessage}" class="alert alert-warning"
+			role="warning"></div>
+		<!--  Warning message ----------------------------------------------------------- -->
+
+		<!--   message ----------------------------------------------------------- -->
+		<div th:unless="${message} == null" th:utext="${message}"
+			class="alert alert-success" role="warning"></div>
+		<!--   message ----------------------------------------------------------- -->
+
+		<form action="report" method="post">
+			<center>
+				<a href="fillresults">
+					<button type="button" class="btn btn-success">Fill List</button>
+				</a> <input type="submit" name="excel" value="Excel"
+					class="btn btn-primary"> <input type="submit" name="pdf"
+					value="PDF" class="btn btn-primary"> <input type="submit"
+					name="mail" value="Mail" class="btn btn-primary">
+			</center>
+
+			<!--  list all employees ----------------------------------------------------------- -->
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					<table data-toggle="table" class="table table-striped">
+						<thead>
+							<tr>
+								<th>Select</th>
+								<th>ID</th>								
+								<th>Synonym</th>
+								<th>was correct</th>
+								<th>Time</th>
+								<th>Song</th>
+								<th>Quiz</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="result : ${results}">
+								<td><input type="checkbox" name="resultId"
+									th:value="${result.id}"></td>
+								<td th:text="${result.id}"></td>
+								<td th:text="${result.synonym}"></td>
+								<td th:text="${result.correct}"></td>
+								<td th:text="${result.time}"></td>
+								<td th:text="${result.song.title}"></td>
+								<td th:text="${result.quiz.id}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!--  list all employees ----------------------------------------------------------- -->
+		</form>
+	</div>
+	<!--  End of container -->
+	<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
+</body>
+</html>
