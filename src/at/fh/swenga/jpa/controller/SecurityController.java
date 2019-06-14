@@ -10,35 +10,42 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.jpa.dao.UserDao;
 import at.fh.swenga.jpa.dao.UserRoleDao;
 import at.fh.swenga.jpa.model.User;
 import at.fh.swenga.jpa.model.UserRole;
 
+
 @Controller
 public class SecurityController {
-
 	@Autowired
 	UserDao userDao;
 
 	@Autowired
 	UserRoleDao userRoleDao;
 	@RequestMapping(value = "/adduser", method = RequestMethod.GET)
-	public String handleTest() {
+	public String addUserGet() {
 		return "createUser";
 	}
 	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
 	@Transactional
-	public String addeinenUser(@Valid User newUserModel, BindingResult bindingResult, Model model) {
-		User admin = new User(newUserModel.getUserName(), newUserModel.getPassword(), true);
-		admin.encryptPassword();
-		UserRole adminRole = userRoleDao.getRole("ROLE_ADMIN");
-		UserRole userRole = userRoleDao.getRole("ROLE_USER");
-		admin.addUserRole(userRole);
-		admin.addUserRole(adminRole);
-		userDao.persist(admin);
-		return "/login";
+	public String addUserPost(@RequestParam (value = "isAdmin", required=false) Boolean isAdmin, @Valid User newUserModel, BindingResult bindingResult, Model model) {
+		User newUser = new User(newUserModel.getUserName(), newUserModel.getPassword(), true);
+		newUser.encryptPassword();
+		if(isAdmin != null)
+		{
+			UserRole adminRole = userRoleDao.getRole("ROLE_ADMIN");
+			UserRole userRole = userRoleDao.getRole("ROLE_USER");
+			newUser.addUserRole(userRole);
+			newUser.addUserRole(adminRole);
+		}else {
+			UserRole userRole = userRoleDao.getRole("ROLE_USER");
+			newUser.addUserRole(userRole);
+		}
+		userDao.persist(newUser);
+		return "createUser";
 	}
 	
 

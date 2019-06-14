@@ -36,6 +36,11 @@ public class QuizController {
 		model.addAttribute("quizzes", quizzes);
 		return "indexQuiz";
 	}
+	
+	@RequestMapping("/")
+	public String showIndex(Model model) {
+		return "index";
+	}
 	@RequestMapping("/fillquizzes")
 	@Transactional
 	public String fillData(Model model) {

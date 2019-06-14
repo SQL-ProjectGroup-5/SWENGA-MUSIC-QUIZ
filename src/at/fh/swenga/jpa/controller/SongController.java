@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,11 +39,11 @@ public class SongController {
 		return "login";
 	}*/
 	
-	@RequestMapping(value = { "/", "/songs", "listsongs" })
+	@RequestMapping(value = {"/songs", "listsongs" })
 	public String index(Model model) {
 		List<SongModel> songs = songRepository.findAll();
 		model.addAttribute("songs", songs);
-		return "index";
+		return "indexSongs";
 	}
 
 	@RequestMapping("/fillsongs")
@@ -68,9 +69,10 @@ public class SongController {
 		return "forward:list";
 	}
 
-	@RequestMapping(value = "/testing", method = RequestMethod.GET)
-	public String handleTest() {
-		return "admin";
+	@RequestMapping(value = "/play", method = RequestMethod.GET)
+	public String handlePlay(@RequestParam(value = "id") int id,Model model) {
+		model.addAttribute("gameIndex", id);
+		return "game";
 	}
 	
 	

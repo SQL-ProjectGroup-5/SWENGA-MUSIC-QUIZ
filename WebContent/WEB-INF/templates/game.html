@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
   <title>Game</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -93,6 +96,8 @@
       
       <!-- /.row -->
       <!-- Main row -->
+      <p>Welcome to our grocery store!</p>
+      <p th:text="'Upload Document for song ' + ${gameIndex}">Welcome to our grocery store!</p>
       <audio controls="controls">
   <source src="track.ogg" type="audio/ogg" />
   <source src="track.mp3" type="audio/mpeg" />
