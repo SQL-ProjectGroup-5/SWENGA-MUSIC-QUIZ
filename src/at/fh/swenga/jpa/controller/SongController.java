@@ -57,10 +57,7 @@ public class SongController {
 		return "forward:listsongs";
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String handleLogin() {
-		return "login";
-	}
+
 
 	@RequestMapping("/delete")
 	public String deleteData(Model model, @RequestParam int id) {
@@ -69,12 +66,7 @@ public class SongController {
 		return "forward:list";
 	}
 
-	@RequestMapping(value = "/play", method = RequestMethod.GET)
-	public String handlePlay(@RequestParam(value = "id") int id,Model model) {
-		model.addAttribute("gameIndex", id);
-		return "game";
-	}
-	
+
 	
 	
 	/**

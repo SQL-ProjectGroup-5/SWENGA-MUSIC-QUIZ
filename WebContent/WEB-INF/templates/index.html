@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
   <title>User</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -57,21 +59,7 @@
       </a>
     </nav>
   </header>
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
-  <ul class="sidebar-menu" data-widget="tree">
-        <li class="active treeview menu-open">		  
-          <ul class="treeview-menu">
-            <li><a href="admin.html"><i class="fa fa-circle-o"></i> Admin</a></li>
-            <li><a href="quizmaster.html"><i class="fa fa-circle-o"></i> Quizmaster</a></li>
-			<li class="active"><a href="createUser.html"><i class="fa fa-circle-o"></i> User</a></li>
-			<li><a href="quiz.html"><i class="fa fa-circle-o"></i> Quizes</a></li>
-			<li><a href="songs.html"><i class="fa fa-circle-o"></i> Songs</a></li>
-			<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Logout</span></a></li>
-          </ul>
-        </li>
-     </ul>
-  </aside>
+  <nav th:replace="~{includes/navBar :: sidebar}"></nav>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -93,7 +81,7 @@
       <div class="row">
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Create</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Join Game</button>
         </div>
         <!-- /.col -->
       </div>

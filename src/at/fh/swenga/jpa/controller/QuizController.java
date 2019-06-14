@@ -60,7 +60,10 @@ public class QuizController {
 		return "game";
 	}
 	
-	
+	@RequestMapping("/quizStatistics")
+	public String showQStatistics(Model model) {
+		return "quizmaster";
+	}
 	
 	
 	@RequestMapping(value = "qrcode/{id}", method = RequestMethod.GET)
