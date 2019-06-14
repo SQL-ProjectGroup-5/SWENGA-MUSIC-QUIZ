@@ -75,6 +75,11 @@ public class SecurityController {
 		return "forward:login";
 	}
 
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String handleLogin() {
+		return "login";
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
 
