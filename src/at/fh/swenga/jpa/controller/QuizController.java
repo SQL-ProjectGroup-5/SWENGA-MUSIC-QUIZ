@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.jpa.dao.DocumentRepository;
 import at.fh.swenga.jpa.dao.QuizRepository;
@@ -36,6 +37,11 @@ public class QuizController {
 		model.addAttribute("quizzes", quizzes);
 		return "indexQuiz";
 	}
+	
+	@RequestMapping("/")
+	public String showIndex(Model model) {
+		return "index";
+	}
 	@RequestMapping("/fillquizzes")
 	@Transactional
 	public String fillData(Model model) {
@@ -47,6 +53,19 @@ public class QuizController {
 		quizRepository.save(quizModel);
 		return "forward:listquizzes";
 	}
+	
+	@RequestMapping(value = "/play", method = RequestMethod.GET)
+	public String handlePlay(@RequestParam(value = "id") int id,Model model) {
+		model.addAttribute("gameIndex", id);
+		return "game";
+	}
+	
+	@RequestMapping("/quizStatistics")
+	public String showQStatistics(Model model) {
+		return "quizmaster";
+	}
+	
+	
 	@RequestMapping(value = "qrcode/{id}", method = RequestMethod.GET)
 	public void qrcode(@PathVariable("id") String id, HttpServletResponse response,HttpServletRequest request) throws Exception {
 		response.setContentType("image/png");

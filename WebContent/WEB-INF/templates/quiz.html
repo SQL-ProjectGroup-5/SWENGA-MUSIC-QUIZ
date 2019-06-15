@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-  <title>User</title>
+  <title>Quiz</title>
   <div th:replace="~{includes/adminLTE :: AdminLTECSS}" />
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -25,6 +25,17 @@
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
+	  <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Genre <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Genre 1</a></li>
+                <li><a href="#">Genre 2</a></li>
+                <li><a href="#">Genre 3</a></li>
+                <li><a href="#">Genre 4</a></li>
+              </ul>
+            </li>
+          </ul>
     </nav>
   </header>
   <nav th:replace="~{includes/navBar :: sidebar}"></nav>
@@ -41,22 +52,69 @@
       <div class="row">
         <!-- Left col -->
         <section class="col-lg-7 connectedSortable">
-          <div class="register-box-body">
-    <form action="./play" method="get">
-      <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Game ID" name="id" >
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      <div class="row">
-        <!-- /.col -->
-        <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Join Game</button>
-        </div>
-        <!-- /.col -->
-      </div>
-    </form>
-  </div>
+          <div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					<table data-toggle="table" class="table table-striped">
+						<thead>
+							<tr>
+								<th>Select</th>
+								<th>ID</th>								
+								<th>Synonym</th>
+								<th>was correct</th>
+								<th>Time</th>
+								<th>Song</th>
+								<th>Quiz</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="result : ${results}">
+								<td><input type="checkbox" name="resultId"
+									th:value="${result.id}"></td>
+								<td th:text="${result.id}"></td>
+								<td th:text="${result.synonym}"></td>
+								<td th:text="${result.correct}"></td>
+								<td th:text="${result.time}"></td>
+								<td th:text="${result.song.title}"></td>
+								<td th:text="${result.quiz.id}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
           <!-- /.nav-tabs-custom -->
 
+<div class="box">
+		<div class="box-body">
+		<p>
+		<button type="button" class="btn btn-block btn-default" style="width: 100px">Add to</button>
+		</p>
+		</div></div>
+
+		<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					<table data-toggle="table" class="table table-striped">
+						<thead>
+							<tr>
+								
+								<th>ID</th>								
+								<th>Synonym</th>
+								<th>was correct</th>
+								<th>Time</th>					
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="result : ${results}">
+								
+									
+								<td th:text="${result.id}"></td>
+								<td th:text="${result.synonym}"></td>
+								<td th:text="${result.correct}"></td>
+								<td th:text="${result.time}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
          </section>
         
       </div>
@@ -92,6 +150,7 @@
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
+<!-- ./wrapper -->
 <div th:replace="~{includes/adminLTE :: AdminLTEJS}" />
 </body>
 </html>

@@ -30,7 +30,21 @@ public class ResultController {
 		model.addAttribute("results", results);
 		return "indexResults";
 	}
-
+	@RequestMapping("/admin")
+	@Transactional
+	public String showAdmin(Model model) {
+		return "admin";
+	}
+	@RequestMapping("/quizAdmin")
+	@Transactional
+	public String showQuizAdmin(Model model) {
+		return "quiz";
+	}
+	@RequestMapping("/songAdmin")
+	@Transactional
+	public String showSongAdmin(Model model) {
+		return "songs";
+	}
 	@RequestMapping("/fillresults")
 	@Transactional
 	public String fillData(Model model) {
