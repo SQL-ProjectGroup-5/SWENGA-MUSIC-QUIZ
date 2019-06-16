@@ -1,34 +1,114 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html>
 <head>
-<div th:replace="~{includes/bootstrap :: bootstrapMeta}" />
-<title>Guess the song dot com</title>
-<div th:replace="~{includes/bootstrap :: bootstrapCSS}" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+  <title>Login</title>
+   <div th:replace="~{includes/adminLTE :: AdminLTECSS}" />
 </head>
-<body>
-	<div class="container" role="main">
-		<div class="row">
-			<div class="col-md-4 col-md-offset-4">
-				<form th:action="@{/login}" method="post">
-					<h2 class="form-signin-heading">Please sign in</h2>
-					
-					<div th:if="${param.error}" class="alert alert-danger">Invalid username and password.</div>
-					
-					<div th:if="${param.logout}" class="alert alert-success">You have been logged out.</div>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="../../index2.html"><b>Guess</b> the Song</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg">Join Game</p>
 
-					<label for="inputEmail" class="sr-only">Email address</label> 
-					<input type="text" id="username" class="form-control" placeholder="User" required autofocus name="username"> 
-					
-					<label for="inputPassword" class="sr-only">Password</label> 
-					<input type="password" id="password" class="form-control" placeholder="Password" required name="password">
-					<button class="btn btn-lg btn-primary btn-block" type="submit">
-						Sign in
-					</button>
-				</form>
-			</div>
-		</div>
-	</div>
+    <form action="../../index2.html" method="post">
+      <div class="form-group has-feedback">
+        <input type="text" class="form-control" placeholder="Pin">
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+      </div>
+	  <div class="form-group has-feedback">
+        <input type="text" class="form-control" placeholder="Nickname">
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+      </div>
+      <div class="row">
+        <!-- /.col -->
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Join</button>
+        </div>
+		
+        <!-- /.col -->
+      </div>
+
+    <div class="row">
+        <div class="col-md-3">
+          <div class="box box-default collapsed-box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Login</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                </button>
+              </div>
+              <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="login-box-body">
+
+    <form action="../../index2.html" method="post">
+      <div class="form-group has-feedback">
+        <input type="text" class="form-control" placeholder="Username">
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="password" class="form-control" placeholder="Password">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        
+        <!-- /.col -->
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+        </div>
+        <!-- /.col -->
+      </div>
+    </form>
+    <!-- /.social-auth-links -->
+    <a href="register.html" class="text-center">Register as new member</a>
+
+  </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+        
+        <!-- /.col -->
+      </div>
+    </form>
+
+  </div>
+  <!-- /.login-box-body -->
+  
+</div>
+
+
+  <!-- Content Wrapper. Contains page content -->
+
+    <!-- Content Header (Page header) -->
+    
+
+    <!-- Main content -->
+    
+      
+          
+        <!-- /.col -->
+
+       
+
+ 
+<!-- /.login-box -->
+
+<!-- jQuery 3 -->
+  <div th:replace="~{includes/adminLTE :: AdminLTEJS}" />
 </body>
 </html>
