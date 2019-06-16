@@ -1,5 +1,7 @@
 package at.fh.swenga.jpa.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +28,12 @@ public class SecurityController {
 	@Autowired
 	UserRoleDao userRoleDao;
 	@RequestMapping(value = "/adduser", method = RequestMethod.GET)
-	public String addUserGet() {
+	public String addUserGet(Model model) {
+		List<User> myUsers = userDao.findAll();
+		model.addAttribute("users",myUsers);
+		
 		return "createUser";
+		
 	}
 	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
 	@Transactional

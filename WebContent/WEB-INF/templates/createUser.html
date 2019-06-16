@@ -1,109 +1,183 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-  <title>User</title>
-  <div th:replace="~{includes/adminLTE :: AdminLTECSS}" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<title>User</title>
+<div th:replace="~{includes/adminLTE :: AdminLTECSS}" />
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+	<div class="wrapper">
 
-  <header class="main-header">
-    <!-- Logo -->
-    <a href="." class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>GtS</b></span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Guess</b> the Song</span>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
-    </nav>
-  </header>
-  <nav th:replace="~{includes/navBar :: sidebar}"></nav>
+		<header class="main-header">
+			<!-- Logo -->
+			<a href="." class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
+				<span class="logo-mini"><b>GtS</b></span> <!-- logo for regular state and mobile devices -->
+				<span class="logo-lg"><b>Guess</b> the Song</span>
+			</a>
+			<!-- Header Navbar: style can be found in header.less -->
+			<nav class="navbar navbar-static-top">
+				<!-- Sidebar toggle button-->
+				<a href="#" class="sidebar-toggle" data-toggle="push-menu"
+					role="button"> <span class="sr-only">Toggle navigation</span>
+				</a>
+			</nav>
+		</header>
+		<nav th:replace="~{includes/navBar :: sidebar}"></nav>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
 
-    <!-- Main content -->
-      <!-- Small boxes (Stat box) -->
-      
-      <!-- /.row -->
-      <!-- Main row -->
-      <div class="row">
-        <!-- Left col -->
-        <section class="col-lg-7 connectedSortable">
-          <div class="register-box-body">
-<p class="login-box-msg">Created User</p>
-    <form action="./adduser" method="post">
-      <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Username" name="userName" >
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password" name="password">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-      </div>
-      <div class="checkbox">
-          <label>
-            <input type="checkbox" name="isAdmin" value="true"> Is Admin
-          </label>
-        </div>
-      <div class="row">
-        <!-- /.col -->
-        <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Create</button>
-        </div>
-        <!-- /.col -->
-      </div>
-    </form>
-  </div>
-          <!-- /.nav-tabs-custom -->
+			<!-- Main content -->
+			<!-- Small boxes (Stat box) -->
 
-         </section>
-        
-      </div>
-	  
-	  
-        <!-- /.Left col -->
-        <!-- right col (We are only adding the ID to make the widgets sortable)-->
-        
-        <!-- right col -->
-      </div>
-      <!-- /.row (main row) -->
+			<!-- /.row -->
+			<!-- Main row -->
+			<div class="row">
+				<!-- Left col -->
+				<section class="col-lg-7 connectedSortable">
+					<div class="register-box-body">
+						<p class="login-box-msg">Create User:</p>
+						<form action="./adduser" method="post">
+							<div class="form-group has-feedback">
+								<input type="text" class="form-control" placeholder="Username"
+									name="userName"> <span
+									class="glyphicon glyphicon-user form-control-feedback"></span>
+							</div>
+							<div class="form-group has-feedback">
+								<input type="password" class="form-control"
+									placeholder="Password" name="password"> <span
+									class="glyphicon glyphicon-lock form-control-feedback"></span>
+							</div>
+							<div class="checkbox">
+								<label> <input type="checkbox" name="isAdmin"
+									value="true"> Is Admin
+								</label>
+							</div>
+							<div class="row">
+								<!-- /.col -->
+								<div class="col-xs-4">
+									<button type="submit"
+										class="btn btn-primary btn-block btn-flat">Create</button>
+								</div>
+								<!-- /.col -->
+							</div>
+						</form>
+					</div>
+					<!-- /.nav-tabs-custom -->
 
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <strong>Guess the Song &copy; 2019</strong> All rights
-    reserved.
-  </footer>
+				</section>
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark" style="display: none;">
-    <!-- Create the tabs -->
-    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-    </ul>  
-  
-  </aside>
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
+			</div>
+			<div class="box">
+				<div class="box-header">
+					<h3 class="box-title">Registered User:</h3>
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body">
+					<table id="example1" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Username</th>
+								<th>Password</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="user : ${users}">
+								<td th:text="${user.id}">-ID-</td>
+								<td th:text="${user.userName}">test</td>
+								<td th:text="${user.password}">Pa55w.rd</td>
+
+							</tr>
+						</tbody>
+						<tfoot>
+
+						</tfoot>
+					</table>
+				</div>
+				<!-- /.box-body -->
+			</div>
+			<!-- /.box -->
+		</div>
+		<!-- /.col -->
+	</div>
+
+	<!-- jQuery 3 -->
+	<script src="static/bower_components/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap 3.3.7 -->
+	<script
+		src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- DataTables -->
+	<script
+		src="static/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script
+		src="static/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<!-- SlimScroll -->
+	<script
+		src="static/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<!-- FastClick -->
+	<script src="static/bower_components/fastclick/lib/fastclick.js"></script>
+	<!-- AdminLTE App -->
+	<script src="static/dist/js/adminlte.min.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="static/dist/js/demo.js"></script>
+	<!-- page script -->
+	<script>
+		$(function() {
+			$('#example1').DataTable()
+			$('#example2').DataTable({
+				'paging' : true,
+				'lengthChange' : false,
+				'searching' : false,
+				'ordering' : true,
+				'info' : true,
+				'autoWidth' : false
+			})
+		})
+	</script>
+
+
+
+
+	<!-- /.Left col -->
+	<!-- right col (We are only adding the ID to make the widgets sortable)-->
+
+	<!-- right col -->
+	</div>
+	<!-- /.row (main row) -->
+
+	</section>
+	<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+	<footer class="main-footer">
+		<strong>Guess the Song &copy; 2019</strong> All rights reserved.
+	</footer>
+
+	<!-- Control Sidebar -->
+	<aside class="control-sidebar control-sidebar-dark"
+		style="display: none;">
+		<!-- Create the tabs -->
+		<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+			<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i
+					class="fa fa-home"></i></a></li>
+			<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
+					class="fa fa-gears"></i></a></li>
+		</ul>
+
+	</aside>
+	<!-- /.control-sidebar -->
+	<!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
-</div>
-<!-- ./wrapper -->
-<div th:replace="~{includes/adminLTE :: AdminLTEJS}" />
+	<div class="control-sidebar-bg"></div>
+	</div>
+	<!-- ./wrapper -->
+	<div th:replace="~{includes/adminLTE :: AdminLTEJS}" />
 </body>
 </html>

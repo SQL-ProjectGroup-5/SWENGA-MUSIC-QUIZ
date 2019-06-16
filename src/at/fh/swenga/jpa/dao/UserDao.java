@@ -24,6 +24,12 @@ public class UserDao {
 		List<User> typedResultList = typedQuery.getResultList();
 		return typedResultList;
 	}
+	public List<User> findAll() {
+		TypedQuery<User> typedQuery = entityManager.createQuery("select u from User u",
+				User.class);
+		List<User> typedResultList = typedQuery.getResultList();
+		return typedResultList;
+	}
  
 	public void persist(User user) {
 		entityManager.persist(user);
