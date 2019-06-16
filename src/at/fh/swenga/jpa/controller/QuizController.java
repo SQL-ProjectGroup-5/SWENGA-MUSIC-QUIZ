@@ -64,7 +64,12 @@ public class QuizController {
 	public String showQStatistics(Model model) {
 		return "quizmaster";
 	}
-	
+	@RequestMapping("/quizAdmin")
+	@Transactional
+	public String showQuizAdmin(Model model) {
+		return "quiz";
+	}
+
 	
 	@RequestMapping(value = "qrcode/{id}", method = RequestMethod.GET)
 	public void qrcode(@PathVariable("id") String id, HttpServletResponse response,HttpServletRequest request) throws Exception {

@@ -39,11 +39,12 @@ public class SongController {
 		return "login";
 	}*/
 	
-	@RequestMapping(value = {"/songs", "listsongs" })
-	public String index(Model model) {
+	@RequestMapping("/songAdmin")
+	@Transactional
+	public String showSongAdmin(Model model) {
 		List<SongModel> songs = songRepository.findAll();
 		model.addAttribute("songs", songs);
-		return "indexSongs";
+		return "songs";
 	}
 
 	@RequestMapping("/fillsongs")
@@ -54,7 +55,7 @@ public class SongController {
 		publishDate.setTime(df.getDateBetween(df.getDate(2000, 1, 1), df.getDate(2019, 1, 1)));
 		SongModel songModel = new SongModel("TheBestCoderEver",publishDate, "A song Vol 27");
 		songRepository.save(songModel);
-		return "forward:listsongs";
+		return "forward:songAdmin";
 	}
 	
 
@@ -122,7 +123,7 @@ public class SongController {
 			model.addAttribute("errorMessage", "Error:" + e.getMessage());
 		}
  
-		return "forward:/list";
+		return "forward:/songAdmin";
 	}
  
 
