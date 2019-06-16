@@ -54,8 +54,7 @@
       <p>Welcome to our grocery store!</p>
       <p th:text="'Upload Document for song ' + ${gameIndex}">Welcome to our grocery store!</p>
       <audio controls="controls">
-        <source src="track.ogg" type="audio/ogg" />
-        <source src="track.mp3" type="audio/mpeg" />
+        <source th:src="@{/download(documentId=${gameIndex})}" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
       <!-- /.row (main row) -->
