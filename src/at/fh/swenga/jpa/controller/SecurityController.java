@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -51,7 +52,7 @@ public class SecurityController {
 			newUser.addUserRole(userRole);
 		}
 		userDao.persist(newUser);
-		return "createUser";
+		return "redirect:adduser";
 	}
 	
 
@@ -84,6 +85,13 @@ public class SecurityController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String handleLogin() {
 		return "login";
+	}
+	
+	@RequestMapping("/deleteUser")
+	public String deleteData(Model model, @RequestParam int id) {
+		userDao.delete(id);
+
+		return "forward:list";
 	}
 	
 	@ExceptionHandler(Exception.class)

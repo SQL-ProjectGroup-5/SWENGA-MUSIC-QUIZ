@@ -56,6 +56,7 @@
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
+									<th></th>
 									<th>Title</th>
 									<th>Interpret</th>
 									<th>Publish Date</th>
@@ -66,15 +67,11 @@
 							</thead>
 							<tbody>
 								<tr th:each="song : ${songs}">
-									<td><input type="checkbox" name="songTitle"
-										th:value="${song.title}"></td>
+									<td><input type="checkbox" name="songId"
+										th:value=" ${song.id}"></td>
+									<td th:text="${song.title}"></td>
 									<td th:text="${song.interpret}"></td>
-										th:text="${#calendars.format(song.publishDate,'dd.MM.yyyy')}"></td>
-									<td><span th:if="${song.document != null}"> <a
-											th:href="@{download(documentId=${song.document.id})}"
-											target="_blank" th:text="${song.document.filename}"></a>
-									</span> <span th:unless="${song.document != null}"> --- no file
-											--- </span></td>
+									<td	th:text="${#calendars.format(song.publishDate,'dd.MM.yyyy')}"></td>
 									<td th:text="${song.answer1}"></td>
 									<td th:text="${song.answer2}"></td>
 									<td th:text="${song.answer3}"></td>
@@ -84,10 +81,7 @@
 					</div>
 					<!-- /.box-body -->
 					<div class="box-body pad table-responsive">
-
-						<button type="submit" class="btn btn-block btn-primary">Create
-							Quiz</button>
-
+						<button type="submit" class="btn btn-block btn-primary">CreateQuiz</button>
 
 						<!-- /.col -->
 					</div>
