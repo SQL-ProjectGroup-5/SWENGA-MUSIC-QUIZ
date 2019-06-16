@@ -56,39 +56,57 @@
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>ID</th>
-									<th>Synonym</th>
-									<th>was correct</th>
-									<th>Time</th>
+									<th>Title</th>
+									<th>Interpret</th>
+									<th>Publish Date</th>
+									<th>Answer 1</th>
+									<th>Answer 2</th>
+									<th>Answer 3</th>
 								</tr>
 							</thead>
 							<tbody>
-
-
+								<tr th:each="song : ${songs}">
+									<td><input type="checkbox" name="songTitle"
+										th:value="${song.title}"></td>
+									<td th:text="${song.interpret}"></td>
+										th:text="${#calendars.format(song.publishDate,'dd.MM.yyyy')}"></td>
+									<td><span th:if="${song.document != null}"> <a
+											th:href="@{download(documentId=${song.document.id})}"
+											target="_blank" th:text="${song.document.filename}"></a>
+									</span> <span th:unless="${song.document != null}"> --- no file
+											--- </span></td>
+									<td th:text="${song.answer1}"></td>
+									<td th:text="${song.answer2}"></td>
+									<td th:text="${song.answer3}"></td>
 							</tbody>
-
+							</tr>
 						</table>
 					</div>
 					<!-- /.box-body -->
-						<div class="box-body pad table-responsive">
-		
-		<button type="button" class="btn btn-block btn-primary">Create Quiz</button>
-				
-			</div>
-			<!-- /.col -->
-		</div>
+					<div class="box-body pad table-responsive">
+
+						<button type="submit" class="btn btn-block btn-primary">Create
+							Quiz</button>
+
+
+						<!-- /.col -->
+					</div>
+
 				</div>
-				<!-- /.box -->
-				
+				<!-- /.col -->
 			</div>
-		
-		
-		<!-- /.row -->
-		</section>
-		
-		
-		
-		<!-- /.content -->
+		</div>
+		<!-- /.box -->
+
+	</div>
+
+
+	<!-- /.row -->
+	</section>
+
+
+
+	<!-- /.content -->
 	</div>
 	<!-- /.content-wrapper -->
 
@@ -108,47 +126,47 @@
 		</ul>
 
 	</aside>
-	
-	
-	
+
+
+
 	<!-- /.control-sidebar -->
 	<!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
 	<div class="control-sidebar-bg"></div>
 
-	
-				<!-- jQuery 3 -->
-				<script src="static/bower_components/jquery/dist/jquery.min.js"></script>
-				<!-- Bootstrap 3.3.7 -->
-				<script
-					src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-				<!-- DataTables -->
-				<script
-					src="static/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-				<script
-					src="static/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-				<!-- SlimScroll -->
-				<script
-					src="static/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-				<!-- FastClick -->
-				<script src="static/bower_components/fastclick/lib/fastclick.js"></script>
-				<!-- AdminLTE App -->
-				<script src="static/dist/js/adminlte.min.js"></script>
-				<!-- AdminLTE for demo purposes -->
-				<script src="static/dist/js/demo.js"></script>
-				<!-- page script -->
-				<script>
-					$(function() {
-						$('#example1').DataTable()
-						$('#example2').DataTable({
-							'paging' : true,
-							'lengthChange' : false,
-							'searching' : false,
-							'ordering' : true,
-							'info' : true,
-							'autoWidth' : false
-						})
-					})
-				</script>
+
+	<!-- jQuery 3 -->
+	<script src="static/bower_components/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap 3.3.7 -->
+	<script
+		src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- DataTables -->
+	<script
+		src="static/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script
+		src="static/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<!-- SlimScroll -->
+	<script
+		src="static/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<!-- FastClick -->
+	<script src="static/bower_components/fastclick/lib/fastclick.js"></script>
+	<!-- AdminLTE App -->
+	<script src="static/dist/js/adminlte.min.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="static/dist/js/demo.js"></script>
+	<!-- page script -->
+	<script>
+		$(function() {
+			$('#example1').DataTable()
+			$('#example2').DataTable({
+				'paging' : true,
+				'lengthChange' : false,
+				'searching' : false,
+				'ordering' : true,
+				'info' : true,
+				'autoWidth' : false
+			})
+		})
+	</script>
 </body>
 </html>

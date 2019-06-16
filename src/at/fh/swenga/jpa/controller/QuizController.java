@@ -22,6 +22,7 @@ import at.fh.swenga.jpa.dao.QuizRepository;
 import at.fh.swenga.jpa.dao.SongRepository;
 import at.fh.swenga.jpa.helper.ZXingHelper;
 import at.fh.swenga.jpa.model.QuizModel;
+import at.fh.swenga.jpa.model.SongModel;
 
 @Controller
 public class QuizController {
@@ -67,6 +68,8 @@ public class QuizController {
 	@RequestMapping("/quizAdmin")
 	@Transactional
 	public String showQuizAdmin(Model model) {
+		List<SongModel> songs = songRepository.findAll();
+		model.addAttribute("songs", songs);
 		return "quiz";
 	}
 
