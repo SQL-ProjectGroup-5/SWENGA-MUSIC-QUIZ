@@ -91,7 +91,7 @@ public class SecurityController {
 	public String deleteData(Model model, @RequestParam int id) {
 		userDao.delete(id);
 
-		return "forward:list";
+		return "forward:adduser";
 	}
 	
 	@ExceptionHandler(Exception.class)
