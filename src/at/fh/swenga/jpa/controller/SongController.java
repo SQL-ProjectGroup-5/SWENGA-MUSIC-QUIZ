@@ -1,22 +1,21 @@
 package at.fh.swenga.jpa.controller;
 
 import java.io.OutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,8 +25,6 @@ import at.fh.swenga.jpa.dao.DocumentRepository;
 import at.fh.swenga.jpa.dao.SongRepository;
 import at.fh.swenga.jpa.model.DocumentModel;
 import at.fh.swenga.jpa.model.SongModel;
-import at.fh.swenga.jpa.model.User;
-import at.fh.swenga.jpa.model.UserRole;
 
 @Controller
 public class SongController {
@@ -67,10 +64,11 @@ public class SongController {
 	
 	@RequestMapping(value = "/addsong", method = RequestMethod.POST)
 	@Transactional
-	public String addSongPost(@RequestParam String interpret, @RequestParam String title,@RequestParam String date,@RequestParam String answer1,@RequestParam String answer2,@RequestParam String answer3, Model model) {
-		DataFactory df = new DataFactory();
+	public String addSongPost(@RequestParam String interpret, @RequestParam String title,@RequestParam String strDate,@RequestParam String answer1,@RequestParam String answer2,@RequestParam String answer3, Model model) throws ParseException {
 		Calendar publishDate = Calendar.getInstance();
-		publishDate.setTime(df.getDateBetween(df.getDate(2000, 1, 1), df.getDate(2019, 1, 1)));
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = sdf.parse(strDate);
+		publishDate.setTime(date);
 		SongModel songModel = new SongModel(interpret,publishDate, title);
 		songModel.setAnswer1(answer1);
 		songModel.setAnswer2(answer2);
