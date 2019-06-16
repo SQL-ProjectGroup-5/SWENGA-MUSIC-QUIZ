@@ -7,12 +7,14 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,8 @@ import at.fh.swenga.jpa.dao.DocumentRepository;
 import at.fh.swenga.jpa.dao.SongRepository;
 import at.fh.swenga.jpa.model.DocumentModel;
 import at.fh.swenga.jpa.model.SongModel;
+import at.fh.swenga.jpa.model.User;
+import at.fh.swenga.jpa.model.UserRole;
 
 @Controller
 public class SongController {
@@ -54,11 +58,27 @@ public class SongController {
 		Calendar publishDate = Calendar.getInstance();
 		publishDate.setTime(df.getDateBetween(df.getDate(2000, 1, 1), df.getDate(2019, 1, 1)));
 		SongModel songModel = new SongModel("TheBestCoderEver",publishDate, "A song Vol 27");
+		songModel.setAnswer1("Super Song1");
+		songModel.setAnswer2("Super Song2");
+		songModel.setAnswer3("Super Song3");
 		songRepository.save(songModel);
 		return "forward:songAdmin";
 	}
 	
-
+	@RequestMapping(value = "/addsong", method = RequestMethod.POST)
+	@Transactional
+	public String addSongPost(@RequestParam String interpret, @RequestParam String title,@RequestParam String date,@RequestParam String answer1,@RequestParam String answer2,@RequestParam String answer3, Model model) {
+		DataFactory df = new DataFactory();
+		Calendar publishDate = Calendar.getInstance();
+		publishDate.setTime(df.getDateBetween(df.getDate(2000, 1, 1), df.getDate(2019, 1, 1)));
+		SongModel songModel = new SongModel(interpret,publishDate, title);
+		songModel.setAnswer1(answer1);
+		songModel.setAnswer2(answer2);
+		songModel.setAnswer3(answer3);
+		songRepository.save(songModel);
+		return "forward:songAdmin";
+	}
+	
 
 	@RequestMapping("/delete")
 	public String deleteData(Model model, @RequestParam int id) {
