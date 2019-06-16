@@ -8,6 +8,10 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <title>Songs</title>
 <div th:replace="~{includes/adminLTE :: AdminLTECSS}" />
+<link rel="stylesheet"
+	href="static/plugins/timepicker/bootstrap-timepicker.min.css">
+<link rel="stylesheet"
+	href="static/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -102,36 +106,36 @@
 					</div>
 					<!-- /.box -->
 					<div class="row">
-					<form role="form" action="./addsong" method="post">
-						<div class="col-xs-2">
-							<label>Interpret</label>
-							<input type="text" name="interpret" class="form-control">
-						</div>
-						<div class="col-xs-2">
-							<label>Title</label>
-							<input type="text" name="title" class="form-control" >
-						</div>
-						<div class="col-xs-2">
-							<label>Date</label>
-							<input type="text" name="date" class="form-control">
-						</div>
-						<div class="col-xs-2">
-							<label>Answer 1</label>
-							<input type="text" name="answer1" class="form-control">
-						</div>
-						<div class="col-xs-2">
-							<label>Answer 2</label>
-							<input type="text" name="answer2" class="form-control">
-						</div>
-						<div class="col-xs-2">
-							<label>Answer 3</label>
-							<input type="text" name="answer3" class="form-control">
-						</div>
-						<div class="col-xs-2">
-							<button type="submit" class="btn btn-primary">Submit</button>
-						</div>
+						<form role="form" action="./addsong" method="post">
+							<div class="col-xs-2">
+								<label>Interpret</label> <input type="text" name="interpret"
+									class="form-control">
+							</div>
+							<div class="col-xs-2">
+								<label>Title</label> <input type="text" name="title"
+									class="form-control">
+							</div>
+							<div class="col-xs-2">
+								<label>Date</label> <input type="date" class="form-control" name = "strDate">
+							</div>
+
+							<div class="col-xs-2">
+								<label>Answer 1</label> <input type="text" name="answer1"
+									class="form-control">
+							</div>
+							<div class="col-xs-2">
+								<label>Answer 2</label> <input type="text" name="answer2"
+									class="form-control">
+							</div>
+							<div class="col-xs-2">
+								<label>Answer 3</label> <input type="text" name="answer3"
+									class="form-control">
+							</div>
+							<div class="col-xs-2">
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</div>
 						</form>
-						 
+
 					</div>
 				</section>
 
