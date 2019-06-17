@@ -4,6 +4,8 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
+	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <!-- Bootstrap 3.3.7 -->
 <link rel="stylesheet"
 	href="static/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -41,22 +43,27 @@
 	<div class="row align-items-middle">
 		<div class="text-center">
 			<p th:text="'Hello ' + ${nickname}"></p>
-			<p th:text="'This is Quiz ' + ${gameIndex} + 'and Question ' + ${questionIndex}"></p>
+			<p th:text="'This is Quiz ' + ${gameIndex} + ' and Question ' + ${questionIndex}"></p>
 			<audio controls="controls">
 				<source th:src="@{/download(documentId=${gameIndex})}"
 					type="audio/mpeg" />
 				Your browser does not support the audio element.
 			</audio>
 			<div class="row">
-				<button type="button" th:text="answer1"
+			<form action="./createResult" method="post">
+				<input type="hidden" id="qid" name="qid" th:value="${questionIndex}">
+				<input type="hidden" id="qid" name="gid" th:value="${gameIndex}">
+				<input type="hidden" id="qid" name="nickname" th:value="${nickname}">
+				<button type="submit" th:text="answer1"
 					class="btn bg-maroon margin" style="height: 50px; width: 200px"></button>
-				<button type="button" th:text="answer2"
+				<button type="submit" th:text="answer2"
 					class="btn bg-purple margin" style="height: 50px; width: 200px"></button>
-				<button type="button" th:text="answer3"
+				<button type="submit" th:text="answer3"
 					class="btn bg-orange margin" style="height: 50px; width: 200px"></button>
-				<button type="button" th:text="answer4"
+				<button type="submit" th:text="answer4"
 					class="btn bg-olive margin" style="height: 50px; width: 200px"></button>
 			</div>
+			</form>
 		</div>
 	</div>
 

@@ -2,11 +2,15 @@ package at.fh.swenga.jpa.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.jpa.dao.QuizRepository;
 import at.fh.swenga.jpa.dao.ResultRepository;
@@ -34,6 +38,13 @@ public class ResultController {
 	@Transactional
 	public String showAdmin(Model model) {
 		return "admin";
+	}
+	@RequestMapping(value = "/createResult", method = RequestMethod.POST)
+	public String handleResult(@RequestParam(value = "gid") int gid, @RequestParam(value = "nickname") String nickname, @RequestParam(value = "qid", required = false) int qid, HttpSession session, Model model) {
+		model.addAttribute("gameIndex", gid);
+		model.addAttribute("questionIndex", qid+1);
+		model.addAttribute("nickname", nickname);
+		return "forward:/play";
 	}
 
 	@RequestMapping("/fillresults")

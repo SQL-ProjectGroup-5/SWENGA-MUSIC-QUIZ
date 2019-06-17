@@ -55,7 +55,7 @@ public class QuizController {
 		quizRepository.save(quizModel);
 		return "forward:listquizzes";
 	}
-	
+
 	@RequestMapping(value="/savequiz",method = RequestMethod.POST)
 	@Transactional
 	public String saveData(@RequestParam String quizname, Model model) {
@@ -67,13 +67,13 @@ public class QuizController {
 		quizRepository.save(quizModel);
 		return "forward:listquizzes";
 	}
-	
-	@RequestMapping(value = "/play", method = RequestMethod.GET)
-	public String handlePlay(@RequestParam(value = "id") int id, @RequestParam(value = "nickname") String nickname, HttpSession session, Model model) {
-		model.addAttribute("gameIndex", id);
+	@RequestMapping(value = "/play")
+	public String handlePlay(@RequestParam(value = "gid") int gid, @RequestParam(value = "nickname") String nickname, @RequestParam(value = "qid", required = false) int qid, HttpSession session, Model model) {
+		model.addAttribute("gameIndex", gid);
+		model.addAttribute("questionIndex", qid+1);
+		model.addAttribute("nickname", nickname);
 		return "game";
 	}
-	
 	@RequestMapping("/quizStatistics")
 	public String showQStatistics(Model model) {
 		return "quizmaster";
