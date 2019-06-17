@@ -56,6 +56,18 @@ public class QuizController {
 		return "forward:listquizzes";
 	}
 	
+	@RequestMapping(value="/savequiz",method = RequestMethod.POST)
+	@Transactional
+	public String saveData(@RequestParam String quizname, Model model) {
+		DataFactory df = new DataFactory();
+		Calendar publishDate = Calendar.getInstance();
+		publishDate.setTime(df.getDateBetween(df.getDate(2000, 1, 1), df.getDate(2019, 1, 1)));
+		QuizModel quizModel = new QuizModel (quizname,1,publishDate);
+		quizModel.setSongs(songRepository.findAll());
+		quizRepository.save(quizModel);
+		return "forward:listquizzes";
+	}
+	
 	@RequestMapping(value = "/play", method = RequestMethod.GET)
 	public String handlePlay(@RequestParam(value = "id") int id, @RequestParam(value = "nickname") String nickname, HttpSession session, Model model) {
 		model.addAttribute("gameIndex", id);
@@ -72,6 +84,13 @@ public class QuizController {
 		List<SongModel> songs = songRepository.findAll();
 		model.addAttribute("songs", songs);
 		return "quiz";
+	}
+	@RequestMapping("/quizManagement")
+	@Transactional
+	public String showQuizzes(Model model) {
+		List<SongModel> songs = songRepository.findAll();
+		model.addAttribute("songs", songs);
+		return "quizManagement";
 	}
 
 	
