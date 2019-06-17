@@ -50,15 +50,22 @@ public class SongController {
 
 	@RequestMapping("/fillsongs")
 	@Transactional
-	public String fillData(Model model) {
+	public String fillData(Model model){
 		DataFactory df = new DataFactory();
 		Calendar publishDate = Calendar.getInstance();
+		
+		String songs[] = {"Like a Rolling Stone","Imagine","I Can’t Get No) Satisfaction",
+						   "What’s Going On","Respect","Good Vibrations","Johnny B. Goode",
+						   "Hey Jude","Smells Like Teen Spirit","What’d I Say","My Generation"};
+		
 		publishDate.setTime(df.getDateBetween(df.getDate(2000, 1, 1), df.getDate(2019, 1, 1)));
-		SongModel songModel = new SongModel("TheBestCoderEver",publishDate, "A song Vol 27");
-		songModel.setAnswer1("Super Song1");
-		songModel.setAnswer2("Super Song2");
-		songModel.setAnswer3("Super Song3");
+		SongModel songModel = new SongModel("TheBestCoderEver", publishDate, "A song Vol 27");
+		songModel.setAnswer1(songs[df.getNumberBetween(0, songs.length)]);
+		songModel.setAnswer2(songs[df.getNumberBetween(0, songs.length)]);
+		songModel.setAnswer3(songs[df.getNumberBetween(0, songs.length)]);
 		songRepository.save(songModel);
+		
+		
 		return "forward:songAdmin";
 	}
 	
