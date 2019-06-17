@@ -4,8 +4,9 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
-	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <!-- Bootstrap 3.3.7 -->
 <link rel="stylesheet"
 	href="static/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -40,28 +41,42 @@
 </head>
 
 <body>
+
 	<div class="row align-items-middle">
 		<div class="text-center">
+			<!--  Error message ----------------------------------------------------------- -->
+			<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
+				class="alert alert-danger" role="alert"></div>
+			<!--  Error message ----------------------------------------------------------- -->
+
+			<!--  Warning message ----------------------------------------------------------- -->
+			<div th:unless="${warningMessage} == null"
+				th:utext="${warningMessage}" class="alert alert-warning"
+				role="warning"></div>
+			<!--  Warning message ----------------------------------------------------------- -->
+
+			<!--   message ----------------------------------------------------------- -->
+			<div th:unless="${message} == null" th:utext="${message}"
+				class="alert alert-success" role="warning"></div>
+			<!--   message ----------------------------------------------------------- -->
 			<p th:text="'Hello ' + ${nickname}"></p>
-			<p th:text="'This is Quiz ' + ${gameIndex} + ' and Question ' + ${questionIndex}"></p>
+			<p
+				th:text="'This is Quiz ' + ${gameIndex} + ' and Question ' + ${questionIndex}"></p>
 			<audio controls="controls">
-				<source th:src="@{/download(documentId=${gameIndex})}"
+				<source th:src="@{/download(documentId=${currDocument})}"
 					type="audio/mpeg" />
 				Your browser does not support the audio element.
 			</audio>
 			<div class="row">
-			<form action="./createResult" method="post">
-				<input type="hidden" id="qid" name="qid" th:value="${questionIndex}">
-				<input type="hidden" id="qid" name="gid" th:value="${gameIndex}">
-				<input type="hidden" id="qid" name="nickname" th:value="${nickname}">
-				<button type="submit" th:text="answer1"
-					class="btn bg-maroon margin" style="height: 50px; width: 200px"></button>
-				<button type="submit" th:text="answer2"
-					class="btn bg-purple margin" style="height: 50px; width: 200px"></button>
-				<button type="submit" th:text="answer3"
-					class="btn bg-orange margin" style="height: 50px; width: 200px"></button>
-				<button type="submit" th:text="answer4"
-					class="btn bg-olive margin" style="height: 50px; width: 200px"></button>
+				<form action="./createResult" method="post">
+					<input type="hidden" id="qid" name="qid"
+						th:value="${questionIndex}"> <input type="hidden" id="qid"
+						name="gid" th:value="${gameIndex}"> <input type="hidden"
+						id="qid" name="nickname" th:value="${nickname}">
+
+					<button type="submit" th:each="answer : ${possibleAnswers}"
+						th:text="${answer}" name="result" th:value="${answer}"
+						class="btn bg-maroon margin" style="height: 50px; width: 200px"></button>
 			</div>
 			</form>
 		</div>
