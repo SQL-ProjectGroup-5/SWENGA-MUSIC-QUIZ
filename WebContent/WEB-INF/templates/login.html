@@ -5,9 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Login</title>
 <!-- Tell the browser to be responsive to screen width -->
-<meta
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-	name="viewport">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <!-- Bootstrap 3.3.7 -->
 <link rel="stylesheet"
 	href="static/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -42,8 +42,9 @@
 <div class="login-box-body">
 	<p class="login-box-msg">Join Game</p>
 	<form action="./play" method="get">
+	<input type="hidden" id="qid" name="qid" th:value="0">
 		<div class="form-group has-feedback">
-			<input type="text" class="form-control" placeholder="Pin" name="id">
+			<input type="text" class="form-control" placeholder="Pin" name="gid">
 			<span class="glyphicon glyphicon-user form-control-feedback"></span>
 		</div>
 		<div class="form-group has-feedback">
