@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class QuizController {
 	
 	@RequestMapping("/")
 	public String showIndex(Model model) {
-		return "index";
+		return "login";
 	}
 	@RequestMapping("/fillquizzes")
 	@Transactional
@@ -56,7 +57,7 @@ public class QuizController {
 	}
 	
 	@RequestMapping(value = "/play", method = RequestMethod.GET)
-	public String handlePlay(@RequestParam(value = "id") int id,Model model) {
+	public String handlePlay(@RequestParam(value = "id") int id, @RequestParam(value = "nickname") String nickname, HttpSession session, Model model) {
 		model.addAttribute("gameIndex", id);
 		return "game";
 	}

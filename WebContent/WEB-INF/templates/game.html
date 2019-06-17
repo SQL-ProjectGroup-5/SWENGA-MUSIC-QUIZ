@@ -40,7 +40,8 @@
 <body>
 	<div class="row align-items-middle">
 		<div class="text-center">
-			<p th:text="'Upload Document for song ' + ${gameIndex}"></p>
+			<p th:text="'Hello ' + ${nickname}"></p>
+			<p th:text="'This is Quiz ' + ${gameIndex} + 'and Question ' + ${questionIndex}"></p>
 			<audio controls="controls">
 				<source th:src="@{/download(documentId=${gameIndex})}"
 					type="audio/mpeg" />
