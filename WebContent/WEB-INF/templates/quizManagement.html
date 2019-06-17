@@ -31,7 +31,7 @@
 		<div class="content-wrapper">
 				<div class="box">
 					<div class="box-header">
-						<h3 class="box-title">Data Table With Full Features</h3>
+						<h3 class="box-title">Table of Quizzes</h3>
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
@@ -40,32 +40,25 @@
 								<tr>
 									<th></th>
 									<th>Title</th>
-									<th>Interpret</th>
-									<th>Publish Date</th>
-									<th>Answer 1</th>
-									<th>Answer 2</th>
-									<th>Answer 3</th>
+									<th>Difficulty</th>
+									<th>Creation Date</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="song : ${songs}">
-									<td><input type="checkbox" name="songId"
-										th:value=" ${song.id}"></td>
-									<td th:text="${song.title}"></td>
-									<td th:text="${song.interpret}"></td>
-									<td
-										th:text="${#calendars.format(song.publishDate,'dd.MM.yyyy')}"></td>
-									<td th:text="${song.answer1}"></td>
-									<td th:text="${song.answer2}"></td>
-									<td th:text="${song.answer3}"></td>
-							</tbody>
+								<tr th:each="quiz : ${quizzes}">
+								<td><input type="checkbox" name="quizId"
+									th:value="${quiz.id}"></td>
+								<td th:text="${quiz.title}"></td>
+								<td th:text="${quiz.difficulty}"></td>
+								<td	th:text="${#calendars.format(quiz.creationDate,'dd.MM.yyyy')}"></td>
 							</tr>
+							</tbody>
 						</table>
 					</div>
 					<!-- /.box-body -->
 					<div class="box-body pad table-responsive">
 						<a href="savequiz">
-							<button type="submit" class="btn btn-block btn-primary">CreateQuiz</button>
+							<button type="submit" class="btn btn-block btn-primary">Start Quiz</button>
 						</a>
 						<!-- /.col -->
 					</div>

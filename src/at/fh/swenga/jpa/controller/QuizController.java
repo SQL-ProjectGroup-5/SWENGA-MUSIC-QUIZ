@@ -65,7 +65,7 @@ public class QuizController {
 		QuizModel quizModel = new QuizModel (quizname,1,publishDate);
 		quizModel.setSongs(songRepository.findAll());
 		quizRepository.save(quizModel);
-		return "forward:listquizzes";
+		return "forward:quizManagement";
 	}
 	@RequestMapping(value = "/play")
 	public String handlePlay(@RequestParam(value = "gid") int gid, @RequestParam(value = "nickname") String nickname, @RequestParam(value = "qid", required = false) int qid, HttpSession session, Model model) {
@@ -88,8 +88,8 @@ public class QuizController {
 	@RequestMapping("/quizManagement")
 	@Transactional
 	public String showQuizzes(Model model) {
-		List<SongModel> songs = songRepository.findAll();
-		model.addAttribute("songs", songs);
+		List<QuizModel> quizzes = quizRepository.findAll();
+		model.addAttribute("quizzes", quizzes);
 		return "quizManagement";
 	}
 
