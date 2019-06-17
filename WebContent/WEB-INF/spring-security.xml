@@ -31,7 +31,7 @@
 		<intercept-url pattern="/delete"
 			access="hasRole('ADMIN')" />
 
-		<form-login login-page="/login" default-target-url='/'
+		<form-login login-page="/login" default-target-url='/admin'
 			always-use-default-target='true' />
 		<logout logout-url="/logout" />
 	</http>
