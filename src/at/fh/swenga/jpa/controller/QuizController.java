@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -85,12 +86,20 @@ public class QuizController {
 
 	@RequestMapping(value = "/savequiz", method = RequestMethod.POST)
 	@Transactional
-	public String saveData(@RequestParam String quizname, Model model) {
+	public String saveData(@RequestParam String quizname, 
+						   @RequestParam(name ="quizId", required = false) List<Integer> quizIds, Model model) {
 		DataFactory df = new DataFactory();
 		Calendar publishDate = Calendar.getInstance();
 		publishDate.setTime(new Date());
 		QuizModel quizModel = new QuizModel(quizname, 1, publishDate);
-		quizModel.setSongs(songRepository.findAll());
+		quizIds.add(1);
+		
+		if (CollectionUtils.isEmpty(quizIds)) {
+			System.out.print("Error");
+			return "forward:quizManagement";
+		}
+
+		quizModel.setSongs(songRepository.findAllById(quizIds));
 		quizRepository.save(quizModel);
 		return "forward:quizManagement";
 	}
