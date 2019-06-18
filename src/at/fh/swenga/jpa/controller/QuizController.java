@@ -3,9 +3,8 @@ package at.fh.swenga.jpa.controller;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,9 +24,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.jpa.dao.DocumentRepository;
 import at.fh.swenga.jpa.dao.QuizRepository;
+import at.fh.swenga.jpa.dao.ResultRepository;
 import at.fh.swenga.jpa.dao.SongRepository;
 import at.fh.swenga.jpa.helper.ZXingHelper;
 import at.fh.swenga.jpa.model.QuizModel;
+import at.fh.swenga.jpa.model.ResultModel;
 import at.fh.swenga.jpa.model.SongModel;
 
 @Controller
@@ -38,6 +39,8 @@ public class QuizController {
 	SongRepository songRepository;
 	@Autowired
 	DocumentRepository documentRepository;
+	@Autowired
+	ResultRepository resultRepository;
 
 	@RequestMapping(value = { "/quizzes", "listquizzes" })
 	public String index(Model model) {
@@ -50,7 +53,8 @@ public class QuizController {
 	public String handleStatistics(@RequestParam(value = "gid") int gid, @RequestParam(value = "nickname") String nickname,
 			@RequestParam(value = "qid", required = false) int qid, HttpSession session, Model model) {
 		model.addAttribute("gameIndex", gid);
-		
+		List<ResultModel> results = resultRepository.findAll();
+		model.addAttribute("results", results);
 		return "gameStatistics";
 	}
 
