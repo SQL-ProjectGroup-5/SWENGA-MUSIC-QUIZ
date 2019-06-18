@@ -49,12 +49,11 @@ public class ResultController {
 			HttpSession session, Model model) {
 		QuizModel quiz = quizRepository.findById(gid).get();
 		List<SongModel> currSongs = new ArrayList<SongModel>(quiz.getSongs());
-		SongModel currQuestion = currSongs.get(qid);
+		SongModel currQuestion = currSongs.get(qid-1);
 		model.addAttribute("gameIndex", gid);
-		model.addAttribute("questionIndex", qid + 1);
+		model.addAttribute("questionIndex", qid);
 		model.addAttribute("nickname", nickname);
-		SongModel currSong = songRepository.findById(qid).get();
-		if (answer.equals(currSong.getTitle())) {
+		if (answer.equals(currQuestion.getTitle())) {
 			model.addAttribute("message", "Supa war richtig!");
 			ResultModel currResult = new ResultModel(quiz, currQuestion, nickname, true, 1.2f);
 			resultRepository.save(currResult);

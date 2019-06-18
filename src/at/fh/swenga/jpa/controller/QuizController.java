@@ -89,6 +89,8 @@ public class QuizController {
 			@RequestParam(value = "qid", required = false) int qid, HttpSession session, Model model) {
 		model.addAttribute("gameIndex", gid);
 		Optional<QuizModel> quizOpt = quizRepository.findById(gid);
+		
+		
 		if (!quizOpt.isPresent()) {
 			model.addAttribute("errorMessage", "Wrong ID");
 			return "login";
@@ -98,7 +100,7 @@ public class QuizController {
 			if (qid < currSongs.size()) {
 				SongModel currQuestion = currSongs.get(qid);
 				model.addAttribute("currDocument", currQuestion.getDocument().getId());
-				model.addAttribute("questionIndex", qid + 1);
+				model.addAttribute("questionIndex", qid+1);
 				model.addAttribute("nickname", nickname);
 				List<String> possibleAnswers = new ArrayList<String>();
 				possibleAnswers.add(currQuestion.getAnswer1());
