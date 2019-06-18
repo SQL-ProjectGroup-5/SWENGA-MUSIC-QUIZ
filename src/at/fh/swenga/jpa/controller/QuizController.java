@@ -45,6 +45,14 @@ public class QuizController {
 		model.addAttribute("quizzes", quizzes);
 		return "indexQuiz";
 	}
+	
+	@RequestMapping("/statistics")
+	public String handleStatistics(@RequestParam(value = "gid") int gid, @RequestParam(value = "nickname") String nickname,
+			@RequestParam(value = "qid", required = false) int qid, HttpSession session, Model model) {
+		model.addAttribute("gameIndex", gid);
+		
+		return "gameStatistics";
+	}
 
 	@RequestMapping("/")
 	public String showIndex(@RequestParam(value = "qid", required = false) Integer qid, Model model) {

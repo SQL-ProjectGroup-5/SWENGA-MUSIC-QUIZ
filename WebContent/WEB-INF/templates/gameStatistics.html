@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- Bootstrap 3.3.7 -->
+<link rel="stylesheet"
+	href="static/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="static/bower_components/font-awesome/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet"
+	href="static/bower_components/Ionicons/css/ionicons.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="static/dist/css/AdminLTE.min.css">
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet" href="static/dist/css/skins/_all-skins.min.css">
+<!-- Morris chart -->
+<link rel="stylesheet"
+	href="static/bower_components/morris.js/morris.css">
+<!-- jvectormap -->
+<link rel="stylesheet"
+	href="static/bower_components/jvectormap/jquery-jvectormap.css">
+<!-- Date Picker -->
+<link rel="stylesheet"
+	href="static/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+<!-- Daterange picker -->
+<link rel="stylesheet"
+	href="static/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<!-- bootstrap wysihtml5 - text editor -->
+<link rel="stylesheet"
+	href="static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+<title>Game</title>
+<div th:replace="~{includes/adminLTE :: AdminLTECSS}" />
+</head>
+
+<body>
+
+	<div class="row align-items-middle">
+		<div class="text-center">
+			<!--  Error message ----------------------------------------------------------- -->
+			<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
+				class="alert alert-danger" role="alert"></div>
+			<!--  Error message ----------------------------------------------------------- -->
+
+			<!--  Warning message ----------------------------------------------------------- -->
+			<div th:unless="${warningMessage} == null"
+				th:utext="${warningMessage}" class="alert alert-warning"
+				role="warning"></div>
+			<!--  Warning message ----------------------------------------------------------- -->
+
+			<!--   message ----------------------------------------------------------- -->
+			<div th:unless="${message} == null" th:utext="${message}"
+				class="alert alert-success" role="warning"></div>
+			<!--   message ----------------------------------------------------------- -->
+			<p
+				th:text="'Your Quiz Statistics of ' + ${gameIndex}"></p>
+		
+			<div class="row">
+				<form action="./createResult" method="post">
+					<input type="hidden" id="qid" name="qid"
+						th:value="${questionIndex}"> <input type="hidden" id="qid"
+						name="gid" th:value="${gameIndex}"> <input type="hidden"
+						id="qid" name="nickname" th:value="${nickname}">
+					<!--  
+					<button type="submit" th:each="answer : ${possibleAnswers}"
+						th:text="${answer}" name="result" th:value="${answer}"
+						class="btn bg-maroon margin" style="height: 50px; width: 200px"></button>-->
+					<td><a th:href="@{/login}">Back</a></td>
+					
+			</div>
+			</form>
+		</div>
+	</div>
+
+
+	<!-- ./wrapper -->
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<!-- jQuery UI 1.11.4 -->
+	<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+	<script>
+		$.widget.bridge('uibutton', $.ui.button);
+	</script>
+	<!-- Bootstrap 3.3.7 -->
+	<script
+		src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- Morris.js charts -->
+	<script src="static/bower_components/raphael/raphael.min.js"></script>
+	<script src="static/bower_components/morris.js/morris.min.js"></script>
+	<!-- Sparkline -->
+	<script
+		src="static/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+	<!-- jvectormap -->
+	<script src="static/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+	<script
+		src="static/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+	<!-- jQuery Knob Chart -->
+	<script
+		src="static/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
+	<!-- daterangepicker -->
+	<script src="static/bower_components/moment/min/moment.min.js"></script>
+	<script
+		src="static/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<!-- datepicker -->
+	<script
+		src="static/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+	<!-- Bootstrap WYSIHTML5 -->
+	<script
+		src="static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+	<!-- Slimscroll -->
+	<script
+		src="static/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<!-- FastClick -->
+	<script src="static/bower_components/fastclick/lib/fastclick.js"></script>
+	<!-- AdminLTE App -->
+	<script src="static/dist/js/adminlte.min.js"></script>
+	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+	<script src="static/dist/js/pages/dashboard.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="static/dist/js/demo.js"></script>
+	<div th:replace="~{includes/adminLTE :: AdminLTEJS}" />
+</body>
+
+</html>
