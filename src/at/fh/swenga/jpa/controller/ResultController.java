@@ -34,16 +34,26 @@ public class ResultController {
 		model.addAttribute("results", results);
 		return "indexResults";
 	}
+
 	@RequestMapping("/admin")
 	@Transactional
 	public String showAdmin(Model model) {
 		return "admin";
 	}
+
 	@RequestMapping(value = "/createResult", method = RequestMethod.POST)
-	public String handleResult(@RequestParam(value = "gid") int gid, @RequestParam(value = "nickname") String nickname, @RequestParam(value = "qid", required = false) int qid, HttpSession session, Model model) {
+	public String handleResult(@RequestParam(value = "gid") int gid, @RequestParam(value = "nickname") String nickname,
+			@RequestParam(value = "qid", required = false) int qid, @RequestParam(value = "result") String answer,
+			HttpSession session, Model model) {
 		model.addAttribute("gameIndex", gid);
-		model.addAttribute("questionIndex", qid+1);
+		model.addAttribute("questionIndex", qid + 1);
 		model.addAttribute("nickname", nickname);
+		SongModel currSong = songRepository.findById(qid).get();
+		if (answer.equals(currSong.getTitle())) {
+			model.addAttribute("message", "Supa war richtig!");
+		} else {
+			model.addAttribute("errorMessage", "Faaalsch");
+		}
 		return "forward:/play";
 	}
 
@@ -52,7 +62,7 @@ public class ResultController {
 	public String fillData(Model model) {
 		SongModel theSong = songRepository.findTopById(1);
 		QuizModel theQuiz = quizRepository.findTopById(1);
-		ResultModel resultModel = new ResultModel (theQuiz,theSong,"EinQuizUser",true,1.2f);
+		ResultModel resultModel = new ResultModel(theQuiz, theSong, "EinQuizUser", true, 1.2f);
 		resultRepository.save(resultModel);
 		return "forward:listresults";
 	}
