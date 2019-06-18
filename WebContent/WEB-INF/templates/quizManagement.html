@@ -29,49 +29,57 @@
 		</header>
 		<nav th:replace="~{includes/navBar :: sidebar}"></nav>
 		<div class="content-wrapper">
-				<div class="box">
-					<div class="box-header">
-						<h3 class="box-title">Table of Quizzes</h3>
-					</div>
-					<!-- /.box-header -->
-					<div class="box-body">
-						<table id="example1" class="table table-bordered table-striped">
-							<thead>
-								<tr>
-									<th></th>
-									<th>Title</th>
-									<th>Difficulty</th>
-									<th>Creation Date</th>
-									<th>Number of Questions</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="quiz : ${quizzes}">
+			<div class="box">
+				<div class="box-header">
+					<h3 class="box-title">Table of Quizzes</h3>
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body">
+					<table id="example1" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th></th>
+								<th>Title</th>
+								<th>Difficulty</th>
+								<th>Creation Date</th>
+								<th>Number of Questions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="quiz : ${quizzes}">
 								<td><input type="checkbox" name="quizId"
 									th:value="${quiz.id}"></td>
 								<td th:text="${quiz.title}"></td>
 								<td th:text="${quiz.difficulty}"></td>
-								<td	th:text="${#calendars.format(quiz.creationDate,'dd.MM.yyyy')}"></td>
-								<td th:text="to Do"></td>
+								<td
+									th:text="${#calendars.format(quiz.creationDate,'dd.MM.yyyy')}"></td>
+								<td th:text="${quiz.getSongs().size()}"></td>
+								<td> <a
+									th:href="@{/deletequiz(quizId=${quiz.id})}"
+									class="btn btn-xs btn-danger"> <span
+										class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+										Delete
+								</a></td>
 							</tr>
-							</tbody>
-						</table>
-					</div>
-					<!-- /.box-body -->
-					<div class="box-body pad table-responsive">
-						<a href="savequiz">
-							<button type="submit" class="btn btn-block btn-primary">Start Quiz</button>
-						</a>
-						<!-- /.col -->
-					</div>
-					
-					</form>
-
+						</tbody>
+					</table>
 				</div>
-				<!-- /.col -->
+				<!-- /.box-body -->
+				<div class="box-body pad table-responsive">
+					<a href="savequiz">
+						<button type="submit" class="btn btn-block btn-primary">Start
+							Quiz</button>
+					</a>
+					<!-- /.col -->
+				</div>
+
+				</form>
+
 			</div>
+			<!-- /.col -->
 		</div>
-		<!-- /.box -->
+	</div>
+	<!-- /.box -->
 
 	</div>
 
