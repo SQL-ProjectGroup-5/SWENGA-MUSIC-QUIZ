@@ -74,6 +74,7 @@ public class SongController {
 	public String addSongPost(@RequestParam String interpret, @RequestParam String title,@RequestParam String strDate,@RequestParam String answer1,@RequestParam String answer2,@RequestParam String answer3, Model model) throws ParseException {
 		Calendar publishDate = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
 		Date date = sdf.parse(strDate);
 		publishDate.setTime(date);
 		SongModel songModel = new SongModel(interpret,publishDate, title);
@@ -81,6 +82,10 @@ public class SongController {
 		songModel.setAnswer2(answer2);
 		songModel.setAnswer3(answer3);
 		songRepository.save(songModel);
+		}catch (ParseException e)
+		{
+			model.addAttribute("errorMessage","Invalid date");
+		}
 		return "forward:songAdmin";
 	}
 	
