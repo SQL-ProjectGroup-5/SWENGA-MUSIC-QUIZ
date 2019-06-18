@@ -117,6 +117,7 @@ public class SongController {
 	 * @return
 	 */
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	@Transactional
 	public String uploadDocument(Model model, @RequestParam("id") int songId,
 			@RequestParam("myFile") MultipartFile file) {
  
