@@ -137,6 +137,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript">
       var sec = 0;
+      var mybutton = document.getElementById('tid');
       function pad ( val ) { return val > 9 ? val : "0" + val; }
       var myTimer= setInterval( function(){
           $("#seconds").html(pad(++sec%60));
@@ -144,6 +145,7 @@
       }, 1000);
       function myStopFunction() {
               clearInterval(myTimer);
+              mybutton.value = myTimer;
       }
     </script>
 	<div th:replace="~{includes/adminLTE :: AdminLTEJS}" />
