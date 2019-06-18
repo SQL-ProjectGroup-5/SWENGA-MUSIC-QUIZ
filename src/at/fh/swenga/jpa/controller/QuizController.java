@@ -87,19 +87,18 @@ public class QuizController {
 	@RequestMapping(value = "/savequiz", method = RequestMethod.POST)
 	@Transactional
 	public String saveData(@RequestParam String quizname, 
-						   @RequestParam(name ="quizId", required = false) List<Integer> quizIds, Model model) {
+						   @RequestParam(name ="songId", required = false) List<Integer> songIds, Model model) {
 		DataFactory df = new DataFactory();
 		Calendar publishDate = Calendar.getInstance();
 		publishDate.setTime(new Date());
 		QuizModel quizModel = new QuizModel(quizname, 1, publishDate);
-		quizIds.add(1);
 		
-		if (CollectionUtils.isEmpty(quizIds)) {
+		if (CollectionUtils.isEmpty(songIds)) {
 			System.out.print("Error");
 			return "forward:quizManagement";
 		}
 
-		quizModel.setSongs(songRepository.findAllById(quizIds));
+		quizModel.setSongs(songRepository.findAllById(songIds));
 		quizRepository.save(quizModel);
 		return "forward:quizManagement";
 	}

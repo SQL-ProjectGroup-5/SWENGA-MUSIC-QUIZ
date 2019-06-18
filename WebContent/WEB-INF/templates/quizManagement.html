@@ -35,35 +35,38 @@
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
-					<table id="example1" class="table table-bordered table-striped">
-						<thead>
-							<tr>
-								<th>Select</th>
-								<th>Title</th>
-								<th>Difficulty</th>
-								<th>Creation Date</th>
-								<th>Number of Questions</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="quiz : ${quizzes}">
-								<td><input type="checkbox" name="quizId"
-									th:value="${quiz.id}"></td>
-								<td th:text="${quiz.title}"></td>									
-								<td th:text="${quiz.difficulty}"></td>
-								<td
-									th:text="${#calendars.format(quiz.creationDate,'dd.MM.yyyy')}"></td>
-								<td th:text="${quiz.getSongs().size()}"></td>
-								<td> <a
-									th:href="@{/deletequiz(quizId=${quiz.id})}"
-									class="btn btn-xs btn-danger"> <span
-										class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-										Delete
-								</a></td>
-							</tr>
-						</tbody>
-					</table>
+					<form role="form" action="./savequiz" method="post">
+						<table id="example1" class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th>Select</th>
+									<th>Title</th>
+									<th>Difficulty</th>
+									<th>Creation Date</th>
+									<th>Number of Questions</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								<tr th:each="quiz : ${quizzes}">
+									<td><input type="checkbox" name="quizId"
+										th:value="${quiz.id}"></td>
+									<td th:text="${quiz.title}"></td>
+									<td th:text="${quiz.difficulty}"></td>
+									<td
+										th:text="${#calendars.format(quiz.creationDate,'dd.MM.yyyy')}"></td>
+									<td th:text="${quiz.getSongs().size()}"></td>
+									<td><a th:href="@{/deletequiz(quizId=${quiz.id})}"
+										class="btn btn-xs btn-danger"> <span
+											class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+											Delete
+									</a></td>
+								</tr>
+							</tbody>
+						</table>
+
+					</form>
 				</div>
 				<!-- /.box-body -->
 				<div class="box-body pad table-responsive">
