@@ -44,6 +44,7 @@ public class ResultController {
 	}
 
 	@RequestMapping(value = "/createResult", method = RequestMethod.POST)
+	@Transactional
 	public String handleResult(@RequestParam(value = "gid") int gid, @RequestParam(value = "nickname") String nickname,
 			@RequestParam(value = "qid", required = false) int qid, @RequestParam(value = "result") String answer,
 			HttpSession session, Model model) {
