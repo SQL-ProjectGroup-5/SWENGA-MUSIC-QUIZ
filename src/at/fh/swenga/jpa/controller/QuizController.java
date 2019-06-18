@@ -59,7 +59,7 @@ public class QuizController {
 		model.addAttribute("preDef", qid);
 		return "login";
 	}
-
+/*
 	@RequestMapping("/fillquizzes")
 	@Transactional
 	public String fillData(Model model) {
@@ -70,6 +70,13 @@ public class QuizController {
 		quizModel.setSongs(songRepository.findAll());
 		quizRepository.save(quizModel);
 		return "forward:listquizzes";
+	}
+*/	
+	@RequestMapping("/deletequiz")
+	@Transactional
+	public String deleteQuiz(Model model, @RequestParam int quizId) {
+		quizRepository.deleteById(quizId);
+		return "forward:quizManagement";
 	}
 
 	@RequestMapping(value = "/savequiz", method = RequestMethod.POST)
