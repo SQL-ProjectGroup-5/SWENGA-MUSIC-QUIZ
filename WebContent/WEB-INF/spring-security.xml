@@ -9,11 +9,12 @@
 
 
 	<http>
-		<csrf disabled="true" />
+		<csrf disabled="false" />
 		
 		
-		
-		<intercept-url pattern="/*" access="permitAll" />
+		<intercept-url pattern="/admin" access="hasRole('USER')"/>
+		<intercept-url pattern="/adduser" access="hasRole('ADMIN')"/>
+		<!--intercept-url pattern="/*" access="permitAll" /-->
 		<intercept-url pattern="/play/*" access="permitAll" />
 		<intercept-url pattern="/static/**" access="permitAll" />
 		<intercept-url pattern="/static/**/**" access="permitAll" />

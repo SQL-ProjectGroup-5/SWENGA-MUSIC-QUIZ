@@ -64,6 +64,12 @@
 		class="org.thymeleaf.spring5.SpringTemplateEngine">
 		<property name="templateResolver" ref="templateResolver" />
 		<property name="enableSpringELCompiler" value="true" />
+		<property name="additionalDialects">
+		<set>
+			<bean
+			class="org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect" />
+		</set>
+	</property>
 	</bean>
 
 	<bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
