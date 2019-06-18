@@ -10,5 +10,8 @@ import at.fh.swenga.jpa.model.SongModel;
 @Repository
 @Transactional
 public interface SongRepository extends JpaRepository<SongModel, Integer>{
+	
 	SongModel findTopById(int id);
+	
+	int countById(int id);
 }
