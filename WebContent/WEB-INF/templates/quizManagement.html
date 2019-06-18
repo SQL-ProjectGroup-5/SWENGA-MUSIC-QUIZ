@@ -42,6 +42,7 @@
 									<th>Title</th>
 									<th>Difficulty</th>
 									<th>Creation Date</th>
+									<th>Number of Questions</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -51,6 +52,7 @@
 								<td th:text="${quiz.title}"></td>
 								<td th:text="${quiz.difficulty}"></td>
 								<td	th:text="${#calendars.format(quiz.creationDate,'dd.MM.yyyy')}"></td>
+								<td th:text="to Do"></td>
 							</tr>
 							</tbody>
 						</table>
