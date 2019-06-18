@@ -47,7 +47,8 @@ public class QuizController {
 	}
 
 	@RequestMapping("/")
-	public String showIndex(Model model) {
+	public String showIndex(@RequestParam(value = "qid", required = false) Integer qid, Model model) {
+		model.addAttribute("preDef", qid);
 		return "login";
 	}
 
@@ -81,7 +82,7 @@ public class QuizController {
 		model.addAttribute("gameIndex", gid);
 		Optional<QuizModel> quizOpt = quizRepository.findById(gid);
 		if (!quizOpt.isPresent()) {
-			model.addAttribute("errorMessage","Wrong ID");
+			model.addAttribute("errorMessage", "Wrong ID");
 			return "login";
 		} else {
 			QuizModel quiz = quizOpt.get();
@@ -98,9 +99,9 @@ public class QuizController {
 				possibleAnswers.add(currQuestion.getTitle());
 				Collections.shuffle(possibleAnswers);
 				model.addAttribute("possibleAnswers", possibleAnswers);
-				
+
 			} else {
-				model.addAttribute("message","You finished!");
+				model.addAttribute("message", "You finished!");
 				return "login";
 			}
 			return "game";
@@ -134,8 +135,8 @@ public class QuizController {
 		response.setContentType("image/png");
 		OutputStream outputStream = response.getOutputStream();
 		String reqSrc = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-				+ "/quizzes/";
-		outputStream.write(ZXingHelper.getQRCodeImage(reqSrc + id, 200, 200));
+				+ "/?qid=";
+		outputStream.write(ZXingHelper.getQRCodeImage(reqSrc + id, 400, 400));
 		outputStream.flush();
 		outputStream.close();
 	}

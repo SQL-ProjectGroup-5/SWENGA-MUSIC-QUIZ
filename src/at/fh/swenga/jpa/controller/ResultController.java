@@ -1,6 +1,8 @@
 package at.fh.swenga.jpa.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -45,13 +47,20 @@ public class ResultController {
 	public String handleResult(@RequestParam(value = "gid") int gid, @RequestParam(value = "nickname") String nickname,
 			@RequestParam(value = "qid", required = false) int qid, @RequestParam(value = "result") String answer,
 			HttpSession session, Model model) {
+		QuizModel quiz = quizRepository.findById(gid).get();
+		List<SongModel> currSongs = new ArrayList<SongModel>(quiz.getSongs());
+		SongModel currQuestion = currSongs.get(qid);
 		model.addAttribute("gameIndex", gid);
 		model.addAttribute("questionIndex", qid + 1);
 		model.addAttribute("nickname", nickname);
 		SongModel currSong = songRepository.findById(qid).get();
 		if (answer.equals(currSong.getTitle())) {
 			model.addAttribute("message", "Supa war richtig!");
+			ResultModel currResult = new ResultModel(quiz, currQuestion, nickname, true, 1.2f);
+			resultRepository.save(currResult);
 		} else {
+			ResultModel currResult = new ResultModel(quiz, currQuestion, nickname, false, 1.2f);
+			resultRepository.save(currResult);
 			model.addAttribute("errorMessage", "Faaalsch");
 		}
 		return "forward:/play";
