@@ -2,6 +2,7 @@ package at.fh.swenga.jpa.controller;
 
 import java.io.OutputStream;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,7 +62,7 @@ public class QuizController {
 	public String saveData(@RequestParam String quizname, Model model) {
 		DataFactory df = new DataFactory();
 		Calendar publishDate = Calendar.getInstance();
-		publishDate.setTime(df.getDateBetween(df.getDate(2000, 1, 1), df.getDate(2019, 1, 1)));
+		publishDate.setTime(new Date());
 		QuizModel quizModel = new QuizModel (quizname,1,publishDate);
 		quizModel.setSongs(songRepository.findAll());
 		quizRepository.save(quizModel);
