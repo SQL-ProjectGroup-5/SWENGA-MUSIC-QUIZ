@@ -84,16 +84,20 @@
 							<tr>
 								<th>ID</th>
 								<th>Username</th>
-								<th> </th>
+								<th></th>
 
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="user : ${users}">
-								<td th:text="${user.id}">-ID-</td>
-								<td th:text="${user.userName}">test</td>
-								<td><a th:href="@{/deleteUser(id=${user.id})}">Delete</a></td>
-								
+								<td th:text="${user.id}"></td>
+								<td th:text="${user.userName}"></td>
+								<td><a th:href="@{/deleteUser(id=${user.id})}"
+									class="btn btn-xs btn-danger"> <span
+										class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+										Delete
+								</a></a></td>
+
 
 							</tr>
 						</tbody>
@@ -129,6 +133,7 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="static/dist/js/demo.js"></script>
 	<!-- page script -->
+	
 	<script>
 		$(function() {
 			$('#example1').DataTable()
