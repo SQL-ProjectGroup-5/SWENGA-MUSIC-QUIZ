@@ -40,6 +40,8 @@ public class ResultController {
 	@RequestMapping("/admin")
 	@Transactional
 	public String showAdmin(Model model) {
+		List<SongModel> songs = songRepository.findAll();
+		model.addAttribute("songs", songs);
 		return "admin";
 	}
 
