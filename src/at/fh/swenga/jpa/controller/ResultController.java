@@ -2,7 +2,6 @@ package at.fh.swenga.jpa.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import at.fh.swenga.jpa.dao.QuizRepository;
 import at.fh.swenga.jpa.dao.ResultRepository;
@@ -50,6 +50,8 @@ public class ResultController {
 	public String handleResult(@RequestParam(value = "gid") int gid, @RequestParam(value = "nickname") String nickname,
 			@RequestParam(value = "qid", required = false) int qid, @RequestParam(value = "result") String answer,
 			HttpSession session, Model model) {
+		String sessionID = RequestContextHolder.currentRequestAttributes().getSessionId();
+		
 		QuizModel quiz = quizRepository.findById(gid).get();
 		List<SongModel> currSongs = new ArrayList<SongModel>(quiz.getSongs());
 		SongModel currQuestion = currSongs.get(qid-1);
@@ -58,10 +60,10 @@ public class ResultController {
 		model.addAttribute("nickname", nickname);
 		if (answer.equals(currQuestion.getTitle())) {
 			model.addAttribute("message", "Supa war richtig!");
-			ResultModel currResult = new ResultModel(quiz, currQuestion, nickname, true, 1.2f);
+			ResultModel currResult = new ResultModel(quiz, currQuestion, nickname, true, 1.2f,sessionID);
 			resultRepository.save(currResult);
 		} else {
-			ResultModel currResult = new ResultModel(quiz, currQuestion, nickname, false, 1.2f);
+			ResultModel currResult = new ResultModel(quiz, currQuestion, nickname, false, 1.2f,sessionID);
 			resultRepository.save(currResult);
 			model.addAttribute("errorMessage", "Faaalsch");
 		}

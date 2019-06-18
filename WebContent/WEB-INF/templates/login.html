@@ -81,39 +81,54 @@
 			</div>
 	</form>
 </div>
-<div class="row">
-	<div class="col-md-3">
-		<div class="box box-default collapsed-box">
-			<div class="box-header with-border">
-				<h3 class="box-title">Login</h3>
-				<div class="box-tools pull-right">
-					<button type="button" class="btn btn-box-tool"
-						data-widget="collapse">
-						<i class="fa fa-plus"></i>
-					</button>
+
+<div sec:authorize="!isAuthenticated()">
+	<div class="row">
+		<div class="col-md-3">
+			<div class="box box-default collapsed-box">
+				<div class="box-header with-border">
+					<h3 class="box-title">Login</h3>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool"
+							data-widget="collapse">
+							<i class="fa fa-plus"></i>
+						</button>
+					</div>
 				</div>
+				<div class="box-body">
+					<form th:action="@{/login}" method="post">
+						<h2 class="form-signin-heading">Please sign in</h2>
+
+						<label for="inputEmail" class="sr-only">Email address</label> <input
+							type="text" id="username" class="form-control" placeholder="User"
+							required autofocus name="username"> <label
+							for="inputPassword" class="sr-only">Password</label> <input
+							type="password" id="password" class="form-control"
+							placeholder="Password" required name="password">
+						<button class="btn btn-lg btn-primary btn-block" type="submit">
+							Sign in</button>
+					</form>
+					<a th:href="@{/register}" title="Register"> Register </a>
+				</div>
+
+
 			</div>
-			<div class="box-body">
-				<form th:action="@{/login}" method="post">
-					<h2 class="form-signin-heading">Please sign in</h2>
-
-					<label for="inputEmail" class="sr-only">Email address</label> <input
-						type="text" id="username" class="form-control" placeholder="User"
-						required autofocus name="username"> <label
-						for="inputPassword" class="sr-only">Password</label> <input
-						type="password" id="password" class="form-control"
-						placeholder="Password" required name="password">
-					<button class="btn btn-lg btn-primary btn-block" type="submit">
-						Sign in</button>
-				</form>
-				<a th:href="@{/register}" title="Register"> Register </a>
-			</div>
-
-
 		</div>
-	</div>
-	</form>
+		</form>
 
+	</div>
+</div>
+<div sec:authorize="isAuthenticated()">
+	<br> <br>
+	</form>
+	<form th:action="@{/admin}">
+		<input type="submit" class="btn bg-purple margin"
+			value="Go to the admin Panel" />
+	</form>
+	<br>
+	<form th:action="@{/logout}">
+		<input type="submit" class="btn bg-red margin"
+			value="Logout" />
 </div>
 
 </div>

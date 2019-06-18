@@ -23,6 +23,8 @@ public class ResultModel implements java.io.Serializable {
 	SongModel song;
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	QuizModel quiz;
+	
+	private String sessionID; 
 	public ResultModel() {
 		super();
 	}
@@ -34,6 +36,23 @@ public class ResultModel implements java.io.Serializable {
 		this.correct = correct;
 		this.time = time;
 		this.quiz = quiz;
+	}
+	public ResultModel(QuizModel quiz, SongModel song, String synonym, boolean correct, float time, String sessionID) {
+		super();
+		this.song = song;
+		this.synonym = synonym;
+		this.correct = correct;
+		this.time = time;
+		this.quiz = quiz;
+		this.sessionID = sessionID;
+	}
+	
+	public String getSessionID() {
+		return sessionID;
+	}
+
+	public void setSessionID(String sessionID) {
+		this.sessionID = sessionID;
 	}
 
 	public int getId() {
