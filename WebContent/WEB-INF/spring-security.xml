@@ -9,7 +9,7 @@
 
 
 	<http>
-		<csrf disabled="false" />
+		<csrf disabled="true" />
 		
 		
 		<intercept-url pattern="/admin" access="hasRole('USER')"/>

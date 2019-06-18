@@ -7,7 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<title>User</title>
+<title>Create Quiz</title>
 <div th:replace="~{includes/adminLTE :: AdminLTECSS}" />
 
 </head>
@@ -27,7 +27,7 @@
 				</a>
 			</nav>
 		</header>
-		<nav th:replace="~{includes/navBar :: sidebar}"></nav>
+		<nav th:replace="~{includes/navBar :: sidebar(createQuiz='a')}"></nav>
 		<div class="content-wrapper">
 			<div class="box box-info">
 				<div class="box-header with-border">
