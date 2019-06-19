@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -32,8 +33,13 @@ public class SongModel implements java.io.Serializable {
 	long version;
 	@ManyToMany (mappedBy = "songs")
     private Collection<QuizModel> quizzes;
+	
 	@OneToMany(mappedBy="song",fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<ResultModel> results;
+	
+	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	private User user;
+	
 	public SongModel(String interpret, Calendar publishDate, String title) {
 		super();
 		this.interpret = interpret;
