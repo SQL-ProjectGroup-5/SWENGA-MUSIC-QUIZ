@@ -32,7 +32,7 @@ public class SongModel implements java.io.Serializable {
 	long version;
 	@ManyToMany (mappedBy = "songs")
     private Collection<QuizModel> quizzes;
-	@OneToMany(mappedBy="song",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="song",fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<ResultModel> results;
 	public SongModel(String interpret, Calendar publishDate, String title) {
 		super();

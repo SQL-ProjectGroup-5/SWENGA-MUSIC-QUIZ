@@ -19,9 +19,9 @@ public class ResultModel implements java.io.Serializable {
 	private String synonym;
 	private boolean correct;
 	private float time;
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	SongModel song;
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	QuizModel quiz;
 	
 	private String sessionID; 
