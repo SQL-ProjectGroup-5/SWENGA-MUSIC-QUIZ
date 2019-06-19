@@ -33,6 +33,22 @@
 				<div class="box-header">
 					<h3 class="box-title">Table of Quizzes</h3>
 				</div>
+				<!--  Error message ----------------------------------------------------------- -->
+					<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
+						class="alert alert-danger" role="alert"></div>
+					<!--  Error message ----------------------------------------------------------- -->
+
+					<!--  Warning message ----------------------------------------------------------- -->
+					<div th:unless="${warningMessage} == null"
+						th:utext="${warningMessage}" class="alert alert-warning"
+						role="warning"></div>
+					<!--  Warning message ----------------------------------------------------------- -->
+
+					<!--   message ----------------------------------------------------------- -->
+					<div th:unless="${message} == null" th:utext="${message}"
+						class="alert alert-success" role="warning"></div>
+					
+				
 				<!-- /.box-header -->
 				<div class="box-body">
 					
@@ -55,14 +71,14 @@
 									<td th:text="${quiz.difficulty}"></td>
 									<td th:text="${#calendars.format(quiz.creationDate,'dd.MM.yyyy')}"></td>
 									<td th:text="${quiz.getSongs().size()}"></td>
-									<td><a th:href="@{${'qrcode/' + quiz.id}}"
-										class="btn btn-xs btn-success"> <span
+									<td> <a th:href="@{/(qid=${quiz.id})}"
+										class="btn btn-xs btn-primary"> <span
+											class="fa fa-fw fa-play" aria-hidden="true"></span>
+											Play Quiz
+									</a>    <a th:href="@{${'qrcode/' + quiz.id}}"
+										class="btn btn-xs btn-info"> <span
 											class="fa fa-fw fa-qrcode" aria-hidden="true"></span>
 											Generate QR Code
-									</a> <a th:href="@{/(qid=${quiz.id})}"
-										class="btn btn-xs btn-danger"> <span
-											class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-											Play Quiz
 									</a>   <a th:href="@{/deletequiz(quizId=${quiz.id})}"
 										class="btn btn-xs btn-danger"> <span
 											class="glyphicon glyphicon-trash" aria-hidden="true"></span>
