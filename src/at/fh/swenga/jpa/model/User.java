@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
  
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,6 +36,9 @@ public class User implements java.io.Serializable {
  
 	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
 	private Set<UserRole> userRoles;
+	
+	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	private Set<SongModel> songs;
  
 	public User() {
 	}
