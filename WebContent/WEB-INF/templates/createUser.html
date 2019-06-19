@@ -29,6 +29,18 @@
 		<nav th:replace="~{includes/navBar :: sidebar(addUser='a')}"></nav>
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
+
+
+			<!--  Error message ----------------------------------------------------------- -->
+			<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
+				class="alert alert-danger" role="alert"></div>
+			<!--  Error message ----------------------------------------------------------- -->
+
+			<!--   message ----------------------------------------------------------- -->
+
+			<div th:unless="${message} == null" th:utext="${message}"
+				class="alert alert-success" role="warning"></div>
+			<!--   message ----------------------------------------------------------- -->
 			<!-- Content Header (Page header) -->
 
 			<!-- Main content -->
@@ -132,7 +144,7 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="static/dist/js/demo.js"></script>
 	<!-- page script -->
-	
+
 	<script>
 		$(function() {
 			$('#example1').DataTable()

@@ -9,6 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,7 @@ public class SecurityController {
 	public String addUserGet(Model model) {
 		List<User> myUsers = userDao.findAll();
 		model.addAttribute("users", myUsers);
-
+		
 		return "createUser";
 
 	}
@@ -126,8 +127,15 @@ public class SecurityController {
 	@RequestMapping("/deleteUser")
 	public String deleteData(Model model, @RequestParam int id) {
 		userDao.delete(id);
-
-		return "forward:adduser";
+		
+		if (id == 0) {
+			model.addAttribute("errorMessage", "Could not delete User!");
+			return "forward:adduser";
+		}
+		else {
+			model.addAttribute("message", "User with ID " + id + " successfully deleted!");
+			return "forward:adduser";
+		}
 	}
 
 	@ExceptionHandler(Exception.class)
