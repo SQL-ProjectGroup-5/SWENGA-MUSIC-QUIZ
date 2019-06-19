@@ -136,16 +136,20 @@
 	<script src="static/dist/js/demo.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript">
-      var sec = 0;
+      var sec = 5;
+      //var start_time = <?php echo $_POST['my_post'] ?>;
       var mybutton = document.getElementById('tid');
       function pad ( val ) { return val > 9 ? val : "0" + val; }
       var myTimer= setInterval( function(){
-          $("#seconds").html(pad(++sec%60));
+          $("#seconds").html(pad(--sec%60));
           $("#minutes").html(pad(parseInt(sec/60,10)));
       }, 1000);
+      if($("#seconds") === 0){
       function myStopFunction() {
               clearInterval(myTimer);
+              alert('Hello');
               mybutton.value = myTimer;
+      }
       }
     </script>
 	<div th:replace="~{includes/adminLTE :: AdminLTEJS}" />
