@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -77,6 +78,7 @@ public class QuizController {
 		return "forward:listquizzes";
 	}
 */	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("/deletequiz")
 	@Transactional
 	public String deleteQuiz(Model model, @RequestParam int quizId) {
