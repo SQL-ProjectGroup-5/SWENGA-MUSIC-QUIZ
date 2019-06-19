@@ -112,8 +112,7 @@ public class QuizController {
 			@RequestParam(value = "qid", required = false) int qid, HttpSession session, Model model) {
 		model.addAttribute("gameIndex", gid);
 		Optional<QuizModel> quizOpt = quizRepository.findById(gid);
-		
-		
+			
 		if (!quizOpt.isPresent()) {
 			model.addAttribute("errorMessage", "Wrong ID");
 			return "login";
