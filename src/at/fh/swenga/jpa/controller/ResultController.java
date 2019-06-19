@@ -2,6 +2,7 @@ package at.fh.swenga.jpa.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpSession;
 
@@ -54,7 +55,7 @@ public class ResultController {
 	@RequestMapping(value = "/createResult", method = RequestMethod.POST)
 	@Transactional
 	public String handleResult(@RequestParam(value = "gid") int gid, @RequestParam(value = "nickname") String nickname,
-			@RequestParam(value = "qid", required = false) int qid, @RequestParam(value = "result") String answer,
+			@RequestParam(value = "qid", required = false) int qid, @RequestParam(value = "result") String answer, @RequestParam(value = "startTime") long startTime,
 			HttpSession session, Model model) {
 		String sessionID = RequestContextHolder.currentRequestAttributes().getSessionId();
 		
@@ -64,12 +65,13 @@ public class ResultController {
 		model.addAttribute("gameIndex", gid);
 		model.addAttribute("questionIndex", qid);
 		model.addAttribute("nickname", nickname);
+		float difference = TimeUnit.MILLISECONDS.convert((System.nanoTime() - startTime), TimeUnit.NANOSECONDS);
 		if (answer.equals(currQuestion.getTitle())) {
 			model.addAttribute("message", "Supa war richtig!");
-			ResultModel currResult = new ResultModel(quiz, currQuestion, nickname, true, 1.2f,sessionID);
+			ResultModel currResult = new ResultModel(quiz, currQuestion, nickname, true, difference,sessionID);
 			resultRepository.save(currResult);
 		} else {
-			ResultModel currResult = new ResultModel(quiz, currQuestion, nickname, false, 1.2f,sessionID);
+			ResultModel currResult = new ResultModel(quiz, currQuestion, nickname, false, difference,sessionID);
 			resultRepository.save(currResult);
 			model.addAttribute("errorMessage", "Faaalsch");
 		}
