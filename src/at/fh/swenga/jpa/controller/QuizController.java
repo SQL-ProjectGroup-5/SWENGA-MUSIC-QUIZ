@@ -81,6 +81,7 @@ public class QuizController {
 	@Transactional
 	public String deleteQuiz(Model model, @RequestParam int quizId) {
 		quizRepository.deleteById(quizId);
+		model.addAttribute("message", String.format("Deleted Quiz with ID: %d", quizId));
 		return "forward:quizManagement";
 	}
 
