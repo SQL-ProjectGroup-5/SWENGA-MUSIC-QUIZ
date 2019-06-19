@@ -125,6 +125,7 @@ public class QuizController {
 				model.addAttribute("currDocument", currQuestion.getDocument().getId());
 				model.addAttribute("questionIndex", qid+1);
 				model.addAttribute("nickname", nickname);
+				model.addAttribute("startTime", System.nanoTime());
 				List<String> possibleAnswers = new ArrayList<String>();
 				possibleAnswers.add(currQuestion.getAnswer1());
 				possibleAnswers.add(currQuestion.getAnswer2());
@@ -135,7 +136,7 @@ public class QuizController {
 
 			} else {
 				model.addAttribute("message", "You finished!");
-				return "login";
+				return "forward:statistics";
 			}
 			return "game";
 		}

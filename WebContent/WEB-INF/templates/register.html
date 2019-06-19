@@ -70,8 +70,8 @@
 						class="glyphicon glyphicon-lock form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
-					<input id="type="password" class="form-control"
-						placeholder="passwordRetype" Retype password" name="passwordRetype"> <span
+					<input id="password" type="password" class="form-control"
+						placeholder="Retype Password" name="passwordRetype"> <span
 						class="glyphicon glyphicon-log-in form-control-feedback"></span>
 				</div>
 				<div class="row">
@@ -82,7 +82,7 @@
 					<!-- /.col -->
 				</div>
 			</form>
-			<a href="@{/login}" class="text-center">I already have an account</a>
+			<a th:href="@{/login}" class="text-center">I already have an account</a>
 		</div>
 		<!-- /.form-box -->
 	</div>

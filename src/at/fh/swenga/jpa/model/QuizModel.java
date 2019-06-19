@@ -3,6 +3,7 @@ package at.fh.swenga.jpa.model;
 import java.util.Calendar;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +28,7 @@ public class QuizModel implements java.io.Serializable{
 	@ManyToMany (fetch =FetchType.EAGER)
     private Collection<SongModel> songs;
 	
-	@OneToMany(mappedBy="quiz")
+	@OneToMany(mappedBy="quiz", cascade = CascadeType.ALL)
 	private Collection<ResultModel> results;
 	public QuizModel(String title, int difficulty, Calendar creationDate) {
 		super();
