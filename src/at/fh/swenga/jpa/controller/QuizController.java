@@ -94,8 +94,12 @@ public class QuizController {
 		QuizModel quizModel = new QuizModel(quizname, 1, publishDate);
 		
 		if (CollectionUtils.isEmpty(songIds)) {
-			System.out.print("Error");
-			return "forward:quizManagement";
+			model.addAttribute("errorMessage", "No songs selected!");
+			return "forward:quizAdmin";
+		}
+		if (quizname==null || quizname.isEmpty()) {
+			model.addAttribute("warningMessage", "Please name the quiz");
+			return "forward:quizAdmin";
 		}
 
 		quizModel.setSongs(songRepository.findAllById(songIds));

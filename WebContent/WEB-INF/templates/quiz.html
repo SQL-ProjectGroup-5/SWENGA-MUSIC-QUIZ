@@ -10,6 +10,8 @@
 <title>Create Quiz</title>
 <div th:replace="~{includes/adminLTE :: AdminLTECSS}" />
 
+
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -33,6 +35,24 @@
 				<div class="box-header with-border">
 					<h3 class="box-title">Enter a new Quiz</h3>
 				</div>
+
+				<!--  Error message ----------------------------------------------------------- -->
+				<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
+					class="alert alert-danger" role="alert"></div>
+				<!--  Error message ----------------------------------------------------------- -->
+
+				<!--  Warning message ----------------------------------------------------------- -->
+				<div th:unless="${warningMessage} == null"
+					th:utext="${warningMessage}" class="alert alert-warning"
+					role="warning"></div>
+				<!--  Warning message ----------------------------------------------------------- -->
+
+				<!--   message ----------------------------------------------------------- -->
+
+				<div th:unless="${message} == null" th:utext="${message}"
+					class="alert alert-success" role="warning"></div>
+				<!--   message ----------------------------------------------------------- -->
+
 				<form class="form-horizontal" role="form" action="./savequiz"
 					method="post">
 					<div class="box-body">
@@ -44,54 +64,53 @@
 							</div>
 						</div>
 					</div>
-				<div class="box">
-					<div class="box-header">
-						<h3 class="box-title">Table of Questions</h3>
-					</div>
-					<!-- /.box-header -->
-					<div class="box-body">
-						<table id="example1" class="table table-bordered table-striped">
-							<thead>
-								<tr>
-									<th></th>
-									<th>Title</th>
-									<th>Interpret</th>
-									<th>Publish Date</th>
-									<th>Answer 1</th>
-									<th>Answer 2</th>
-									<th>Answer 3</th>
+					<div class="box">
+						<div class="box-header">
+							<h3 class="box-title">Table of Questions</h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<table id="example1" class="table table-bordered table-striped">
+								<thead>
+									<tr>
+										<th></th>
+										<th>Title</th>
+										<th>Interpret</th>
+										<th>Publish Date</th>
+										<th>Answer 1</th>
+										<th>Answer 2</th>
+										<th>Answer 3</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="song : ${songs}">
+										<td><input type="checkbox" name="songId"
+											th:value=" ${song.id}"></td>
+										<td th:text="${song.title}"></td>
+										<td th:text="${song.interpret}"></td>
+										<td
+											th:text="${#calendars.format(song.publishDate,'dd.MM.yyyy')}"></td>
+										<td th:text="${song.answer1}"></td>
+										<td th:text="${song.answer2}"></td>
+										<td th:text="${song.answer3}"></td>
+								</tbody>
 								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="song : ${songs}">
-									<td><input type="checkbox" name="songId"
-										th:value=" ${song.id}"></td>
-									<td th:text="${song.title}"></td>
-									<td th:text="${song.interpret}"></td>
-									<td
-										th:text="${#calendars.format(song.publishDate,'dd.MM.yyyy')}"></td>
-									<td th:text="${song.answer1}"></td>
-									<td th:text="${song.answer2}"></td>
-									<td th:text="${song.answer3}"></td>
-							</tbody>
-							</tr>
-						</table>
-					</div>
-					<!-- /.box-body -->
-					<div class="box-body pad table-responsive">
-						<a href="savequiz">
-							<button type="submit" class="btn btn-block btn-primary">CreateQuiz</button>
-						</a>
-						<!-- /.col -->
-					</div>
-					
-					</form>
+							</table>
+						</div>
+						<!-- /.box-body -->
+						<div class="box-body pad table-responsive">
+							<a href="savequiz">
+								<button type="submit" class="btn btn-block btn-primary">CreateQuiz</button>
+							</a>
+							<!-- /.col -->
+						</div>
+				</form>
 
-				</div>
-				<!-- /.col -->
 			</div>
+			<!-- /.col -->
 		</div>
-		<!-- /.box -->
+	</div>
+	<!-- /.box -->
 
 	</div>
 

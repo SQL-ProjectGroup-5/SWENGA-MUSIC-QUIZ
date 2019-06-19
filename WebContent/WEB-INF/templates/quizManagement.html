@@ -39,7 +39,7 @@
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>Select</th>
+									<th>ID</th>
 									<th>Title</th>
 									<th>Difficulty</th>
 									<th>Creation Date</th>
@@ -50,14 +50,20 @@
 							<tbody>
 
 								<tr th:each="quiz : ${quizzes}">
-									<td><input type="checkbox" name="quizId"
-										th:value="${quiz.id}"></td>
+									<td th:text="${quiz.id}"></td>
 									<td th:text="${quiz.title}"></td>
 									<td th:text="${quiz.difficulty}"></td>
-									<td
-										th:text="${#calendars.format(quiz.creationDate,'dd.MM.yyyy')}"></td>
+									<td th:text="${#calendars.format(quiz.creationDate,'dd.MM.yyyy')}"></td>
 									<td th:text="${quiz.getSongs().size()}"></td>
-									<td><a th:href="@{/deletequiz(quizId=${quiz.id})}"
+									<td><a th:href="@{${'qrcode/' + quiz.id}}"
+										class="btn btn-xs btn-success"> <span
+											class="fa fa-fw fa-qrcode" aria-hidden="true"></span>
+											Generate QR Code
+									</a> <a th:href="@{/play(quizId=${quiz.id})}"
+										class="btn btn-xs btn-danger"> <span
+											class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+											Play Quiz
+									</a>   <a th:href="@{/deletequiz(quizId=${quiz.id})}"
 										class="btn btn-xs btn-danger"> <span
 											class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 											Delete
@@ -68,16 +74,6 @@
 
 					
 				</div>
-				<form role="form" action="./qrcode/" method="post">
-				<!-- /.box-body -->
-				<div class="box-body pad table-responsive">
-						<button type="submit" class="btn btn-block btn-primary">Generate QR Code</button>
-					</div>
-					</form>
-					<!-- /.col -->
-				
-
-				</form>
 
 			</div>
 			<!-- /.col -->
