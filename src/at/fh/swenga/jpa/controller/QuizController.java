@@ -94,8 +94,12 @@ public class QuizController {
 		QuizModel quizModel = new QuizModel(quizname, 1, publishDate);
 		
 		if (CollectionUtils.isEmpty(songIds)) {
-			System.out.print("Error");
-			return "forward:quizManagement";
+			model.addAttribute("errorMessage", "No songs selected!");
+			return "forward:quizAdmin";
+		}
+		if (quizname==null || quizname.isEmpty()) {
+			model.addAttribute("warningMessage", "Please name the quiz");
+			return "forward:quizAdmin";
 		}
 
 		quizModel.setSongs(songRepository.findAllById(songIds));
@@ -108,8 +112,7 @@ public class QuizController {
 			@RequestParam(value = "qid", required = false) int qid, HttpSession session, Model model) {
 		model.addAttribute("gameIndex", gid);
 		Optional<QuizModel> quizOpt = quizRepository.findById(gid);
-		
-		
+			
 		if (!quizOpt.isPresent()) {
 			model.addAttribute("errorMessage", "Wrong ID");
 			return "login";

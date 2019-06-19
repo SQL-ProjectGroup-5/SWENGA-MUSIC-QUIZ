@@ -35,6 +35,7 @@ public class User implements java.io.Serializable {
  
 	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
 	private Set<UserRole> userRoles;
+	
  
 	public User() {
 	}
