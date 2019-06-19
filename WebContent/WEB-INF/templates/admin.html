@@ -68,20 +68,17 @@
 		<div class="box-body">
 
 				<table class="table table-bordered">
-					<tr>
-						<th>Number of Quizzes:</th>
-						<th>1</th>
+					
+				
+					<tr th:each="counts : ${quizcount}">
+						<td>Number of Quizzes:</td>
+						<td th:text="${counts}"></td>
 					</tr>
-					<tr th:each="song : ${songs}">
-						<td><strong>Number of Songs:</strong></td>
-						<!--  <td th:text="${song.id}"></td>-->
-						<td th:text="${song.getSongs().size()}"></td>
+					<tr th:each="counts : ${songcount}">
+						<td>Number of Songs:</td>
+						<td th:text="${counts}"></td>
 					</tr>
-					<tr>
-						<td><strong>Number of played Games:</strong></td>
-						<td><strong>1</strong></td>
-					</tr>
-				</table>
+					</table>
 			</div>
 			<!-- /.box-body -->
 		
