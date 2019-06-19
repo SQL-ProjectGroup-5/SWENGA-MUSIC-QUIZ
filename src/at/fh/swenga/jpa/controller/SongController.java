@@ -90,11 +90,11 @@ public class SongController {
 	}
 	
 
-	@RequestMapping("/delete")
+	@RequestMapping("/deletesong")
 	public String deleteData(Model model, @RequestParam int id) {
 		songRepository.deleteById(id);
 
-		return "forward:list";
+		return "forward:songAdmin";
 	}
 
 

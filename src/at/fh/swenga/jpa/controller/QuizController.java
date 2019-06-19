@@ -134,7 +134,7 @@ public class QuizController {
 
 			} else {
 				model.addAttribute("message", "You finished!");
-				return "login";
+				return "forward:statistics";
 			}
 			return "game";
 		}
