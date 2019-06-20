@@ -17,6 +17,7 @@
 		<!--intercept-url pattern="/*" access="permitAll" /-->
 		<intercept-url pattern="/play/*" access="permitAll" />
 		<intercept-url pattern="/play" access="permitAll" />
+		<intercept-url pattern="/register" access="permitAll" />
 		<intercept-url pattern="/createResult" access="permitAll" />
 		<intercept-url pattern="/download" access="permitAll" />
 		<intercept-url pattern="/static/**" access="permitAll" />
