@@ -35,7 +35,80 @@
 			<section class="content-header">
 				<h1>Dashboard</h1>
 			</section>
+			<section class="content">
+      <!-- Small boxes (Stat box) -->
+      <div class="row">
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3><tr th:each="counts : ${quizcount}">
+										<td>Number of Quizzes:</td>
+										<td th:text="${counts}"></td>
+									</tr></h3>
 
+              <p>New Orders</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-bag"></i>
+            </div>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3><tr th:each="counts : ${songcount}">
+										<td>Number of Songs:</td>
+										<td th:text="${counts}"></td>
+									</tr>
+									</h3>
+
+              <p>Bounce Rate</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <h3><tr th:each="counts : ${usercount}">
+										<td>Number of users:</td>
+										<td th:text="${counts}"></td>
+									</tr></h3>
+
+              <p>User Registrations</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person-add"></i>
+            </div>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3><tr th:each="counts : ${uploadcount}">
+										<td>Uploaded Songs:</td>
+										<td th:text="${counts}"></td>
+									</tr></h3>
+
+              <p>Unique Visitors</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+           
+          </div>
+        </div>
+        <!-- ./col -->
+      </div>
 			<!-- Main content -->
 			<section class="content">
 				<div class="row">
@@ -46,17 +119,7 @@
 						<div class="box">
 							<!-- /.box-header -->
 							<div class="box-body">
-								<table class="table table-bordered">
-
-									<tr th:each="counts : ${quizcount}">
-										<td>Number of Quizzes:</td>
-										<td th:text="${counts}"></td>
-									</tr>
-									<tr th:each="counts : ${songcount}">
-										<td>Number of Songs:</td>
-										<td th:text="${counts}"></td>
-									</tr>
-								</table>
+								
 							</div>
 							<!-- /.box-body -->
 							<div class="tab-content no-padding">

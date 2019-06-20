@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 
+import at.fh.swenga.jpa.dao.DocumentRepository;
 import at.fh.swenga.jpa.dao.QuizRepository;
 import at.fh.swenga.jpa.dao.ResultRepository;
 import at.fh.swenga.jpa.dao.SongRepository;
+import at.fh.swenga.jpa.dao.UserDao;
 import at.fh.swenga.jpa.model.QuizModel;
 import at.fh.swenga.jpa.model.ResultModel;
 import at.fh.swenga.jpa.model.SongModel;
@@ -30,6 +32,10 @@ public class ResultController {
 	SongRepository songRepository;
 	@Autowired
 	ResultRepository resultRepository;
+	@Autowired
+	UserDao userRepository;
+	@Autowired
+	DocumentRepository documentRepository;
 
 	@RequestMapping(value = { "/results", "listresults" })
 	public String index(Model model) {
@@ -48,7 +54,14 @@ public class ResultController {
 		long songcount = 0;
 		songcount = songRepository.count();
 		model.addAttribute("songcount", songcount);
-
+		
+		long usercount = 0;
+		usercount = userRepository.findAll().size();
+		model.addAttribute("usercount", usercount);
+		
+		long uploadcount = 0;
+		uploadcount = documentRepository.count();
+		model.addAttribute("uploadcount", uploadcount);
 		return "admin";
 	}
 
