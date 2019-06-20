@@ -36,7 +36,7 @@ import at.fh.swenga.jpa.model.User;
 
 @Controller
 public class SongController {
-
+	
 	@Autowired
 	SongRepository songRepository;
 
@@ -68,17 +68,25 @@ public class SongController {
 		DataFactory df = new DataFactory();
 		Calendar publishDate = Calendar.getInstance();
 
-		String songs[] = { "Like a Rolling Stone", "Imagine", "I Cant Get No Satisfaction", "What’s Going On",
-				"Respect", "Good Vibrations", "Johnny B. Goode", "Hey Jude", "Smells Like Teen Spirit", "Whatd I Say",
-				"My Generation" };
+		String answers[][] = { {"Like a Rolling Stone","Bob Dylan"}, {"Imagine","Beatles"}, 
+							{"I Cant Get No Satisfaction","Rolling Stones"}, {"What’s Going On","Marvin Gaye"},
+							{"Respect"," Aretha Franklin"}, {"Good Vibrations","Beach Boys"}, 
+							{"Johnny B. Goode"," Chuck Berry"}, {"Hey Jude","Beatles"}, {"Smells Like Teen Spirit","Nirvana"},
+							{"Whatd I Say","Ray Charles"},{"My Generation","The Who"}};
+		
+		String wrongAnswers[] = {"Rise like a Phoenix","I want it that way","Spring time","Give up","Baby dont go","I love weed",
+				"Scream","Drop it like its hot","Love is all around me","Down under"};
 		
 		String genre[] = {"Blues","Folk","Brutal Metal","Heavy Metal","Soft Metal","Love","Rock","Pop","Classic"};
+		
 
+		int number = df.getNumberBetween(0, answers.length);
+		
 		publishDate.setTime(df.getDateBetween(df.getDate(2000, 1, 1), df.getDate(2019, 1, 1)));
-		SongModel songModel = new SongModel("TheBestCoderEver", publishDate, "A song Vol 27");
-		songModel.setAnswer1(songs[df.getNumberBetween(0, songs.length)]);
-		songModel.setAnswer2(songs[df.getNumberBetween(0, songs.length)]);
-		songModel.setAnswer3(songs[df.getNumberBetween(0, songs.length)]);
+		SongModel songModel = new SongModel(answers[number][1], publishDate, answers[number][0]);
+		songModel.setAnswer1(wrongAnswers[df.getNumberBetween(0, wrongAnswers.length)]);
+		songModel.setAnswer2(wrongAnswers[df.getNumberBetween(0, wrongAnswers.length)]);
+		songModel.setAnswer3(answers[number][0]);
 		songModel.setGenre(genre[df.getNumberBetween(0, genre.length)]);
 		User user = userRepository.findByUsername(principal.getName()).get(0);
 		songModel.setUser(user);
