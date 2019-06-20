@@ -101,8 +101,8 @@ public class SongController {
 	@Transactional
 	public String addSongPost(@RequestParam String interpret, @RequestParam String title,
 			@RequestParam String publishDate, @RequestParam String answer1, @RequestParam String answer2,
-			@RequestParam String answer3, @RequestParam String genre, @RequestParam int startTime,
-			@RequestParam int timeToAnswer, Model model, Principal principal) throws ParseException {
+			@RequestParam String answer3, @RequestParam String genre, @RequestParam String startTime,
+			@RequestParam String timeToAnswer, Model model, Principal principal) throws ParseException {
 		Calendar publishDateC = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		try {
@@ -115,13 +115,13 @@ public class SongController {
 			songModel.setAnswer3(genre);
 			User user = userRepository.findByUsername(principal.getName()).get(0);
 			songModel.setUser(user);
-			songModel.setStartTime(startTime);
-			songModel.setTimeToAnswer(timeToAnswer);
+			songModel.setStartTime(Integer.parseInt(startTime));
+			songModel.setTimeToAnswer(Integer.parseInt(timeToAnswer));
 			
 			model.addAttribute("message", "Added song: " + songModel.getTitle());
 			songRepository.save(songModel);
 		} catch (ParseException e) {
-			model.addAttribute("errorMessage", "Invalid date");
+			model.addAttribute("errorMessage", "Invalid Input");
 		}
 		return "forward:songAdmin";
 	}
