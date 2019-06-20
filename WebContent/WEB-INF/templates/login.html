@@ -38,116 +38,115 @@
 </head>
 <body class="hold-transition login-page">
 	<div class="login-box">
-<div class="login-logo">
-	<a><b>Guess</b> the Song</a>
-</div>
-
-<!--  Error message ----------------------------------------------------------- -->
-<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
-	class="alert alert-danger" role="alert"></div>
-<!--  Error message ----------------------------------------------------------- -->
-
-<!--  Warning message ----------------------------------------------------------- -->
-<div th:unless="${warningMessage} == null" th:utext="${warningMessage}"
-	class="alert alert-warning" role="warning"></div>
-<!--  Warning message ----------------------------------------------------------- -->
-
-<!--   message ----------------------------------------------------------- -->
-<div th:unless="${message} == null" th:utext="${message}"
-	class="alert alert-success" role="warning"></div>
-<!--   message ----------------------------------------------------------- -->
-<div th:if="${param.error}" class="alert alert-danger">Invalid
-	username and password.</div>
-
-<div th:if="${param.logout}" class="alert alert-success">You have
-	been logged out.</div>
-<div class="login-box-body">
-	<p class="login-box-msg">Join Game</p>
-	<form action="./play" method="get">
-		<input type="hidden" id="qid" name="qid" th:value="0">
-		<div class="form-group has-feedback">
-			<input type="text" class="form-control" placeholder="Pin" name="gid"
-				th:value="${preDef !=null}? ${preDef} : ''"> <span
-				class="glyphicon glyphicon-user form-control-feedback"></span>
+		<div class="login-logo">
+			<a><b>Guess</b> the Song</a>
 		</div>
-		<div class="form-group has-feedback">
-			<input type="text" class="form-control" placeholder="Nickname"
-				name="nickname"> <span
-				class="glyphicon glyphicon-user form-control-feedback"></span>
-		</div>
-		<div class="row">
-			<!-- /.col -->
-			<div class="col-xs-4">
-				<button type="submit" class="btn btn-primary btn-block btn-flat">Join</button>
+
+		<!--  Error message ----------------------------------------------------------- -->
+		<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
+			class="alert alert-danger" role="alert"></div>
+		<!--  Error message ----------------------------------------------------------- -->
+
+		<!--  Warning message ----------------------------------------------------------- -->
+		<div th:unless="${warningMessage} == null"
+			th:utext="${warningMessage}" class="alert alert-warning"
+			role="warning"></div>
+		<!--  Warning message ----------------------------------------------------------- -->
+
+		<!--   message ----------------------------------------------------------- -->
+		<div th:unless="${message} == null" th:utext="${message}"
+			class="alert alert-success" role="warning"></div>
+		<!--   message ----------------------------------------------------------- -->
+		<div th:if="${param.error}" class="alert alert-danger">Invalid
+			username and password.</div>
+
+		<div th:if="${param.logout}" class="alert alert-success">You
+			have been logged out.</div>
+		<div class="login-box-body">
+			<h2 class="login-box-msg">Join Game</h2>
+			<form action="./play" method="get">
+				<input type="hidden" id="qid" name="qid" th:value="0">
+				<div class="form-group has-feedback">
+					<input type="text" class="form-control" placeholder="Pin"
+						name="gid" th:value="${preDef !=null}? ${preDef} : ''"> <span
+						class="glyphicon glyphicon-user form-control-feedback"></span>
+				</div>
+				<div class="form-group has-feedback">
+					<input type="text" class="form-control" placeholder="Nickname"
+						name="nickname"> <span
+						class="glyphicon glyphicon-user form-control-feedback"></span>
+				</div>
+				<div class="row">
+				<div class="col-xs-4">
+					<button type="submit" class="btn btn-primary btn-block btn-flat">Join</button>
+				</div>
 
 			</div>
-	</form>
-</div>
+			</form>
+			<div class="row">
+				
+				<div sec:authorize="isAuthenticated()">
+					<form th:action="@{/admin}">
+						<input type="submit" class="btn bg-purple margin"
+							value="Go to the admin Panel" />
+					</form>
+					<form th:action="@{/logout}">
+						<input type="submit" class="btn bg-red margin" value="Logout" />
+					</form>
+				</div>
+			</div>
 
-<div sec:authorize="!isAuthenticated()">
-	<div class="row">
-			<div class="box box-default collapsed-box">
-				<div class="box-header with-border">
-					<h3 class="box-title">Login</h3>
-					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool"
-							data-widget="collapse">
-							<i class="fa fa-plus"></i>
-						</button>
+			<div sec:authorize="!isAuthenticated()">
+				<div class="box">
+					<div class="box box-default collapsed-box">
+						<div class="box-header with-border">
+							<h3 class="box-title">Login</h3>
+							<div class="box-tools pull-right">
+								<button type="button" class="btn btn-box-tool"
+									data-widget="collapse">
+									<i class="fa fa-plus"></i>
+								</button>
+							</div>
+						</div>
+						<div class="box-body">
+							<form th:action="@{/login}" method="post">
+								<h3 class="form-signin-heading">Please sign in</h3>
+
+								<label for="inputEmail" class="sr-only">Email address</label> <input
+									type="text" id="username" class="form-control"
+									placeholder="User" required autofocus name="username">
+								<label for="inputPassword" class="sr-only">Password</label> <input
+									type="password" id="password" class="form-control"
+									placeholder="Password" required name="password">
+								<button class="btn btn-lg btn-primary btn-block" type="submit">
+									Sign in</button>
+							</form>
+							<a th:href="@{/register}" title="Register"> Register </a>
+						</div>
 					</div>
 				</div>
-				<div class="box-body">
-					<form th:action="@{/login}" method="post">
-						<h2 class="form-signin-heading">Please sign in</h2>
-
-						<label for="inputEmail" class="sr-only">Email address</label> <input
-							type="text" id="username" class="form-control" placeholder="User"
-							required autofocus name="username"> <label
-							for="inputPassword" class="sr-only">Password</label> <input
-							type="password" id="password" class="form-control"
-							placeholder="Password" required name="password">
-						<button class="btn btn-lg btn-primary btn-block" type="submit">
-							Sign in</button>
-					</form>
-					<a th:href="@{/register}" title="Register"> Register </a>
-				</div>
 			</div>
-		
+		</div>
 
-	</div>
-</div>
-<div sec:authorize="isAuthenticated()">
-	<br>
-	</form>
-	<form th:action="@{/admin}">
-		<input type="submit" class="btn bg-purple margin"
-			value="Go to the admin Panel" />
-	</form>
-	
-	<form th:action="@{/logout}">
-		<input type="submit" class="btn bg-red margin"
-			value="Logout" />
-</div>
-</div>
-</div>
 
-<!-- jQuery 3 -->
-<script src="static/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- iCheck -->
-<script src="static/plugins/iCheck/icheck.min.js"></script>
-<script>
-	$(function() {
-		$('input').iCheck({
-			checkboxClass : 'icheckbox_square-blue',
-			radioClass : 'iradio_square-blue',
-			increaseArea : '20%' /* optional */
-		});
-	});
-</script>
-<script src="static/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="static/dist/js/demo.js"></script>
+		<!-- jQuery 3 -->
+		<script src="static/bower_components/jquery/dist/jquery.min.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script
+			src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<!-- iCheck -->
+		<script src="static/plugins/iCheck/icheck.min.js"></script>
+		<script>
+			$(function() {
+				$('input').iCheck({
+					checkboxClass : 'icheckbox_square-blue',
+					radioClass : 'iradio_square-blue',
+					increaseArea : '20%' /* optional */
+				});
+			});
+		</script>
+		<script src="static/dist/js/adminlte.min.js"></script>
+		<!-- AdminLTE for demo purposes -->
+		<script src="static/dist/js/demo.js"></script>
 </body>
 </html>

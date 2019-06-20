@@ -36,11 +36,12 @@
 <!-- bootstrap wysihtml5 - text editor -->
 <link rel="stylesheet"
 	href="static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+<link rel="stylesheet" type="text/css" href="static/dist/css/game.css">
 <title>Game</title>
 <div th:replace="~{includes/adminLTE :: AdminLTECSS}" />
 </head>
 
-<body>
+<body style="background-color: #d2d6de">
 
 	<div class="row align-items-middle">
 		<div class="text-center">
@@ -68,9 +69,19 @@
 				Your browser does not support the audio element.
 			</audio>
 			<div class="quiz-time">
-				<div class="timer">
-					<span id="minutes">00</span>:<span id="seconds">00</span>
-				</div>
+				
+					<div class="flex-c">
+						<div class="flex-col-c-m size2 how-countdown">
+							<span id="minutes" class="l1-txt1 p-b-9 hours">00</span><span
+								class="s1-txt1">Minutes</span>
+						</div>
+
+						<div class="flex-col-c-m size2 how-countdown">
+							<span id="seconds" class="l1-txt1 p-b-9 seconds">00</span><span
+								class="s1-txt1">Seconds</span>
+						</div>
+					</div>
+				
 			</div>
 			<div class="row">
 				<form action="./createResult" method="post">
@@ -79,11 +90,12 @@
 						name="gid" th:value="${gameIndex}"> <input type="hidden"
 						id="qid" name="nickname" th:value="${nickname}"> <input
 						type="hidden" id="tid" name="timer" th:value="${timer}"> <input
-						type="hidden" id="startTime" name="startTime" th:value="${startTime}">
+						type="hidden" id="startTime" name="startTime"
+						th:value="${startTime}">
 
 					<button type="submit" th:each="answer : ${possibleAnswers}"
 						th:text="${answer}" name="result" th:value="${answer}"
-						class="btn bg-maroon margin" onclick="myStopFunction()"
+						class="btn bg-black margin" onclick="myStopFunction()"
 						style="height: 50px; width: 200px"></button>
 			</div>
 			</form>
@@ -139,23 +151,22 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script type="text/javascript">
-		var sec = 5;
+		var sec = document.getElementById('tid').value;
 		//var start_time = <?php echo $_POST['my_post'] ?>;
-		var mybutton = document.getElementById('tid');
+		var mybutton = document.getElementById('tid').value;
 		function pad(val) {
+			if (val === -1) {
+				clearInterval(myTimer);
+				val = 0;
+				document.body.style.backgroundColor = "#FF0000";
+				alert('TIME IS UP!')
+			}
 			return val > 9 ? val : "0" + val;
 		}
 		var myTimer = setInterval(function() {
 			$("#seconds").html(pad(--sec % 60));
 			$("#minutes").html(pad(parseInt(sec / 60, 10)));
 		}, 1000);
-		if ($("#seconds") === 0) {
-			function myStopFunction() {
-				clearInterval(myTimer);
-				alert('Hello');
-				mybutton.value = myTimer;
-			}
-		}
 	</script>
 	<div th:replace="~{includes/adminLTE :: AdminLTEJS}" />
 </body>
