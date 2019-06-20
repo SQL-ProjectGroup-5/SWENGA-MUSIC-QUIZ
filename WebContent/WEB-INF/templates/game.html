@@ -97,8 +97,11 @@
 						th:text="${answer}" name="result" th:value="${answer}"
 						class="btn bg-black margin" onclick="myStopFunction()"
 						style="height: 50px; width: 200px"></button>
-			</div>
 			</form>
+			
+			<div th:name="correctanswers" th:value="${correctanswers}"></div>
+			</div>
+			
 		</div>
 	</div>
 
