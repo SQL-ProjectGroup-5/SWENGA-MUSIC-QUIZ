@@ -162,6 +162,8 @@ public class SongController {
 			song.setAnswer2(changedSong.getAnswer2());
 			song.setAnswer3(changedSong.getAnswer3());
 			song.setGenre(changedSong.getGenre());
+			song.setStartTime(changedSong.getStartTime());
+			song.setTimeToAnswer(changedSong.getTimeToAnswer());
 			model.addAttribute("message", "Changed song " + changedSong.getId());
 			songRepository.save(song);
 		}
