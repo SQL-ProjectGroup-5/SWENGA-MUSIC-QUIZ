@@ -41,13 +41,13 @@ public class SongModel implements java.io.Serializable {
 	@ManyToMany(mappedBy = "songs")
 	private Collection<QuizModel> quizzes;
 
-	@OneToMany(mappedBy = "song", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "song", fetch = FetchType.LAZY)
 	private Collection<ResultModel> results;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
 	
-	@OneToMany(mappedBy = "song", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "song", fetch = FetchType.LAZY)
 	private Collection<Comment> comments;
 
 	public SongModel(String interpret, Calendar publishDate, String title) {

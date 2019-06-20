@@ -25,7 +25,7 @@ public interface SongRepository extends JpaRepository<SongModel, Integer> {
 	@Query("SELECT s FROM SongModel s LEFT JOIN FETCH s.results sr")
 	List<SongModel> findAllWithResults();
 	
-	@Query("SELECT s FROM SongModel s LEFT JOIN FETCH s.results WHERE s.id =:id")
+	@Query("SELECT s FROM SongModel s LEFT JOIN FETCH s.results WHERE s.user.id =:id")
 	List<SongModel> findByUserIdWithResults(@Param("id") int userId);
 
 }
