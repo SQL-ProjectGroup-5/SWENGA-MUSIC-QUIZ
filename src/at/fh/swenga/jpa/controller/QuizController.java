@@ -1,6 +1,7 @@
 package at.fh.swenga.jpa.controller;
 
 import java.io.OutputStream;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -28,10 +29,13 @@ import at.fh.swenga.jpa.dao.DocumentRepository;
 import at.fh.swenga.jpa.dao.QuizRepository;
 import at.fh.swenga.jpa.dao.ResultRepository;
 import at.fh.swenga.jpa.dao.SongRepository;
+import at.fh.swenga.jpa.dao.UserDao;
+import at.fh.swenga.jpa.dao.UserRoleDao;
 import at.fh.swenga.jpa.helper.ZXingHelper;
 import at.fh.swenga.jpa.model.QuizModel;
 import at.fh.swenga.jpa.model.ResultModel;
 import at.fh.swenga.jpa.model.SongModel;
+import at.fh.swenga.jpa.model.User;
 
 @Controller
 public class QuizController {
@@ -43,6 +47,11 @@ public class QuizController {
 	DocumentRepository documentRepository;
 	@Autowired
 	ResultRepository resultRepository;
+	@Autowired
+	UserDao userRepository;
+	@Autowired
+	UserRoleDao userRoleRepository;
+
 
 	@RequestMapping(value = { "/quizzes", "listquizzes" })
 	public String index(Model model) {
@@ -209,8 +218,18 @@ public class QuizController {
 
 	@RequestMapping("/quizAdmin")
 	@Transactional
-	public String showQuizAdmin(Model model) {
-		List<SongModel> songs = songRepository.findAll();
+	public String showQuizAdmin(Model model,Principal principal) {
+		
+		User user = userRepository.findByUsername(principal.getName()).get(0);
+		List<SongModel> songs = new ArrayList<SongModel>();
+		
+		if (user.getUserRoles().contains(userRoleRepository.getRole("ROLE_ADMIN"))) 
+		{
+			songs = songRepository.findWhereDocIdNotNull();
+		} else 
+		{
+			songs = songRepository.findWhereDocIdNotNullAndUserRole(user.getId());
+		}
 		model.addAttribute("songs", songs);
 		return "quiz";
 	}
@@ -220,7 +239,6 @@ public class QuizController {
 	public String showQuizzes(Model model) {
 		List<QuizModel> quizzes = quizRepository.findAll();
 		model.addAttribute("quizzes", quizzes);
-		
 		return "quizManagement";
 	}
 
