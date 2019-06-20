@@ -68,15 +68,18 @@ public class SongController {
 		DataFactory df = new DataFactory();
 		Calendar publishDate = Calendar.getInstance();
 
-		String songs[] = { "Like a Rolling Stone", "Imagine", "I Can’t Get No) Satisfaction", "What’s Going On",
-				"Respect", "Good Vibrations", "Johnny B. Goode", "Hey Jude", "Smells Like Teen Spirit", "What’d I Say",
+		String songs[] = { "Like a Rolling Stone", "Imagine", "I Cant Get No Satisfaction", "What’s Going On",
+				"Respect", "Good Vibrations", "Johnny B. Goode", "Hey Jude", "Smells Like Teen Spirit", "Whatd I Say",
 				"My Generation" };
+		
+		String genre[] = {"Blues","Folk","Brutal Metal","Heavy Metal","Soft Metal","Love","Rock","Pop","Classic"};
 
 		publishDate.setTime(df.getDateBetween(df.getDate(2000, 1, 1), df.getDate(2019, 1, 1)));
 		SongModel songModel = new SongModel("TheBestCoderEver", publishDate, "A song Vol 27");
 		songModel.setAnswer1(songs[df.getNumberBetween(0, songs.length)]);
 		songModel.setAnswer2(songs[df.getNumberBetween(0, songs.length)]);
 		songModel.setAnswer3(songs[df.getNumberBetween(0, songs.length)]);
+		songModel.setGenre(genre[df.getNumberBetween(0, genre.length)]);
 		User user = userRepository.findByUsername(principal.getName()).get(0);
 		songModel.setUser(user);
 		songRepository.save(songModel);
@@ -99,6 +102,7 @@ public class SongController {
 			songModel.setAnswer1(answer1);
 			songModel.setAnswer2(answer2);
 			songModel.setAnswer3(answer3);
+			songModel.setAnswer3(genre);
 			User user = userRepository.findByUsername(principal.getName()).get(0);
 			songModel.setUser(user);
 			model.addAttribute("message", "Added song: " + songModel.getTitle());
@@ -146,6 +150,7 @@ public class SongController {
 			song.setAnswer1(changedSong.getAnswer1());
 			song.setAnswer2(changedSong.getAnswer2());
 			song.setAnswer3(changedSong.getAnswer3());
+			song.setGenre(changedSong.getGenre());
 			model.addAttribute("message", "Changed song " + changedSong.getId());
 			songRepository.save(song);
 		}
