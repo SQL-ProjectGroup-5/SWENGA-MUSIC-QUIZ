@@ -3,6 +3,7 @@ package at.fh.swenga.jpa.controller;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -83,6 +84,59 @@ public class QuizController {
 		quizRepository.deleteById(quizId);
 		model.addAttribute("message", String.format("Deleted Quiz with ID: %d", quizId));
 		return "forward:quizManagement";
+	}
+	
+	@RequestMapping("/addsongtoquiz")
+	@Transactional
+	public String addsong(Model model, @RequestParam int quizId,@RequestParam(name ="songId", required = false) List<Integer> songIds) {
+		
+		if (CollectionUtils.isEmpty(songIds)) {
+			model.addAttribute("errorMessage", "No songs selected!");
+			return "forward:editQuiz";
+		}
+		QuizModel quiz = quizRepository.findById(quizId).get();
+		
+		Collection<SongModel> ss = quiz.getSongs();
+		
+		//check if a added song is already in the Collection
+		for(SongModel s:ss)
+		{
+			for(int h:songIds)
+			{
+				if(s.getId()==h)
+				{
+					model.addAttribute("errorMessage", "Song is already in the quiz");
+					return "forward:editQuiz";
+				}
+			}
+			
+		}
+		
+		quiz.getSongs().addAll(songRepository.findAllById(songIds));
+		quizRepository.save(quiz);
+		model.addAttribute("message", String.format("Added %d Songs to the Quiz %s:", songIds.size(), quiz.getTitle()));
+		
+		return "forward:editQuiz";
+	}
+	
+	@RequestMapping("/removesongfromquiz")
+	@Transactional
+	public String deletesongfromquiz(Model model, @RequestParam int songId,@RequestParam int quizId) {
+		try
+		{
+			List<SongModel> songs = songRepository.findByQuizzesId(quizId);
+			QuizModel quiz = quizRepository.findById(quizId).get();
+			SongModel song = songRepository.findById(songId).get();
+			songs.remove(song);
+			quiz.setSongs(songs);
+			quizRepository.save(quiz);
+			model.addAttribute("message", String.format("Removed song with ID %d from the Quiz:", songId));
+		}
+		finally{
+			model.addAttribute("errormessage", "unexpected error occured");
+		}
+		
+		return "forward:editQuiz";
 	}
 
 	@RequestMapping(value = "/savequiz", method = RequestMethod.POST)
@@ -166,7 +220,12 @@ public class QuizController {
 	@Transactional
 	public String editQuiz(@RequestParam int quizId,Model model) {
 		List<SongModel> songs = songRepository.findByQuizzesId(quizId);
+		List<SongModel> allsongs = songRepository.findAll();
+		QuizModel quiz = quizRepository.findById(quizId).get();
+		model.addAttribute("title",quiz.getTitle());
 		model.addAttribute("songs", songs);
+		model.addAttribute("allsongs", allsongs);
+		model.addAttribute("quizId", quizId);
 		return "editQuiz";
 	}
 
