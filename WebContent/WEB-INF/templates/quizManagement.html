@@ -80,9 +80,8 @@
 									class="btn btn-xs btn-info"> <span
 										class="fa fa-fw fa-qrcode" aria-hidden="true"></span> Generate
 										QR Code
-								</a> </td>
-								<td><a
-									th:href="@{/editQuiz(quizId=${quiz.id})}"
+								</a></td>
+								<td><a th:href="@{/editQuiz(quizId=${quiz.id})}"
 									class="btn btn-xs btn-success"> <span
 										class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 										Edit
@@ -99,32 +98,21 @@
 			</div>
 			<!-- /.col -->
 		</div>
+		<footer class="main-footer">
+			<strong>Guess the Song &copy; 2019</strong> All rights reserved.
+		</footer>
+		<aside class="control-sidebar control-sidebar-dark"
+			style="display: none;">
+			<!-- Create the tabs -->
+			<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+				<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i
+						class="fa fa-home"></i></a></li>
+				<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
+						class="fa fa-gears"></i></a></li>
+			</ul>
+
+		</aside>
 	</div>
-	<!-- /.box -->
-
-
-
-	<!-- /.row -->
-	<!-- /.content -->
-	<!-- /.content-wrapper -->
-
-	<footer class="main-footer">
-		<strong>Guess the Song &copy; 2019</strong> All rights reserved.
-	</footer>
-
-	<!-- Control Sidebar -->
-	<aside class="control-sidebar control-sidebar-dark"
-		style="display: none;">
-		<!-- Create the tabs -->
-		<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-			<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i
-					class="fa fa-home"></i></a></li>
-			<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
-					class="fa fa-gears"></i></a></li>
-		</ul>
-
-	</aside>
-
 
 
 	<!-- /.control-sidebar -->

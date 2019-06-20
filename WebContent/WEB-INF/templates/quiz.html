@@ -9,9 +9,6 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <title>Create Quiz</title>
 <div th:replace="~{includes/adminLTE :: AdminLTECSS}" />
-
-
-
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -95,49 +92,41 @@
 										<td th:text="${song.answer2}"></td>
 										<td th:text="${song.answer3}"></td>
 										<td th:text="${song.genre}"></td>
-								</tr>
+									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
-						<!-- /.box-body -->
-						<div class="box-body pad table-responsive">
-							<a href="savequiz">
-								<button type="submit" class="btn btn-block btn-primary">Create Quiz</button>
-							</a>
-							<!-- /.col -->
-						</div>
+					<!-- /.box-body -->
+					<div class="box-body pad table-responsive">
+						<a href="savequiz">
+							<button type="submit" class="btn btn-block btn-primary">Create
+								Quiz</button>
+						</a>
+						<!-- /.col -->
+					</div>
 				</form>
 
 			</div>
-			<!-- /.col -->
 		</div>
+
+		<footer class="main-footer">
+			<strong>Guess the Song &copy; 2019</strong> All rights reserved.
+		</footer>
+
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark"
+			style="display: none;">
+			<!-- Create the tabs -->
+			<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+				<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i
+						class="fa fa-home"></i></a></li>
+				<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
+						class="fa fa-gears"></i></a></li>
+			</ul>
+
+		</aside>
 	</div>
-	<!-- /.box -->
-	</div>
-	<!-- /.row -->
-	</section>
-	<!-- /.content -->
-	</div>
-	<!-- /.content-wrapper -->
-
-	<footer class="main-footer">
-		<strong>Guess the Song &copy; 2019</strong> All rights reserved.
-	</footer>
-
-	<!-- Control Sidebar -->
-	<aside class="control-sidebar control-sidebar-dark"
-		style="display: none;">
-		<!-- Create the tabs -->
-		<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-			<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i
-					class="fa fa-home"></i></a></li>
-			<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
-					class="fa fa-gears"></i></a></li>
-		</ul>
-
-	</aside>
-
 
 
 	<!-- /.control-sidebar -->

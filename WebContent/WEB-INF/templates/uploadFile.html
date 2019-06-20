@@ -28,31 +28,31 @@
 		<nav th:replace="~{includes/navBar :: sidebar}"></nav>
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
-			<div class="form-group" style="margin-left: 20px">
-				<form class="form-horizontal" enctype="multipart/form-data"
-					method="post" action="upload">
+	
+				<div class="form-group" style="margin-left: 20px">
+					<form class="form-horizontal" enctype="multipart/form-data"
+						method="post" action="upload">
+						<div class="contet-header">
+							<legend th:text="'Upload Document for song ' + ${songId}"></legend>
+						</div>
+						<input type="hidden" name="id" th:value="${songId}"> <label
+							for="inputFile">File:</label> <input id="inputFile" type="file"
+							name="myFile">
 
-					<div class="box-header">
-						<legend th:text="'Upload Document for song ' + ${songId}"></legend>
-					</div>
-					<input type="hidden" name="id" th:value="${songId}"> <label
-						for="inputFile">File:</label> <input id="inputFile" type="file"
-						name="myFile">
-
-					<div class="col-md-20 col-md-offset-2">
-						<button type="submit" class="btn btn-primary">Upload</button>
-						<a href="list">
-							<button type="button" class="btn btn-default">Cancel</button>
-						</a>
-					</div>
-				</form>
-			</div>
-			<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
+						<div class="col-md-20 col-md-offset-2">
+							<button type="submit" class="btn btn-primary">Upload</button>
+							<a href="list">
+								<button type="button" class="btn btn-default">Cancel</button>
+							</a>
+						</div>
+					</form>
+				</div>
+		
+			
 		</div>
 		<footer class="main-footer">
 			<strong>Guess the Song &copy; 2019</strong> All rights reserved.
 		</footer>
-		<!-- Control Sidebar -->
 		<aside class="control-sidebar control-sidebar-dark"
 			style="display: none;">
 			<!-- Create the tabs -->
@@ -65,6 +65,7 @@
 		</aside>
 		<div class="control-sidebar-bg"></div>
 	</div>
+	<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
 	<div th:replace="~{includes/adminLTE :: AdminLTEJS}" />
 </body>
 </html>

@@ -12,83 +12,53 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
-  <div class="wrapper">
+	<div class="wrapper">
+		<header class="main-header">
+			<!-- Logo -->
+			<a href="." class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
+				<span class="logo-mini"><b>GtS</b></span> <!-- logo for regular state and mobile devices -->
+				<span class="logo-lg"><b>Guess</b> the Song</span>
+			</a>
+			<!-- Header Navbar: style can be found in header.less -->
+			<nav class="navbar navbar-static-top">
+				<!-- Sidebar toggle button-->
+				<a href="#" class="sidebar-toggle" data-toggle="push-menu"
+					role="button"> <span class="sr-only">Toggle navigation</span>
+				</a>
+			</nav>
+		</header>
+		<!-- Left side column. contains the logo and sidebar -->
+		<nav th:replace="~{includes/navBar :: sidebar(dashboard='a')}"></nav>
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<h1>Dashboard</h1>
+			</section>
 
-    <header class="main-header">
-      <!-- Logo -->
-      <a href="." class="logo">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>GtS</b></span>
-        <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Guess</b> the Song</span>
-      </a>
-      <!-- Header Navbar: style can be found in header.less -->
-      <nav class="navbar navbar-static-top">
-        <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-          <span class="sr-only">Toggle navigation</span>
-        </a>
-      </nav>
-    </header>
-    <!-- Left side column. contains the logo and sidebar -->
-    <nav th:replace="~{includes/navBar :: sidebar(dashboard='a')}"></nav>
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <section class="content-header">
-        <h1>
-          Dashboard
-        </h1>
-      </section>
+			<!-- Main content -->
+			<section class="content">
+				<div class="row">
+						<ul class="nav nav-tabs pull-right">
+							<li class="pull-left header"><i class="fa fa-inbox"></i>
+								Game Statistic</li>
+						</ul>
+						<div class="box">
+							<!-- /.box-header -->
+							<div class="box-body">
+								<table class="table table-bordered">
 
-      <!-- Main content -->
-      <section class="content">
-        <!-- Small boxes (Stat box) -->
-
-        <!-- /.row -->
-        <!-- Main row -->
-        <div class="row">
-          <!-- Left col -->
-          <section class="col-lg-7 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
-            <div class="nav-tabs-custom">
-              <!-- Tabs within a box -->
-              <ul class="nav nav-tabs pull-right">
-                <li class="pull-left header"><i class="fa fa-inbox"></i> Game Statistic</li>
-              </ul>
-              
-              
-              
-  <!--  CONTENT -->            
-              
-              
-              <div class="box">
-			
-		
-		<!-- /.box-header -->
-		<div class="box-body">
-
-				<table class="table table-bordered">
-					
-				
-					<tr th:each="counts : ${quizcount}">
-						<td>Number of Quizzes:</td>
-						<td th:text="${counts}"></td>
-					</tr>
-					<tr th:each="counts : ${songcount}">
-						<td>Number of Songs:</td>
-						<td th:text="${counts}"></td>
-					</tr>
-					</table>
-			</div>
-			<!-- /.box-body -->
-		
-
-
-
-
-
-
+									<tr th:each="counts : ${quizcount}">
+										<td>Number of Quizzes:</td>
+										<td th:text="${counts}"></td>
+									</tr>
+									<tr th:each="counts : ${songcount}">
+										<td>Number of Songs:</td>
+										<td th:text="${counts}"></td>
+									</tr>
+								</table>
+							</div>
+							<!-- /.box-body -->
 							<div class="tab-content no-padding">
 								<!-- Morris chart - Sales -->
 								<div class="chart tab-pane active" id="revenue-chart"
@@ -98,43 +68,24 @@
 							</div>
 						</div>
 						<!-- /.nav-tabs-custom -->
-
-					</section>
-
 				</div>
-
-
-				<!-- /.Left col -->
-				<!-- right col (We are only adding the ID to make the widgets sortable)-->
-
-				<!-- right col -->
+			</section>
 		</div>
-		<!-- /.row (main row) -->
 
-		</section>
-		<!-- /.content -->
-	</div>
-	<!-- /.content-wrapper -->
-	<footer class="main-footer">
-		<strong>Guess the Song &copy; 2019</strong> All rights reserved.
-	</footer>
-	<aside class="control-sidebar control-sidebar-dark"
-		style="display: none;">
-		<!-- Create the tabs -->
-		<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-			<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i
-					class="fa fa-home"></i></a></li>
-			<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
-					class="fa fa-gears"></i></a></li>
-		</ul>
-
-	</aside>
-	<!-- Control Sidebar -->
-
-	<!-- /.control-sidebar -->
-	<!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-	<div class="control-sidebar-bg"></div>
+		<footer class="main-footer">
+			<strong>Guess the Song &copy; 2019</strong> All rights reserved.
+		</footer>
+		<aside class="control-sidebar control-sidebar-dark"
+			style="display: none;">
+			<!-- Create the tabs -->
+			<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+				<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i
+						class="fa fa-home"></i></a></li>
+				<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
+						class="fa fa-gears"></i></a></li>
+			</ul>
+		</aside>
+		<div class="control-sidebar-bg"></div>
 	</div>
 	<!-- ./wrapper -->
 	<div th:replace="~{includes/adminLTE :: AdminLTEJS}" />
