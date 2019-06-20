@@ -54,9 +54,9 @@ public class SongController {
 		User user = userRepository.findByUsername(principal.getName()).get(0);
 		List<SongModel> songs = new ArrayList<SongModel>();
 		if (user.getUserRoles().contains(userRoleRepository.getRole("ROLE_ADMIN"))) {
-			songs = songRepository.findAll();
+			songs = songRepository.findAllWithResults();
 		} else {
-			songs = songRepository.findByUserId(user.getId());
+			songs = songRepository.findByUserIdWithResults(user.getId());
 		}
 		model.addAttribute("songs", songs);
 		return "songs";
@@ -88,6 +88,8 @@ public class SongController {
 		songModel.setAnswer2(wrongAnswers[df.getNumberBetween(0, wrongAnswers.length)]);
 		songModel.setAnswer3(wrongAnswers[df.getNumberBetween(0, wrongAnswers.length)]);
 		songModel.setGenre(genre[df.getNumberBetween(0, genre.length)]);
+		songModel.setStartTime(2);
+		songModel.setTimeToAnswer(35);
 		User user = userRepository.findByUsername(principal.getName()).get(0);
 		songModel.setUser(user);
 		songRepository.save(songModel);

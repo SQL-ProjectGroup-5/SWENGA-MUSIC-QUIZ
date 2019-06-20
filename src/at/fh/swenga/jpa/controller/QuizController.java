@@ -11,7 +11,6 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,12 +50,14 @@ public class QuizController {
 		model.addAttribute("quizzes", quizzes);
 		return "indexQuiz";
 	}
-	
+
 	@RequestMapping("/statistics")
-	public String handleStatistics(@RequestParam(value = "gid") int gid, @RequestParam(value = "nickname") String nickname,
-			@RequestParam(value = "qid", required = false) int qid, Model model) {
+	public String handleStatistics(@RequestParam(value = "gid") int gid,
+			@RequestParam(value = "nickname") String nickname, @RequestParam(value = "qid", required = false) int qid,
+			Model model) {
 		model.addAttribute("gameIndex", gid);
-		List<ResultModel> results = resultRepository.findBySessionIDAndQuizId(RequestContextHolder.currentRequestAttributes().getSessionId() ,gid);
+		List<ResultModel> results = resultRepository
+				.findBySessionIDAndQuizId(RequestContextHolder.currentRequestAttributes().getSessionId(), gid);
 		model.addAttribute("results", results);
 		return "gameStatistics";
 	}
@@ -66,19 +67,17 @@ public class QuizController {
 		model.addAttribute("preDef", qid);
 		return "login";
 	}
-/*
-	@RequestMapping("/fillquizzes")
-	@Transactional
-	public String fillData(Model model) {
-		DataFactory df = new DataFactory();
-		Calendar publishDate = Calendar.getInstance();
-		publishDate.setTime(df.getDateBetween(df.getDate(2000, 1, 1), df.getDate(2019, 1, 1)));
-		QuizModel quizModel = new QuizModel("Test", 1, publishDate);
-		quizModel.setSongs(songRepository.findAll());
-		quizRepository.save(quizModel);
-		return "forward:listquizzes";
-	}
-*/	
+
+	/*
+	 * @RequestMapping("/fillquizzes")
+	 * 
+	 * @Transactional public String fillData(Model model) { DataFactory df = new
+	 * DataFactory(); Calendar publishDate = Calendar.getInstance();
+	 * publishDate.setTime(df.getDateBetween(df.getDate(2000, 1, 1),
+	 * df.getDate(2019, 1, 1))); QuizModel quizModel = new QuizModel("Test", 1,
+	 * publishDate); quizModel.setSongs(songRepository.findAll());
+	 * quizRepository.save(quizModel); return "forward:listquizzes"; }
+	 */
 	@RequestMapping("/deletequiz")
 	@Transactional
 	public String deleteQuiz(Model model, @RequestParam int quizId) {
@@ -86,68 +85,66 @@ public class QuizController {
 		model.addAttribute("message", String.format("Deleted Quiz with ID: %d", quizId));
 		return "forward:quizManagement";
 	}
-	
+
 	@RequestMapping("/addsongtoquiz")
 	@Transactional
-	public String addsong(Model model, @RequestParam int quizId,@RequestParam(name ="songId", required = false) List<Integer> songIds) {
-		
+	public String addsong(Model model, @RequestParam int quizId,
+			@RequestParam(name = "songId", required = false) List<Integer> songIds) {
+
 		if (CollectionUtils.isEmpty(songIds)) {
 			model.addAttribute("errorMessage", "No songs selected!");
 			return "forward:editQuiz";
 		}
 		QuizModel quiz = quizRepository.findById(quizId).get();
-		
+
 		Collection<SongModel> ss = quiz.getSongs();
-		
-		//check if a added song is already in the Collection
-		for(SongModel s:ss)
-		{
-			for(int h:songIds)
-			{
-				if(s.getId()==h)
-				{
+
+		// check if a added song is already in the Collection
+		for (SongModel s : ss) {
+			for (int h : songIds) {
+				if (s.getId() == h) {
 					model.addAttribute("errorMessage", "Song is already in the quiz");
 					return "forward:editQuiz";
 				}
 			}
-			
+
 		}
-		
+
 		quiz.getSongs().addAll(songRepository.findAllById(songIds));
 		quizRepository.save(quiz);
 		model.addAttribute("message", String.format("Added %d Songs to the Quiz %s:", songIds.size(), quiz.getTitle()));
-		
+
 		return "forward:editQuiz";
 	}
-	
+
 	@RequestMapping("/removesongfromquiz")
 	@Transactional
-	public String deletesongfromquiz(Model model, @RequestParam int songId,@RequestParam int quizId) {
-		
-			List<SongModel> songs = songRepository.findByQuizzesId(quizId);
-			QuizModel quiz = quizRepository.findById(quizId).get();
-			SongModel song = songRepository.findById(songId).get();
-			songs.remove(song);
-			quiz.setSongs(songs);
-			quizRepository.save(quiz);
-			model.addAttribute("message", String.format("Removed song with ID %d from the Quiz:", songId));
+	public String deletesongfromquiz(Model model, @RequestParam int songId, @RequestParam int quizId) {
+
+		List<SongModel> songs = songRepository.findByQuizzesId(quizId);
+		QuizModel quiz = quizRepository.findById(quizId).get();
+		SongModel song = songRepository.findById(songId).get();
+		songs.remove(song);
+		quiz.setSongs(songs);
+		quizRepository.save(quiz);
+		model.addAttribute("message", String.format("Removed song with ID %d from the Quiz:", songId));
 		return "forward:editQuiz";
 	}
 
 	@RequestMapping(value = "/savequiz", method = RequestMethod.POST)
 	@Transactional
-	public String saveData(@RequestParam String quizname, 
-						   @RequestParam(name ="songId", required = false) List<Integer> songIds, Model model) {
+	public String saveData(@RequestParam String quizname,
+			@RequestParam(name = "songId", required = false) List<Integer> songIds, Model model) {
 		DataFactory df = new DataFactory();
 		Calendar publishDate = Calendar.getInstance();
 		publishDate.setTime(new Date());
 		QuizModel quizModel = new QuizModel(quizname, 1, publishDate);
-		
+
 		if (CollectionUtils.isEmpty(songIds)) {
 			model.addAttribute("errorMessage", "No songs selected!");
 			return "forward:quizAdmin";
 		}
-		if (quizname==null || quizname.isEmpty()) {
+		if (quizname == null || quizname.isEmpty()) {
 			model.addAttribute("warningMessage", "Please name the quiz");
 			return "forward:quizAdmin";
 		}
@@ -158,13 +155,23 @@ public class QuizController {
 	}
 
 	@RequestMapping(value = "/play")
-	public String handlePlay(@RequestParam(value = "gid") int gid, @RequestParam(value = "nickname") String nickname,
-			@RequestParam(value = "qid", required = false) int qid, Model model) {
+	public String handlePlay(@RequestParam(value = "gid") String gids,
+			@RequestParam(value = "nickname") String nickname, @RequestParam(value = "qid", required = false) int qid,
+			Model model) {
+		
+		int gid;
+		try {
+			gid = Integer.parseInt(gids);
+		} catch (NumberFormatException e) {
+			model.addAttribute("errorMessage", "Only numbers allowed!");
+			return "login";
+		}
+		
 		model.addAttribute("gameIndex", gid);
 		Optional<QuizModel> quizOpt = quizRepository.findById(gid);
-			
-		if (!quizOpt.isPresent()) {
-			model.addAttribute("errorMessage", "Wrong ID");
+
+		if (!quizOpt.isPresent() || nickname.isEmpty()) {
+			model.addAttribute("errorMessage", "Game not found or empty nickname");
 			return "login";
 		} else {
 			QuizModel quiz = quizOpt.get();
@@ -172,11 +179,11 @@ public class QuizController {
 			if (qid < currSongs.size()) {
 				SongModel currQuestion = currSongs.get(qid);
 				model.addAttribute("currDocument", currQuestion.getDocument().getId());
-				model.addAttribute("questionIndex", qid+1);
+				model.addAttribute("questionIndex", qid + 1);
 				model.addAttribute("nickname", nickname);
 				model.addAttribute("startTime", System.nanoTime());
-				model.addAttribute("playbackStart",currQuestion.getStartTime());
-				model.addAttribute("timer",currQuestion.getTimeToAnswer());
+				model.addAttribute("playbackStart", currQuestion.getStartTime());
+				model.addAttribute("timer", currQuestion.getTimeToAnswer());
 				List<String> possibleAnswers = new ArrayList<String>();
 				possibleAnswers.add(currQuestion.getAnswer1());
 				possibleAnswers.add(currQuestion.getAnswer2());
@@ -213,13 +220,14 @@ public class QuizController {
 		model.addAttribute("quizzes", quizzes);
 		return "quizManagement";
 	}
+
 	@RequestMapping("/editQuiz")
 	@Transactional
-	public String editQuiz(@RequestParam int quizId,Model model) {
+	public String editQuiz(@RequestParam int quizId, Model model) {
 		List<SongModel> songs = songRepository.findByQuizzesId(quizId);
 		List<SongModel> allsongs = songRepository.findAll();
 		QuizModel quiz = quizRepository.findById(quizId).get();
-		model.addAttribute("title",quiz.getTitle());
+		model.addAttribute("title", quiz.getTitle());
 		model.addAttribute("songs", songs);
 		model.addAttribute("allsongs", allsongs);
 		model.addAttribute("quizId", quizId);
