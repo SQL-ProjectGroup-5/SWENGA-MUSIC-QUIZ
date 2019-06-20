@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -78,7 +77,6 @@ public class QuizController {
 		return "forward:listquizzes";
 	}
 */	
-	@Secured("ROLE_ADMIN")
 	@RequestMapping("/deletequiz")
 	@Transactional
 	public String deleteQuiz(Model model, @RequestParam int quizId) {
@@ -163,6 +161,13 @@ public class QuizController {
 		List<QuizModel> quizzes = quizRepository.findAll();
 		model.addAttribute("quizzes", quizzes);
 		return "quizManagement";
+	}
+	@RequestMapping("/editQuiz")
+	@Transactional
+	public String editQuiz(@RequestParam int quizId,Model model) {
+		List<SongModel> songs = songRepository.findByQuizzesId(quizId);
+		model.addAttribute("songs", songs);
+		return "editQuiz";
 	}
 
 	@RequestMapping(value = "qrcode/{id}", method = RequestMethod.GET)

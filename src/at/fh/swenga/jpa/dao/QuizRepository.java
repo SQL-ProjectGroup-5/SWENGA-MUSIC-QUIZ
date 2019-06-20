@@ -12,4 +12,5 @@ import at.fh.swenga.jpa.model.QuizModel;
 @Transactional
 public interface QuizRepository extends JpaRepository<QuizModel, Integer> {
 	QuizModel findTopById(int id);
+	
 }

@@ -7,8 +7,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<title>Quiz Management</title>
+<title>Create Quiz</title>
 <div th:replace="~{includes/adminLTE :: AdminLTECSS}" />
+
+
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -27,12 +29,13 @@
 				</a>
 			</nav>
 		</header>
-		<nav th:replace="~{includes/navBar :: sidebar(quizManagement='a')}"></nav>
+		<nav th:replace="~{includes/navBar :: sidebar(createQuiz='a')}"></nav>
 		<div class="content-wrapper">
-			<div class="box">
-				<div class="box-header">
-					<h3 class="box-title">Table of Quizzes</h3>
+			<div class="box box-info">
+				<div class="box-header with-border">
+					<h3 class="box-title">Enter a new Quiz</h3>
 				</div>
+
 				<!--  Error message ----------------------------------------------------------- -->
 				<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
 					class="alert alert-danger" role="alert"></div>
@@ -45,67 +48,88 @@
 				<!--  Warning message ----------------------------------------------------------- -->
 
 				<!--   message ----------------------------------------------------------- -->
+
 				<div th:unless="${message} == null" th:utext="${message}"
 					class="alert alert-success" role="warning"></div>
+				<!--   message ----------------------------------------------------------- -->
 
-
-				<!-- /.box-header -->
-				<div class="box-body">
-
-					<table id="example1" class="table table-bordered table-striped">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Title</th>
-								<th>Difficulty</th>
-								<th>Creation Date</th>
-								<th>Number of Questions</th>
-								<th>Game</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-
-							<tr th:each="quiz : ${quizzes}">
-								<td th:text="${quiz.id}"></td>
-								<td th:text="${quiz.title}"></td>
-								<td th:text="${quiz.difficulty}"></td>
-								<td
-									th:text="${#calendars.format(quiz.creationDate,'dd.MM.yyyy')}"></td>
-								<td th:text="${quiz.getSongs().size()}"></td>
-								<td><a th:href="@{/(qid=${quiz.id})}"
-									class="btn btn-xs btn-primary"> <span
-										class="fa fa-fw fa-play" aria-hidden="true"></span> Play Quiz
-								</a> <a th:href="@{${'qrcode/' + quiz.id}}"
-									class="btn btn-xs btn-info"> <span
-										class="fa fa-fw fa-qrcode" aria-hidden="true"></span> Generate
-										QR Code
-								</a> </td>
-								<td><a
-									th:href="@{/editQuiz(quizId=${quiz.id})}"
-									class="btn btn-xs btn-success"> <span
-										class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-										Edit
-								</a> <a th:href="@{/deletequiz(quizId=${quiz.id})}"
-									class="btn btn-xs btn-danger"> <span
-										class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-										Delete
-								</a></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+				<form class="form-horizontal" role="form" action="./savequiz"
+					method="post">
+					<div class="box-body">
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Name:</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="quizname"
+									placeholder="Enter a name">
+							</div>
+						</div>
+					</div>
+					<div class="box">
+						<div class="box-header">
+							<h3 class="box-title">Table of Questions</h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<table id="example1" class="table table-bordered table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Title</th>
+										<th>Interpret</th>
+										<th>Publish Date</th>
+										<th>Answer 1</th>
+										<th>Answer 2</th>
+										<th>Answer 3</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="song : ${songs}">
+										<td th:text="${song.id}"></td>
+										<td th:text="${song.title}"></td>
+										<td th:text="${song.interpret}"></td>
+										<td
+											th:text="${#calendars.format(song.publishDate,'dd.MM.yyyy')}"></td>
+										<td th:text="${song.answer1}"></td>
+										<td th:text="${song.answer2}"></td>
+										<td th:text="${song.answer3}"></td>
+										<td><a th:href="@{/deletesong(songId=${song.id})}"
+											class="btn btn-xs btn-danger"> <span
+												class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+												Delete
+										</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!-- /.box-body -->
+					<div class="box-body pad table-responsive">
+						<a href="savequiz">
+							<button type="submit" class="btn btn-block btn-primary">Save
+								Quiz</button>
+						</a>
+						<!-- /.col -->
+					</div>
+					<div class="box-body pad table-responsive">
+						<a href="quizManagement">
+							<button type="submit" class="btn btn-xs btn-danger">Cancel
+								Quiz</button>
+						</a>
+						<!-- /.col -->
+					</div>
+				</form>
 
 			</div>
 			<!-- /.col -->
 		</div>
 	</div>
 	<!-- /.box -->
-
-
-
+	</div>
 	<!-- /.row -->
+	</section>
 	<!-- /.content -->
+	</div>
 	<!-- /.content-wrapper -->
 
 	<footer class="main-footer">
