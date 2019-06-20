@@ -52,9 +52,9 @@
 				<!-- Left col -->
 				<section class="col-lg-7 connectedSortable">
 					<div class="register-box-body">
-					<div class="box-header">
-					<h3 class="box-title">Create User:</h3>
-				</div>
+						<div class="box-header">
+							<h3 class="box-title">Create User:</h3>
+						</div>
 						<form action="./adduser" method="post">
 							<div class="form-group has-feedback">
 								<input type="text" class="form-control" placeholder="Username"
@@ -88,45 +88,60 @@
 			</div>
 			<div class="row">
 				<section class="col-lg-7 connectedSortable">
-				<div class="register-box-body">
-				<div class="box-header">
-					<h3 class="box-title">Registered User:</h3>
-				</div>
-				<div class="box-body">
-					<table id="example1" class="table table-bordered table-striped">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Username</th>
-								<th></th>
+					<div class="register-box-body">
+						<div class="box-header">
+							<h3 class="box-title">Registered User:</h3>
+						</div>
+						<div class="box-body">
+							<table id="example1" class="table table-bordered table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Username</th>
+										<th></th>
 
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="user : ${users}">
-								<td th:text="${user.id}"></td>
-								<td th:text="${user.userName}"></td>
-								<td><a th:href="@{/deleteUser(id=${user.id})}"
-									class="btn btn-xs btn-danger"> <span
-										class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-										Delete
-								</a></a></td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="user : ${users}">
+										<td th:text="${user.id}"></td>
+										<td th:text="${user.userName}"></td>
+										<td><a th:href="@{/deleteUser(id=${user.id})}"
+											class="btn btn-xs btn-danger"> <span
+												class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+												Delete
+										</a></a></td>
 
 
-							</tr>
-						</tbody>
-						<tfoot>
+									</tr>
+								</tbody>
+								<tfoot>
 
-						</tfoot>
-					</table>
-				</div>
-				</div>
+								</tfoot>
+							</table>
+						</div>
+					</div>
 				</section>
 				<!-- /.box-body -->
 			</div>
 			<!-- /.box -->
 		</div>
-		<!-- /.col -->
+
+		<footer class="main-footer">
+			<strong>Guess the Song &copy; 2019</strong> All rights reserved.
+		</footer>
+
+		<aside class="control-sidebar control-sidebar-dark"
+			style="display: none;">
+			<!-- Create the tabs -->
+			<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+				<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i
+						class="fa fa-home"></i></a></li>
+				<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
+						class="fa fa-gears"></i></a></li>
+			</ul>
+		</aside>
+		<div class="control-sidebar-bg"></div>
 	</div>
 
 	<!-- jQuery 3 -->
@@ -164,34 +179,6 @@
 		})
 	</script>
 
-
-
-
-	<!-- /.Left col -->
-	<!-- right col (We are only adding the ID to make the widgets sortable)-->
-
-	<!-- /.content-wrapper -->
-	<footer class="main-footer">
-		<strong>Guess the Song &copy; 2019</strong> All rights reserved.
-	</footer>
-
-	<!-- Control Sidebar -->
-	<aside class="control-sidebar control-sidebar-dark"
-		style="display: none;">
-		<!-- Create the tabs -->
-		<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-			<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i
-					class="fa fa-home"></i></a></li>
-			<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
-					class="fa fa-gears"></i></a></li>
-		</ul>
-
-	</aside>
-	<!-- /.control-sidebar -->
-	<!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-	<div class="control-sidebar-bg"></div>
-	</div>
 	<!-- ./wrapper -->
 	<div th:replace="~{includes/adminLTE :: AdminLTEJS}" />
 </body>
