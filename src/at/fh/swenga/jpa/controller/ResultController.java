@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 
+import at.fh.swenga.jpa.dao.CommentRepository;
 import at.fh.swenga.jpa.dao.DocumentRepository;
 import at.fh.swenga.jpa.dao.QuizRepository;
 import at.fh.swenga.jpa.dao.ResultRepository;
@@ -36,6 +37,8 @@ public class ResultController {
 	UserDao userRepository;
 	@Autowired
 	DocumentRepository documentRepository;
+	@Autowired
+	CommentRepository commentRepository;
 
 	@RequestMapping(value = { "/results", "listresults" })
 	public String index(Model model) {
@@ -66,6 +69,15 @@ public class ResultController {
 		long correctcount = 0;
 		correctcount = resultRepository.countByCorrect(true);
 		model.addAttribute("correctcount", correctcount);
+		
+		long falsecount = 0;
+		falsecount = resultRepository.countByCorrect(false);
+		model.addAttribute("falsecount", falsecount);
+		
+		long commentcount = 0;
+		commentcount = commentRepository.count();
+		model.addAttribute("commentcount", commentcount);
+		
 		return "admin";
 	}
 

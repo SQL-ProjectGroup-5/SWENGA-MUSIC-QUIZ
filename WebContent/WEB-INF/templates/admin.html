@@ -67,7 +67,7 @@
               <p>Number of Songs</p>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="fa fa-gamepad"></i>
             </div>
           </div>
         </div>
@@ -81,7 +81,7 @@
 										<td th:text="${counts}"></td>
 									</tr></h3>
 
-              <p>Number of users</p>
+              <p>Number of Users</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
@@ -91,7 +91,7 @@
         <!-- ./col -->
         <div class="col-lg-10 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-red">
+          <div class="small-box bg-blue">
             <div class="inner">
               <h3><tr th:each="counts : ${uploadcount}">
 										<td th:text="${counts}"></td>
@@ -113,7 +113,7 @@
 										<td th:text="${counts}"></td>
 									</tr></h3>
 
-              <p>Correct guessed  Songs</p>
+              <p>Correct guessed Songs</p>
             </div>
             <div class="icon">
               <i class="fa fa-thumbs-o-up"></i>
@@ -121,7 +121,38 @@
            
           </div>
         </div>
-        
+         <div class="col-lg-10 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3><tr th:each="counts : ${falsecount}">
+										<td th:text="${counts}"></td>
+									</tr></h3>
+
+              <p>Wrong guessed Songs</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-thumbs-down"></i>
+            </div>
+           
+          </div>
+        </div>
+        <div class="col-lg-10 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3><tr th:each="counts : ${commentcount}">
+										<td th:text="${counts}"></td>
+									</tr></h3>
+
+              <p>Added Comments</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-comments-o"></i>
+            </div>
+           
+          </div>
+        </div>
         
         <!-- ./col -->
       </div>
