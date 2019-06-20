@@ -62,6 +62,10 @@ public class ResultController {
 		long uploadcount = 0;
 		uploadcount = documentRepository.count();
 		model.addAttribute("uploadcount", uploadcount);
+		
+		long correctcount = 0;
+		correctcount = resultRepository.countByCorrect(true);
+		model.addAttribute("correctcount", correctcount);
 		return "admin";
 	}
 

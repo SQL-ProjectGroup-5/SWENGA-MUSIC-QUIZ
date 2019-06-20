@@ -38,34 +38,33 @@
 			<section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-10 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
               <h3><tr th:each="counts : ${quizcount}">
-										<td>Number of Quizzes:</td>
 										<td th:text="${counts}"></td>
 									</tr></h3>
 
-              <p>New Orders</p>
+              <p>Number of Quizzes</p>
             </div>
             <div class="icon">
-              <i class="ion ion-bag"></i>
+              <i class="fa fa-star-o"></i>
             </div>
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-10 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
               <h3><tr th:each="counts : ${songcount}">
-										<td>Number of Songs:</td>
+								
 										<td th:text="${counts}"></td>
 									</tr>
 									</h3>
 
-              <p>Bounce Rate</p>
+              <p>Number of Songs</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
@@ -73,16 +72,16 @@
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-10 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
               <h3><tr th:each="counts : ${usercount}">
-										<td>Number of users:</td>
+								
 										<td th:text="${counts}"></td>
 									</tr></h3>
 
-              <p>User Registrations</p>
+              <p>Number of users</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
@@ -90,23 +89,40 @@
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-10 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
               <h3><tr th:each="counts : ${uploadcount}">
-										<td>Uploaded Songs:</td>
 										<td th:text="${counts}"></td>
 									</tr></h3>
 
-              <p>Unique Visitors</p>
+              <p>Uploaded Songs</p>
             </div>
             <div class="icon">
-              <i class="ion ion-pie-graph"></i>
+              <i class="fa fa-files-o"></i>
             </div>
            
           </div>
         </div>
+         <div class="col-lg-10 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3><tr th:each="counts : ${correctcount}">
+										<td th:text="${counts}"></td>
+									</tr></h3>
+
+              <p>Correct guessed  Songs</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-thumbs-o-up"></i>
+            </div>
+           
+          </div>
+        </div>
+        
+        
         <!-- ./col -->
       </div>
 			<!-- Main content -->
