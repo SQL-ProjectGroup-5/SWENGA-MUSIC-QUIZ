@@ -65,7 +65,7 @@ public class ResultController {
 		model.addAttribute("gameIndex", gid);
 		model.addAttribute("questionIndex", qid);
 		model.addAttribute("nickname", nickname);
-		float difference = TimeUnit.MILLISECONDS.convert((System.nanoTime() - startTime), TimeUnit.NANOSECONDS);
+		float difference = TimeUnit.SECONDS.convert((System.nanoTime() - startTime), TimeUnit.NANOSECONDS);
 		if (answer.equals(currQuestion.getTitle())) {
 			model.addAttribute("message", "Supa war richtig!");
 			ResultModel currResult = new ResultModel(quiz, currQuestion, nickname, true, difference,sessionID);

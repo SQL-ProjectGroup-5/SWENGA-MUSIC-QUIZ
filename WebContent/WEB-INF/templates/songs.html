@@ -9,7 +9,9 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <title>Quiz Management</title>
 <div th:replace="~{includes/adminLTE :: AdminLTECSS}" />
-
+<link
+	href="http://www.malot.fr/bootstrap-datetimepicker/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css"
+	rel="stylesheet">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -46,36 +48,48 @@
 
 			<div class="box">
 				<div class="box-header">
-					<h3 class="box-title">Create a new Song</h3>
+					<h3 th:text="${preFilledSong}? 'Change Song' : 'New Song'" class="box-title">Create a new Song</h3>
 				</div>
 
 				<div class="box-body">
-					<form role="form" action="./addsong" method="post">
+					<form role="form" th:action="${preFilledSong} ? @{/editsong(id=${preFilledSong.id})} : @{/addsong}" method="post">
 						<div class="row">
 							<div class="col-xs-2">
 								<label>Interpret</label> <input type="text" name="interpret"
-									class="form-control">
+									class="form-control" th:value="${preFilledSong} ? ${preFilledSong.interpret}">
 							</div>
 							<div class="col-xs-2">
 								<label>Title</label> <input type="text" name="title"
-									class="form-control">
+									class="form-control" th:value="${preFilledSong} ? ${preFilledSong.title}" >
 							</div>
 							<div class="col-xs-2">
-								<label>Date</label> <input type="date" class="form-control"
-									name="strDate">
+								<label>Date</label> <input type="text" class="form-control form_datetime"
+									name="publishDate" th:value="${preFilledSong} ? ${#dates.format(preFilledSong.publishDate,'dd.MM.yyyy')}" >
 							</div>
 
 							<div class="col-xs-2">
 								<label>Answer 1</label> <input type="text" name="answer1"
-									class="form-control">
+									class="form-control" th:value="${preFilledSong} ? ${preFilledSong.answer1}" >
 							</div>
 							<div class="col-xs-2">
 								<label>Answer 2</label> <input type="text" name="answer2"
-									class="form-control">
+									class="form-control" th:value="${preFilledSong} ? ${preFilledSong.answer2}" >
 							</div>
 							<div class="col-xs-2">
 								<label>Answer 3</label> <input type="text" name="answer3"
-									class="form-control">
+									class="form-control" th:value="${preFilledSong} ? ${preFilledSong.answer3}" >
+							</div>
+							<div class="col-xs-2">
+								<label>Genre</label> <input type="text" name="genre"
+									class="form-control" th:value="${preFilledSong} ? ${preFilledSong.genre}">
+							</div>
+							<div class="col-xs-2">
+								<label>Starttime</label> <input type="text" name="startTime"
+									class="form-control" th:value="${preFilledSong} ? ${preFilledSong.startTime}" >
+							</div>
+							<div class="col-xs-2">
+								<label>Time to answer</label> <input type="text" name="timeToAnswer"
+									class="form-control" th:value="${preFilledSong} ? ${preFilledSong.timeToAnswer}">
 							</div>
 						</div>
 
@@ -122,6 +136,9 @@
 								<th>Answer 1</th>
 								<th>Answer 2</th>
 								<th>Answer 3</th>
+								<th>Genre</th>
+								<th>Start song at</th>
+								<th>Time to answer</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -140,12 +157,22 @@
 								<td th:text="${song.answer1}"></td>
 								<td th:text="${song.answer2}"></td>
 								<td th:text="${song.answer3}"></td>
+								<td th:text="${song.genre}"></td>
+								<td th:text="${song.startTime}"></td>
+								<td th:text="${song.timeToAnswer}"></td>
 								<td><a th:href="@{upload(id=${song.id})}">
 										<button type="button" class="btn btn-xs btn-success">
 											<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 											Upload
 										</button>
-								</a> <a th:href="@{deletesong(id=${song.id})}">
+								</a>
+								<a th:href="@{editsong(id=${song.id})}">
+										<button type="button" class="btn btn-xs btn-success">
+											<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+											Edit
+										</button>
+								</a> 
+								<a th:href="@{deletesong(id=${song.id})}">
 										<button type="button" class="btn btn-xs btn-danger">
 											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 											Delete
@@ -162,7 +189,6 @@
 		<!-- /.content -->
 	</div>
 	<!-- /.content-wrapper -->
-
 	<footer class="main-footer">
 		<strong>Guess the Song &copy; 2019</strong> All rights reserved.
 	</footer>
@@ -208,6 +234,22 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="static/dist/js/demo.js"></script>
 	<!-- page script -->
+	<script type="text/javascript"
+		src="http://www.malot.fr/bootstrap-datetimepicker/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+	
+	<script>
+		$(function() {
+
+			$(".form_datetime").datetimepicker({
+				format : "dd.mm.yyyy",
+				autoclose : true,
+				todayBtn : true,
+				pickerPosition : "bottom-left",
+				minView : 2
+			});
+
+		});
+	</script>
 	<script>
 		$(function() {
 			$('#example1').DataTable()
