@@ -175,6 +175,8 @@ public class QuizController {
 				model.addAttribute("questionIndex", qid+1);
 				model.addAttribute("nickname", nickname);
 				model.addAttribute("startTime", System.nanoTime());
+				model.addAttribute("playbackStart",currQuestion.getStartTime());
+				model.addAttribute("timer",currQuestion.getTimeToAnswer());
 				List<String> possibleAnswers = new ArrayList<String>();
 				possibleAnswers.add(currQuestion.getAnswer1());
 				possibleAnswers.add(currQuestion.getAnswer2());
