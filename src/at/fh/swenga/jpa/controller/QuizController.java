@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 
+import at.fh.swenga.jpa.dao.CommentRepository;
 import at.fh.swenga.jpa.dao.DocumentRepository;
 import at.fh.swenga.jpa.dao.QuizRepository;
 import at.fh.swenga.jpa.dao.ResultRepository;
@@ -32,6 +33,7 @@ import at.fh.swenga.jpa.dao.SongRepository;
 import at.fh.swenga.jpa.dao.UserDao;
 import at.fh.swenga.jpa.dao.UserRoleDao;
 import at.fh.swenga.jpa.helper.ZXingHelper;
+import at.fh.swenga.jpa.model.Comment;
 import at.fh.swenga.jpa.model.QuizModel;
 import at.fh.swenga.jpa.model.ResultModel;
 import at.fh.swenga.jpa.model.SongModel;
@@ -51,7 +53,10 @@ public class QuizController {
 	UserDao userRepository;
 	@Autowired
 	UserRoleDao userRoleRepository;
+	@Autowired
+	CommentRepository commentRepository;
 
+	
 
 	@RequestMapping(value = { "/quizzes", "listquizzes" })
 	public String index(Model model) {
@@ -69,6 +74,20 @@ public class QuizController {
 				.findBySessionIDAndQuizId(RequestContextHolder.currentRequestAttributes().getSessionId(), gid);
 		model.addAttribute("results", results);
 		return "gameStatistics";
+	}
+
+	@RequestMapping(value = "/saveRatings", method = RequestMethod.POST)
+	@Transactional
+	public String saveRatings(@RequestParam String comment, @RequestParam int rating,
+			@RequestParam(value = "gid", required = false) int gid, Model model) {
+		Comment myComment = new Comment();
+		QuizModel quiz = quizRepository.findById(gid).get();
+		myComment.setComment(comment);
+		myComment.setRating(rating);
+		myComment.setQuiz(quiz);
+		model.addAttribute("gameIndex", gid);
+		commentRepository.save(myComment);
+		return "redirect:login";
 	}
 
 	@RequestMapping("/")
@@ -143,14 +162,14 @@ public class QuizController {
 	@RequestMapping(value = "/savequiz", method = RequestMethod.POST)
 	@Transactional
 
-	public String saveData(@RequestParam String quizname, 
-						   @RequestParam(name ="songId", required = false) List<Integer> songIds,
-						   @RequestParam int difficulty, Model model) {
+	public String saveData(@RequestParam String quizname,
+			@RequestParam(name = "songId", required = false) List<Integer> songIds, @RequestParam int difficulty,
+			Model model) {
 		DataFactory df = new DataFactory();
 		Calendar publishDate = Calendar.getInstance();
 		publishDate.setTime(new Date());
 		QuizModel quizModel = new QuizModel(quizname, difficulty, publishDate);
-		
+
 		if (CollectionUtils.isEmpty(songIds)) {
 			model.addAttribute("errorMessage", "No songs selected!");
 			return "forward:quizAdmin";
@@ -169,7 +188,7 @@ public class QuizController {
 	public String handlePlay(@RequestParam(value = "gid") String gids,
 			@RequestParam(value = "nickname") String nickname, @RequestParam(value = "qid", required = false) int qid,
 			Model model) {
-		
+
 		int gid;
 		try {
 			gid = Integer.parseInt(gids);
@@ -177,7 +196,7 @@ public class QuizController {
 			model.addAttribute("errorMessage", "Only numbers allowed!");
 			return "login";
 		}
-		
+
 		model.addAttribute("gameIndex", gid);
 		Optional<QuizModel> quizOpt = quizRepository.findById(gid);
 
@@ -218,16 +237,14 @@ public class QuizController {
 
 	@RequestMapping("/quizAdmin")
 	@Transactional
-	public String showQuizAdmin(Model model,Principal principal) {
-		
+	public String showQuizAdmin(Model model, Principal principal) {
+
 		User user = userRepository.findByUsername(principal.getName()).get(0);
 		List<SongModel> songs = new ArrayList<SongModel>();
-		
-		if (user.getUserRoles().contains(userRoleRepository.getRole("ROLE_ADMIN"))) 
-		{
+
+		if (user.getUserRoles().contains(userRoleRepository.getRole("ROLE_ADMIN"))) {
 			songs = songRepository.findWhereDocIdNotNull();
-		} else 
-		{
+		} else {
 			songs = songRepository.findWhereDocIdNotNullAndUserRole(user.getId());
 		}
 		model.addAttribute("songs", songs);

@@ -46,9 +46,6 @@ public class SongModel implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
-	
-	@OneToMany(mappedBy = "song", fetch = FetchType.LAZY)
-	private Collection<Comment> comments;
 
 	public SongModel(String interpret, Calendar publishDate, String title) {
 		super();
