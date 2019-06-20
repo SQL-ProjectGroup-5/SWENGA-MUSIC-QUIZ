@@ -33,7 +33,6 @@ public class SecurityController {
 	public String addUserGet(Model model) {
 		List<User> myUsers = userDao.findAll();
 		model.addAttribute("users", myUsers);
-		
 		return "createUser";
 
 	}
@@ -43,18 +42,32 @@ public class SecurityController {
 	public String addUserPost(@RequestParam(value = "isAdmin", required = false) Boolean isAdmin,
 			@Valid User newUserModel, BindingResult bindingResult, Model model) {
 		User newUser = new User(newUserModel.getUserName(), newUserModel.getPassword(), true);
-		newUser.encryptPassword();
-		if (isAdmin != null) {
-			UserRole adminRole = userRoleDao.getRole("ROLE_ADMIN");
-			UserRole userRole = userRoleDao.getRole("ROLE_USER");
-			newUser.addUserRole(userRole);
-			newUser.addUserRole(adminRole);
-		} else {
-			UserRole userRole = userRoleDao.getRole("ROLE_USER");
-			newUser.addUserRole(userRole);
+		if (!userDao.findByUsername(newUserModel.getUserName()).isEmpty())
+		{
+			model.addAttribute("errorMessage", "User already exists!");
+			List<User> myUsers = userDao.findAll();
+			model.addAttribute("users", myUsers);
+			return "createUser";
+			
+		}else {
+			newUser.encryptPassword();
+			if (isAdmin != null) {
+				UserRole adminRole = userRoleDao.getRole("ROLE_ADMIN");
+				UserRole userRole = userRoleDao.getRole("ROLE_USER");
+				newUser.addUserRole(userRole);
+				newUser.addUserRole(adminRole);
+			} else {
+				UserRole userRole = userRoleDao.getRole("ROLE_USER");
+				newUser.addUserRole(userRole);
+			}
+			userDao.persist(newUser);
+			model.addAttribute("message", "User creation successful");
+			List<User> myUsers = userDao.findAll();
+			model.addAttribute("users", myUsers);
+			return "createUser";
 		}
-		userDao.persist(newUser);
-		return "redirect:adduser";
+		
+	
 	}
 
 	@RequestMapping("/fillUsers")
