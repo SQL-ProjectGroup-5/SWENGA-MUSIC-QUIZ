@@ -122,8 +122,7 @@ public class QuizController {
 	@RequestMapping("/removesongfromquiz")
 	@Transactional
 	public String deletesongfromquiz(Model model, @RequestParam int songId,@RequestParam int quizId) {
-		try
-		{
+		
 			List<SongModel> songs = songRepository.findByQuizzesId(quizId);
 			QuizModel quiz = quizRepository.findById(quizId).get();
 			SongModel song = songRepository.findById(songId).get();
@@ -131,11 +130,6 @@ public class QuizController {
 			quiz.setSongs(songs);
 			quizRepository.save(quiz);
 			model.addAttribute("message", String.format("Removed song with ID %d from the Quiz:", songId));
-		}
-		finally{
-			model.addAttribute("errormessage", "unexpected error occured");
-		}
-		
 		return "forward:editQuiz";
 	}
 
