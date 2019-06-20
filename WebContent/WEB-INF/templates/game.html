@@ -63,25 +63,25 @@
 			<p th:text="'Hello ' + ${nickname}"></p>
 			<p
 				th:text="'This is Quiz ' + ${gameIndex} + ' and Question ' + ${questionIndex}"></p>
-			<audio controls="controls">
+			<audio controls="controls" id="thesong" autoplay="autoplay">
 				<source th:src="@{/download(documentId=${currDocument})}"
 					type="audio/mpeg" />
 				Your browser does not support the audio element.
 			</audio>
 			<div class="quiz-time">
-				
-					<div class="flex-c">
-						<div class="flex-col-c-m size2 how-countdown">
-							<span id="minutes" class="l1-txt1 p-b-9 hours">00</span><span
-								class="s1-txt1">Minutes</span>
-						</div>
 
-						<div class="flex-col-c-m size2 how-countdown">
-							<span id="seconds" class="l1-txt1 p-b-9 seconds">00</span><span
-								class="s1-txt1">Seconds</span>
-						</div>
+				<div class="flex-c">
+					<div class="flex-col-c-m size2 how-countdown">
+						<span id="minutes" class="l1-txt1 p-b-9 hours">00</span><span
+							class="s1-txt1">Minutes</span>
 					</div>
-				
+
+					<div class="flex-col-c-m size2 how-countdown">
+						<span id="seconds" class="l1-txt1 p-b-9 seconds">00</span><span
+							class="s1-txt1">Seconds</span>
+					</div>
+				</div>
+
 			</div>
 			<div class="row">
 				<form action="./createResult" method="post">
@@ -91,17 +91,17 @@
 						id="qid" name="nickname" th:value="${nickname}"> <input
 						type="hidden" id="tid" name="timer" th:value="${timer}"> <input
 						type="hidden" id="startTime" name="startTime"
-						th:value="${startTime}">
-
+						th:value="${startTime}"> <input type="hidden" id="playbackStart"
+						name="playbackStart" th:value="${playbackStart}">
 					<button type="submit" th:each="answer : ${possibleAnswers}"
 						th:text="${answer}" name="result" th:value="${answer}"
 						class="btn bg-black margin" onclick="myStopFunction()"
 						style="height: 50px; width: 200px"></button>
-			</form>
-			
-			<div th:name="correctanswers" th:value="${correctanswers}"></div>
+				</form>
+
+				<div th:name="correctanswers" th:value="${correctanswers}"></div>
 			</div>
-			
+
 		</div>
 	</div>
 
@@ -170,6 +170,11 @@
 			$("#seconds").html(pad(--sec % 60));
 			$("#minutes").html(pad(parseInt(sec / 60, 10)));
 		}, 1000);
+	</script>
+	<script type="text/javascript">
+		var vid = document.getElementById("thesong");
+		vid.currentTime = document.getElementById('playbackStart').value;
+		vid.play();
 	</script>
 	<div th:replace="~{includes/adminLTE :: AdminLTEJS}" />
 </body>

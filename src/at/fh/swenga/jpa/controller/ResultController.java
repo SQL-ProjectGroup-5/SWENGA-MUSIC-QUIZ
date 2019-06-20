@@ -67,7 +67,7 @@ public class ResultController {
 		model.addAttribute("nickname", nickname);
 		float difference = TimeUnit.MILLISECONDS.convert((System.nanoTime() - startTime), TimeUnit.NANOSECONDS)/1000f;
 		if (answer.equals(currQuestion.getTitle()) && (difference < currQuestion.getTimeToAnswer())) {
-			model.addAttribute("message", "Supa war richtig!");
+			model.addAttribute("message", "That was correct!");
 			ResultModel currResult = new ResultModel(quiz, currQuestion, nickname, true, difference,sessionID);
 			currResult.setTmpQid(qid);
 			resultRepository.save(currResult);
@@ -75,7 +75,7 @@ public class ResultController {
 			ResultModel currResult = new ResultModel(quiz, currQuestion, nickname, false, difference,sessionID);
 			currResult.setTmpQid(qid);
 			resultRepository.save(currResult);
-			model.addAttribute("errorMessage", "Faaalsch");
+			model.addAttribute("errorMessage", "That was wrong :(");
 		}
 		return "forward:/play";
 	}
