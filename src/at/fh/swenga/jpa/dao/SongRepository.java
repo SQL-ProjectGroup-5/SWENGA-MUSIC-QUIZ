@@ -17,4 +17,5 @@ public interface SongRepository extends JpaRepository<SongModel, Integer>{
 	int countByQuizzesId(int id);
 	
 	List<SongModel> findByQuizzesId(int quizId);
+	List<SongModel> findByUserId(int userId);
 }

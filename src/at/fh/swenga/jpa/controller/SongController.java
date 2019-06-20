@@ -4,6 +4,7 @@ import java.io.OutputStream;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import at.fh.swenga.jpa.dao.DocumentRepository;
 import at.fh.swenga.jpa.dao.SongRepository;
 import at.fh.swenga.jpa.dao.UserDao;
+import at.fh.swenga.jpa.dao.UserRoleDao;
 import at.fh.swenga.jpa.model.DocumentModel;
 import at.fh.swenga.jpa.model.SongModel;
 import at.fh.swenga.jpa.model.User;
@@ -40,23 +42,29 @@ public class SongController {
 
 	@Autowired
 	DocumentRepository documentRepository;
-	
-	
+	@Autowired
+	UserRoleDao userRoleRepository;
 
 	@Autowired
 	UserDao userRepository;
 
 	@RequestMapping("/songAdmin")
 	@Transactional
-	public String showSongAdmin(Model model) {
-		List<SongModel> songs = songRepository.findAll();
+	public String showSongAdmin(Model model, Principal principal) {
+		User user = userRepository.findByUsername(principal.getName()).get(0);
+		List<SongModel> songs = new ArrayList<SongModel>();
+		if (user.getUserRoles().contains(userRoleRepository.getRole("ROLE_ADMIN"))) {
+			songs = songRepository.findAll();
+		} else {
+			songs = songRepository.findByUserId(user.getId());
+		}
 		model.addAttribute("songs", songs);
 		return "songs";
 	}
 
 	@RequestMapping("/fillsongs")
 	@Transactional
-	public String fillData(Model model) {
+	public String fillData(Model model, Principal principal) {
 		DataFactory df = new DataFactory();
 		Calendar publishDate = Calendar.getInstance();
 
@@ -69,6 +77,8 @@ public class SongController {
 		songModel.setAnswer1(songs[df.getNumberBetween(0, songs.length)]);
 		songModel.setAnswer2(songs[df.getNumberBetween(0, songs.length)]);
 		songModel.setAnswer3(songs[df.getNumberBetween(0, songs.length)]);
+		User user = userRepository.findByUsername(principal.getName()).get(0);
+		songModel.setUser(user);
 		songRepository.save(songModel);
 
 		return "forward:songAdmin";
@@ -76,9 +86,10 @@ public class SongController {
 
 	@RequestMapping(value = "/addsong", method = RequestMethod.POST)
 	@Transactional
-	public String addSongPost(@RequestParam String interpret, @RequestParam String title, @RequestParam String publishDate,
-			@RequestParam String answer1, @RequestParam String answer2, @RequestParam String answer3, @RequestParam String genre, @RequestParam int startTime, @RequestParam int timeToAnswer,  Model model, Principal principal)
-			throws ParseException {
+	public String addSongPost(@RequestParam String interpret, @RequestParam String title,
+			@RequestParam String publishDate, @RequestParam String answer1, @RequestParam String answer2,
+			@RequestParam String answer3, @RequestParam String genre, @RequestParam int startTime,
+			@RequestParam int timeToAnswer, Model model, Principal principal) throws ParseException {
 		Calendar publishDateC = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		try {
@@ -123,13 +134,11 @@ public class SongController {
 			return "forward:songAdmin";
 		}
 		Optional<SongModel> songOpt = songRepository.findById(changedSong.getId());
-		if(!songOpt.isPresent())
-		{
-			
+		if (!songOpt.isPresent()) {
+
 			model.addAttribute("errorMessage", "Song does not exist!<br>");
-			
-			
-		}else {
+
+		} else {
 			SongModel song = songOpt.get();
 			song.setInterpret(changedSong.getInterpret());
 			song.setPublishDate(changedSong.getPublishDate());
@@ -141,10 +150,7 @@ public class SongController {
 			songRepository.save(song);
 		}
 		return "forward:songAdmin";
-		
-		
-		
-		
+
 	}
 
 	@RequestMapping("/deletesong")

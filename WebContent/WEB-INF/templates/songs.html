@@ -7,7 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<title>Quiz Management</title>
+<title>Song Manager</title>
 <div th:replace="~{includes/adminLTE :: AdminLTECSS}" />
 <link
 	href="http://www.malot.fr/bootstrap-datetimepicker/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css"
@@ -29,7 +29,7 @@
 				</a>
 			</nav>
 		</header>
-		<nav th:replace="~{includes/navBar :: sidebar(quizManagement='a')}"></nav>
+		<nav th:replace="~{includes/navBar :: sidebar(songAdmin='a')}"></nav>
 		<div class="content-wrapper">
 			<!--  Error message ----------------------------------------------------------- -->
 			<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
