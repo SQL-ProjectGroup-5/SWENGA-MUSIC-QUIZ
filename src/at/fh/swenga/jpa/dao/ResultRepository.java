@@ -13,4 +13,5 @@ public interface ResultRepository extends JpaRepository<ResultModel, Integer> {
 
 	
 	public List<ResultModel> findBySessionIDAndQuizId(String sessionID, int quizID);
+	
 }

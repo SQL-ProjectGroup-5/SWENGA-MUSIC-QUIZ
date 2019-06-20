@@ -220,6 +220,7 @@ public class QuizController {
 	public String showQuizzes(Model model) {
 		List<QuizModel> quizzes = quizRepository.findAll();
 		model.addAttribute("quizzes", quizzes);
+		
 		return "quizManagement";
 	}
 
