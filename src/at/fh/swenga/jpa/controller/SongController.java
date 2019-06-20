@@ -86,7 +86,7 @@ public class SongController {
 		SongModel songModel = new SongModel(answers[number][1], publishDate, answers[number][0]);
 		songModel.setAnswer1(wrongAnswers[df.getNumberBetween(0, wrongAnswers.length)]);
 		songModel.setAnswer2(wrongAnswers[df.getNumberBetween(0, wrongAnswers.length)]);
-		songModel.setAnswer3(answers[number][0]);
+		songModel.setAnswer3(wrongAnswers[df.getNumberBetween(0, wrongAnswers.length)]);
 		songModel.setGenre(genre[df.getNumberBetween(0, genre.length)]);
 		User user = userRepository.findByUsername(principal.getName()).get(0);
 		songModel.setUser(user);
