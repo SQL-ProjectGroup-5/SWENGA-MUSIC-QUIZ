@@ -113,6 +113,9 @@ public class SongController {
 			songModel.setAnswer3(genre);
 			User user = userRepository.findByUsername(principal.getName()).get(0);
 			songModel.setUser(user);
+			songModel.setStartTime(startTime);
+			songModel.setTimeToAnswer(timeToAnswer);
+			
 			model.addAttribute("message", "Added song: " + songModel.getTitle());
 			songRepository.save(songModel);
 		} catch (ParseException e) {
