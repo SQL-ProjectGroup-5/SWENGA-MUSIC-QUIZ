@@ -52,7 +52,9 @@
 				<!-- Left col -->
 				<section class="col-lg-7 connectedSortable">
 					<div class="register-box-body">
-						<p class="login-box-msg">Create User:</p>
+					<div class="box-header">
+					<h3 class="box-title">Create User:</h3>
+				</div>
 						<form action="./adduser" method="post">
 							<div class="form-group has-feedback">
 								<input type="text" class="form-control" placeholder="Username"
@@ -84,11 +86,12 @@
 				</section>
 
 			</div>
-			<div class="box">
+			<div class="row">
+				<section class="col-lg-7 connectedSortable">
+				<div class="register-box-body">
 				<div class="box-header">
 					<h3 class="box-title">Registered User:</h3>
 				</div>
-				<!-- /.box-header -->
 				<div class="box-body">
 					<table id="example1" class="table table-bordered table-striped">
 						<thead>
@@ -117,6 +120,8 @@
 						</tfoot>
 					</table>
 				</div>
+				</div>
+				</section>
 				<!-- /.box-body -->
 			</div>
 			<!-- /.box -->
@@ -165,13 +170,6 @@
 	<!-- /.Left col -->
 	<!-- right col (We are only adding the ID to make the widgets sortable)-->
 
-	<!-- right col -->
-	</div>
-	<!-- /.row (main row) -->
-
-	</section>
-	<!-- /.content -->
-	</div>
 	<!-- /.content-wrapper -->
 	<footer class="main-footer">
 		<strong>Guess the Song &copy; 2019</strong> All rights reserved.

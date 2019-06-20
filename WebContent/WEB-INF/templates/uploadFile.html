@@ -11,7 +11,6 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
-
 		<header class="main-header">
 			<!-- Logo -->
 			<a href="." class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -29,85 +28,43 @@
 		<nav th:replace="~{includes/navBar :: sidebar}"></nav>
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
+			<div class="form-group" style="margin-left: 20px">
+				<form class="form-horizontal" enctype="multipart/form-data"
+					method="post" action="upload">
 
-			<!-- Main content -->
-			<!-- Small boxes (Stat box) -->
-
-			<!-- /.row -->
-			<!-- Main row -->
-
-				<div class="row">
-					<div class="col-md-8 col-md-offset-2">
-						<form class="form-horizontal" enctype="multipart/form-data"
-							method="post" action="upload">
-							<fieldset>
-								<legend th:text="'Upload Document for song ' + ${songId}"></legend>
-
-								<input type="hidden" name="id" th:value="${songId}">
-
-								<div class="form-group">
-									<label for="inputFile" class="col-md-2 control-label">File:</label>
-									<div class="col-md-10">
-										<input class="form-control" id="inputFile" type="file"
-											name="myFile">
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-md-10 col-md-offset-2">
-										<button type="submit" class="btn btn-primary">Upload</button>
-										<a href="list">
-											<button type="button" class="btn btn-default">Cancel</button>
-										</a>
-									</div>
-								</div>
-
-							</fieldset>
-						</form>
+					<div class="box-header">
+						<legend th:text="'Upload Document for song ' + ${songId}"></legend>
 					</div>
-				</div>
+					<input type="hidden" name="id" th:value="${songId}"> <label
+						for="inputFile">File:</label> <input id="inputFile" type="file"
+						name="myFile">
 
+					<div class="col-md-20 col-md-offset-2">
+						<button type="submit" class="btn btn-primary">Upload</button>
+						<a href="list">
+							<button type="button" class="btn btn-default">Cancel</button>
+						</a>
+					</div>
+				</form>
 			</div>
-			<!--  End of container -->
 			<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
-			</section>
-
 		</div>
-
-
-		<!-- /.Left col -->
-		<!-- right col (We are only adding the ID to make the widgets sortable)-->
-
-		<!-- right col -->
+		<footer class="main-footer">
+			<strong>Guess the Song &copy; 2019</strong> All rights reserved.
+		</footer>
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark"
+			style="display: none;">
+			<!-- Create the tabs -->
+			<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+				<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i
+						class="fa fa-home"></i></a></li>
+				<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
+						class="fa fa-gears"></i></a></li>
+			</ul>
+		</aside>
+		<div class="control-sidebar-bg"></div>
 	</div>
-	<!-- /.row (main row) -->
-
-	</section>
-	<!-- /.content -->
-	</div>
-	<!-- /.content-wrapper -->
-	<footer class="main-footer">
-		<strong>Guess the Song &copy; 2019</strong> All rights reserved.
-	</footer>
-
-	<!-- Control Sidebar -->
-	<aside class="control-sidebar control-sidebar-dark"
-		style="display: none;">
-		<!-- Create the tabs -->
-		<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-			<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i
-					class="fa fa-home"></i></a></li>
-			<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
-					class="fa fa-gears"></i></a></li>
-		</ul>
-
-	</aside>
-	<!-- /.control-sidebar -->
-	<!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-	<div class="control-sidebar-bg"></div>
-	</div>
-	<!-- ./wrapper -->
 	<div th:replace="~{includes/adminLTE :: AdminLTEJS}" />
 </body>
 </html>
