@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -34,11 +35,22 @@ public class QuizModel implements java.io.Serializable {
 	@OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
 	private Collection<ResultModel> results;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	private User user;
+
 	public QuizModel(String title, int difficulty, Calendar creationDate) {
 		super();
 		this.title = title;
 		this.difficulty = difficulty;
 		this.creationDate = creationDate;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Collection<Comment> getComments() {

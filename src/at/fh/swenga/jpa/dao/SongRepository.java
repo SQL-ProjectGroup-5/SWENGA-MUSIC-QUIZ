@@ -24,18 +24,15 @@ public interface SongRepository extends JpaRepository<SongModel, Integer> {
 
 	@Query("SELECT s FROM SongModel s LEFT JOIN FETCH s.results sr")
 	List<SongModel> findAllWithResults();
-	
+
 	@Query("SELECT s FROM SongModel s LEFT JOIN FETCH s.results WHERE s.user.id =:id")
 	List<SongModel> findByUserIdWithResults(@Param("id") int userId);
-	
-	//for Admin, list all with document
+
+	// for Admin, list all with document
 	@Query("SELECT s FROM SongModel s WHERE s.document.id IS NOT NULL")
 	List<SongModel> findWhereDocIdNotNull();
-	
-	//for User
+
+	// for User
 	@Query("SELECT s FROM SongModel s WHERE s.document.id IS NOT NULL AND s.user.id=:id")
 	List<SongModel> findWhereDocIdNotNullAndUserRole(@Param("id") int userId);
-	
-	
-
 }

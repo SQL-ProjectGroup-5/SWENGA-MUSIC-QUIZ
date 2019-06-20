@@ -56,8 +56,6 @@ public class QuizController {
 	@Autowired
 	CommentRepository commentRepository;
 
-	
-
 	@RequestMapping(value = { "/quizzes", "listquizzes" })
 	public String index(Model model) {
 		List<QuizModel> quizzes = quizRepository.findAll();
@@ -96,16 +94,6 @@ public class QuizController {
 		return "login";
 	}
 
-	/*
-	 * @RequestMapping("/fillquizzes")
-	 * 
-	 * @Transactional public String fillData(Model model) { DataFactory df = new
-	 * DataFactory(); Calendar publishDate = Calendar.getInstance();
-	 * publishDate.setTime(df.getDateBetween(df.getDate(2000, 1, 1),
-	 * df.getDate(2019, 1, 1))); QuizModel quizModel = new QuizModel("Test", 1,
-	 * publishDate); quizModel.setSongs(songRepository.findAll());
-	 * quizRepository.save(quizModel); return "forward:listquizzes"; }
-	 */
 	@RequestMapping("/deletequiz")
 	@Transactional
 	public String deleteQuiz(Model model, @RequestParam int quizId) {
@@ -164,11 +152,13 @@ public class QuizController {
 
 	public String saveData(@RequestParam String quizname,
 			@RequestParam(name = "songId", required = false) List<Integer> songIds, @RequestParam int difficulty,
-			Model model) {
+			Model model, Principal principal) {
+		User user = userRepository.findByUsername(principal.getName()).get(0);
 		DataFactory df = new DataFactory();
 		Calendar publishDate = Calendar.getInstance();
 		publishDate.setTime(new Date());
 		QuizModel quizModel = new QuizModel(quizname, difficulty, publishDate);
+		quizModel.setUser(user);
 
 		if (CollectionUtils.isEmpty(songIds)) {
 			model.addAttribute("errorMessage", "No songs selected!");
@@ -253,17 +243,33 @@ public class QuizController {
 
 	@RequestMapping("/quizManagement")
 	@Transactional
-	public String showQuizzes(Model model) {
-		List<QuizModel> quizzes = quizRepository.findAll();
+	public String showQuizzes(Model model, Principal principal) {
+		User user = userRepository.findByUsername(principal.getName()).get(0);
+		List<QuizModel> quizzes = new ArrayList<QuizModel>();
+
+		if (user.getUserRoles().contains(userRoleRepository.getRole("ROLE_ADMIN"))) {
+			quizzes = quizRepository.findAll();
+		} else {
+			quizzes = quizRepository.findByUserId(user.getId());
+		}
+
 		model.addAttribute("quizzes", quizzes);
 		return "quizManagement";
 	}
 
 	@RequestMapping("/editQuiz")
 	@Transactional
-	public String editQuiz(@RequestParam int quizId, Model model) {
+	public String editQuiz(@RequestParam int quizId, Model model, Principal principal) {
 		List<SongModel> songs = songRepository.findByQuizzesId(quizId);
-		List<SongModel> allsongs = songRepository.findAll();
+
+		User user = userRepository.findByUsername(principal.getName()).get(0);
+		List<SongModel> allsongs = new ArrayList<SongModel>();
+
+		if (user.getUserRoles().contains(userRoleRepository.getRole("ROLE_ADMIN"))) {
+			allsongs = songRepository.findWhereDocIdNotNull();
+		} else {
+			allsongs = songRepository.findWhereDocIdNotNullAndUserRole(user.getId());
+		}
 		QuizModel quiz = quizRepository.findById(quizId).get();
 		model.addAttribute("title", quiz.getTitle());
 		model.addAttribute("songs", songs);
