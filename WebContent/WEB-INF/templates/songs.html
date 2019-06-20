@@ -46,7 +46,7 @@
 			<div th:unless="${message} == null" th:utext="${message}"
 				class="alert alert-success" role="warning"></div>
 
-			<div class="box">
+			<div class="box" style="margin-left: 40px">
 				<div class="box-header">
 					<h3 th:text="${preFilledSong}? 'Change Song' : 'New Song'"
 						class="box-title">Create a new Song</h3>
@@ -104,10 +104,10 @@
 									th:value="${preFilledSong} ? ${preFilledSong.timeToAnswer}">
 							</div>
 						</div>
-
-
-						<div class="box-body pad table-responsive">
-							<button type="submit" class="btn btn-block btn-primary">Submit</button>
+						<div class="col-xs-4">
+							<div class="box-body pad table-responsive">
+								<button type="submit" class="btn btn-block btn-primary">Submit</button>
+							</div>
 						</div>
 					</form>
 
@@ -115,17 +115,19 @@
 				</div>
 			</div>
 
-			<div class="box">
+			<div class="box" style="margin-left: 40px">
 				<div class="box-header">
 					<h3 class="box-title">Add a Song</h3>
 				</div>
 
 				<div class="box-body">
 					<div class="box-body pad table-responsive">
-						<a href="fillsongs">
-							<button type="button" class="btn btn-block btn-primary">Add
-								a random song</button>
-						</a>
+						<div class="col-xs-4">
+							<a href="fillsongs">
+								<button type="button" class="btn btn-block btn-primary">Add
+									a random song</button>
+							</a>
+						</div>
 					</div>
 
 				</div>
