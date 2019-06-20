@@ -65,19 +65,37 @@ public class QuizController {
 
 	@RequestMapping("/statistics")
 	public String handleStatistics(@RequestParam(value = "gid") int gid,
-			@RequestParam(value = "nickname") String nickname, @RequestParam(value = "qid", required = false) int qid,
+			@RequestParam(value = "nickname") String nickname, @RequestParam(value = "qid", required = false) int qid, 
+			Principal principal,
 			Model model) {
 		model.addAttribute("gameIndex", gid);
 		List<ResultModel> results = resultRepository
 				.findBySessionIDAndQuizId(RequestContextHolder.currentRequestAttributes().getSessionId(), gid);
 		model.addAttribute("results", results);
+		
+		
+		
+		/*
+		Comment findComments = commentRepository.findTop3ById(principal);
+		model.addAttribute("findComments", findComments);*/
+		
 		return "gameStatistics";
+	}
+	
+	@RequestMapping("/showComments")
+	public String showComments(Model model, @RequestParam int quizId) {
+		
+		List<Comment> comments = commentRepository.findTop3ById(quizId);
+		model.addAttribute("comments", comments);
+		
+		return "showComments";
 	}
 
 	@RequestMapping(value = "/saveRatings", method = RequestMethod.POST)
 	@Transactional
 	public String saveRatings(@RequestParam String comment, @RequestParam int rating,
 			@RequestParam(value = "gid", required = false) int gid, Model model) {
+
 		Comment myComment = new Comment();
 		QuizModel quiz = quizRepository.findById(gid).get();
 		myComment.setComment(comment);
@@ -85,6 +103,9 @@ public class QuizController {
 		myComment.setQuiz(quiz);
 		model.addAttribute("gameIndex", gid);
 		commentRepository.save(myComment);
+		
+		
+
 		return "redirect:login";
 	}
 
