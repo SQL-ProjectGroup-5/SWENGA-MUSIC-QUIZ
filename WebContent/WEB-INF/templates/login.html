@@ -86,7 +86,6 @@
 
 <div sec:authorize="!isAuthenticated()">
 	<div class="row">
-		<div class="col-md-3">
 			<div class="box box-default collapsed-box">
 				<div class="box-header with-border">
 					<h3 class="box-title">Login</h3>
@@ -112,22 +111,19 @@
 					</form>
 					<a th:href="@{/register}" title="Register"> Register </a>
 				</div>
-
-
 			</div>
-		</div>
-		</form>
+		
 
 	</div>
 </div>
 <div sec:authorize="isAuthenticated()">
-	<br> <br>
+	<br>
 	</form>
 	<form th:action="@{/admin}">
 		<input type="submit" class="btn bg-purple margin"
 			value="Go to the admin Panel" />
 	</form>
-	<br>
+	
 	<form th:action="@{/logout}">
 		<input type="submit" class="btn bg-red margin"
 			value="Logout" />
