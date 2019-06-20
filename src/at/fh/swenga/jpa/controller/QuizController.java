@@ -137,11 +137,12 @@ public class QuizController {
 	@RequestMapping(value = "/savequiz", method = RequestMethod.POST)
 	@Transactional
 	public String saveData(@RequestParam String quizname, 
-						   @RequestParam(name ="songId", required = false) List<Integer> songIds, Model model) {
+						   @RequestParam(name ="songId", required = false) List<Integer> songIds,
+						   @RequestParam int difficulty, Model model) {
 		DataFactory df = new DataFactory();
 		Calendar publishDate = Calendar.getInstance();
 		publishDate.setTime(new Date());
-		QuizModel quizModel = new QuizModel(quizname, 1, publishDate);
+		QuizModel quizModel = new QuizModel(quizname, difficulty, publishDate);
 		
 		if (CollectionUtils.isEmpty(songIds)) {
 			model.addAttribute("errorMessage", "No songs selected!");
