@@ -24,6 +24,10 @@ public class ResultModel implements java.io.Serializable {
 	@ManyToOne
 	QuizModel quiz;
 	
+	private int tmpQid;
+	
+	
+	
 	private String sessionID; 
 	public ResultModel() {
 		super();
@@ -102,6 +106,15 @@ public class ResultModel implements java.io.Serializable {
 	public void setQuiz(QuizModel quiz) {
 		this.quiz = quiz;
 	}
+	
+	public int getTmpQid() {
+		return tmpQid;
+	}
+
+	public void setTmpQid(int tmpQid) {
+		this.tmpQid = tmpQid;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

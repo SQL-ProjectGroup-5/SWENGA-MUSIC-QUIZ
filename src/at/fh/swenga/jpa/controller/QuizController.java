@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import at.fh.swenga.jpa.dao.DocumentRepository;
 import at.fh.swenga.jpa.dao.QuizRepository;
@@ -53,9 +54,9 @@ public class QuizController {
 	
 	@RequestMapping("/statistics")
 	public String handleStatistics(@RequestParam(value = "gid") int gid, @RequestParam(value = "nickname") String nickname,
-			@RequestParam(value = "qid", required = false) int qid, HttpSession session, Model model) {
+			@RequestParam(value = "qid", required = false) int qid, Model model) {
 		model.addAttribute("gameIndex", gid);
-		List<ResultModel> results = resultRepository.findAll();
+		List<ResultModel> results = resultRepository.findBySessionIDAndQuizId(RequestContextHolder.currentRequestAttributes().getSessionId() ,gid);
 		model.addAttribute("results", results);
 		return "gameStatistics";
 	}
@@ -158,7 +159,7 @@ public class QuizController {
 
 	@RequestMapping(value = "/play")
 	public String handlePlay(@RequestParam(value = "gid") int gid, @RequestParam(value = "nickname") String nickname,
-			@RequestParam(value = "qid", required = false) int qid, HttpSession session, Model model) {
+			@RequestParam(value = "qid", required = false) int qid, Model model) {
 		model.addAttribute("gameIndex", gid);
 		Optional<QuizModel> quizOpt = quizRepository.findById(gid);
 			

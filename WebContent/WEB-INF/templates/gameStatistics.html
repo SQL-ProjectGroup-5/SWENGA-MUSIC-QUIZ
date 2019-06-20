@@ -137,7 +137,7 @@
 
 					</tr>
 					<tr th:each="result : ${results}">
-						<td th:utext="${'Question: ' + result.id}"></td>
+						<td th:utext="${'Question: ' + result.tmpQid}"></td>
 						<td>
 							<div th:switch="${result.correct}">
 								<p th:case="true">
