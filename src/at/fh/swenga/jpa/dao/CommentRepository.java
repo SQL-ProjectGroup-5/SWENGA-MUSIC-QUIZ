@@ -13,10 +13,5 @@ import at.fh.swenga.jpa.model.QuizModel;
 @Transactional
 public interface CommentRepository extends JpaRepository<Comment, Integer> 
 {
-	public List<Comment> findTop3ByQuizId(int id);
-	
 	public List<Comment> findByQuizId(int id);
-
-	
-	Comment findTopById(int id);
 }
