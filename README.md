@@ -11,7 +11,7 @@
 ## Installation
 1. Clone this repository or download the release.
 2. Import existing project into eclipse
-3. Add the db.properties
+3. Add a db.properties file in the src subdirectory (a example is provided in the last section of this document).
 4. Modify Java Build Path of the project as needed
 5. Change jpa-properties in dispatcher-servlet.xml to required attributes (``validate``, ``update``, or ``create-drop``)
 6. Start project in eclipse (Tomcat)
@@ -23,3 +23,11 @@ Please note that some features are blocked by modern browsers, for example autop
 ## Known (security-) bugs
 POST-mappings for many administrative functions (e.g. delete song/quiz, comment and results) do not check the permission of the affected object. A user can delete the quiz of another user by manually editing the ID in the request.
 CSRF tokens are not enabled due to problems with input fields.
+
+## Example db.properties
+The db.properties must contain the following:
+````
+db.url=jdbc:mysql://<yourServerIP>/<yourDatabase> 
+db.username=username
+db.password=password
+````
