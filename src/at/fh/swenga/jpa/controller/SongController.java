@@ -173,7 +173,7 @@ public class SongController {
 		return "forward:songAdmin";
 
 	}
-	//Deletes a song
+	//Deletes a song ;-)
 	@RequestMapping("/deletesong")
 	public String deleteData(Model model, @RequestParam int id) {
 		songRepository.deleteById(id);
