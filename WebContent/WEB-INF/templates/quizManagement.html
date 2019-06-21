@@ -60,6 +60,7 @@
 								<th>Difficulty</th>
 								<th>Creation Date</th>
 								<th>Number of Questions</th>
+								<th>Comments</th>
 								<th>Game</th>
 								<th>Action</th>
 							</tr>
@@ -73,6 +74,7 @@
 								<td
 									th:text="${#calendars.format(quiz.creationDate,'dd.MM.yyyy')}"></td>
 								<td th:text="${quiz.getSongs().size()}"></td>
+								<td> <a th:href="@{/showComments(quizId=${quiz.id})}">Comment</a></td>
 								<td><a th:href="@{/(qid=${quiz.id})}"
 									class="btn btn-xs btn-primary"> <span
 										class="fa fa-fw fa-play" aria-hidden="true"></span> Play Quiz
