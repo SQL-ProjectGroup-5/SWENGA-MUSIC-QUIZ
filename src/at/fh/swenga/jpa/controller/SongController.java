@@ -47,7 +47,7 @@ public class SongController {
 
 	@Autowired
 	UserDao userRepository;
-
+	//Handler for the song administration
 	@RequestMapping("/songAdmin")
 	@Transactional
 	public String showSongAdmin(Model model, Principal principal) {
@@ -61,7 +61,7 @@ public class SongController {
 		model.addAttribute("songs", songs);
 		return "songs";
 	}
-
+	//This function generates demo songs. However corresponding mp3 have to be uploaded manually.
 	@RequestMapping("/fillsongs")
 	@Transactional
 	public String fillData(Model model, Principal principal) {
@@ -97,7 +97,7 @@ public class SongController {
 
 		return "forward:songAdmin";
 	}
-
+	//Post handler for adding a song
 	@RequestMapping(value = "/addsong", method = RequestMethod.POST)
 	@Transactional
 	public String addSongPost(@RequestParam String interpret, @RequestParam String title,
@@ -126,7 +126,7 @@ public class SongController {
 		}
 		return "forward:songAdmin";
 	}
-
+	//This handler pre-fills fields in the songAdmin view
 	@RequestMapping(value = "/editsong", method = RequestMethod.GET)
 	@Transactional
 	public String getSongEdit(@RequestParam int id, Model model) {
@@ -139,7 +139,7 @@ public class SongController {
 		}
 		return "forward:songAdmin";
 	}
-
+	//This handler updates an existing song
 	@RequestMapping(value = "/editsong", method = RequestMethod.POST)
 	@Transactional
 	public String postSongEdit(@Valid SongModel changedSong, BindingResult bindingResult, Model model) {
@@ -173,7 +173,7 @@ public class SongController {
 		return "forward:songAdmin";
 
 	}
-
+	//Deletes a song
 	@RequestMapping("/deletesong")
 	public String deleteData(Model model, @RequestParam int id) {
 		songRepository.deleteById(id);
@@ -238,7 +238,7 @@ public class SongController {
 
 		return "forward:/songAdmin";
 	}
-
+	//this handler is used to download files, or to provide the source for the playback in the play view
 	@RequestMapping("/download")
 	public void download(@RequestParam("documentId") int documentId, HttpServletResponse response) {
 

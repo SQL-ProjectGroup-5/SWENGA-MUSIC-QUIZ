@@ -39,14 +39,15 @@ public class ResultController {
 	DocumentRepository documentRepository;
 	@Autowired
 	CommentRepository commentRepository;
-
+	/*
 	@RequestMapping(value = { "/results", "listresults" })
 	public String index(Model model) {
 		List<ResultModel> results = resultRepository.findAll();
 		model.addAttribute("results", results);
 		return "indexResults";
 	}
-
+*/
+	//Displays the dashboard
 	@RequestMapping("/admin")
 	@Transactional
 	public String showAdmin(Model model) {
@@ -80,7 +81,7 @@ public class ResultController {
 		
 		return "admin";
 	}
-
+	//Creates an result
 	@RequestMapping(value = "/createResult", method = RequestMethod.POST)
 	@Transactional
 	public String handleResult(@RequestParam(value = "gid") int gid, @RequestParam(value = "nickname") String nickname,
@@ -108,7 +109,7 @@ public class ResultController {
 		}
 		return "forward:/play";
 	}
-
+/*
 	@RequestMapping("/fillresults")
 	@Transactional
 	public String fillData(Model model) {
@@ -117,5 +118,5 @@ public class ResultController {
 		ResultModel resultModel = new ResultModel(theQuiz, theSong, "EinQuizUser", true, 1.2f);
 		resultRepository.save(resultModel);
 		return "forward:listresults";
-	}
+	}*/
 }
