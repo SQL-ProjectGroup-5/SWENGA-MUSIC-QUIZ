@@ -63,7 +63,6 @@
 </head>
 
 <body>
-
 	<div class="row align-items-middle">
 		<div class="text-center">
 			<!--  Error message ----------------------------------------------------------- -->
@@ -82,30 +81,8 @@
 				class="alert alert-success" role="warning"></div>
 			<!--   message ----------------------------------------------------------- -->
 			<br>
-			<!--  
-			<p
-				th:text="'Your Statistics of Quiz ' + ${gameIndex}">
-			</p>-->
-			<!--  
-			<div class="row">
-				<form action="./createResult" method="post">
-					<input type="hidden" id="qid" name="qid"
-						th:value="${questionIndex}"> <input type="hidden" id="qid"
-						name="gid" th:value="${gameIndex}"> <input type="hidden"
-						id="qid" name="nickname" th:value="${nickname}">-->
-			<!--  
-					<button type="submit" th:each="answer : ${possibleAnswers}"
-						th:text="${answer}" name="result" th:value="${answer}"
-						class="btn bg-maroon margin" style="height: 50px; width: 200px"></button>-->
-
-
 		</div>
-		</form>
-
-
 	</div>
-	</div>
-
 
 	<div class="box">
 		<div class="box-header with-border">
@@ -114,7 +91,6 @@
 
 			</h3>
 		</div>
-		<!-- /.box-header -->
 		<div class="box-body">
 			<div class="col-md-10 col-md-offset-1">
 				<table class="table table-bordered">
@@ -138,21 +114,11 @@
 							</div>
 						</td>
 						<td th:text="${result.time + ' seconds'}"></td>
-
 					</tr>
 				</table>
-
 			</div>
-			<!-- /.box-body -->
 		</div>
 	</div>
-
-
-
-
-
-
-
 
 	<form class="form-horizontal" role="form" action="./saveRatings"
 		method="post">
@@ -173,20 +139,12 @@
 			</a>
 		</center>
 
-
-
-		<input type="hidden" id="cid" name="cid" th:value="${commentIndex}">
-
-
-
-
 		<div class="box-body">
 
 			<input type="hidden" id="qid" name="qid" th:value="${questionIndex}">
 			<input type="hidden" id="gid" name="gid" th:value="${gameIndex}">
-			<input type="hidden" id="quizId" name="quizId" th:value="${quizIndex}">
-
-
+			<input type="hidden" id="quizId" name="quizId"
+				th:value="${quizIndex}">
 
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-2 control-label">Comment:</label>
@@ -209,24 +167,11 @@
 					</select>
 				</div>
 
-
-
-
 				<div class="box-body pad table-responsive">
 					<button type="submit" class="btn btn-block btn-primary">Submit</button>
 				</div>
-
-
 			</div>
 	</form>
-
-
-	<center>
-
-		<br>
-		<!--  <a th:href="@{/login}">Back to Start Screen</a>-->
-	</center>
-	<br>
 
 
 	<!-- ./wrapper -->
