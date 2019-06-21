@@ -55,14 +55,8 @@ public class QuizController {
 	UserRoleDao userRoleRepository;
 	@Autowired
 	CommentRepository commentRepository;
-/*
-	@RequestMapping(value = { "/quizzes", "listquizzes" })
-	public String index(Model model) {
-		List<QuizModel> quizzes = quizRepository.findAll();
-		model.addAttribute("quizzes", quizzes);
-		return "indexQuiz";
-	}
-*/
+
+	//Generates the Quiz Statistics of the current played (finished) Quiz
 	@RequestMapping("/statistics")
 	public String handleStatistics(@RequestParam(value = "gid") int gid,
 			@RequestParam(value = "nickname") String nickname, @RequestParam(value = "qid", required = false) int qid,
@@ -73,7 +67,8 @@ public class QuizController {
 		model.addAttribute("results", results);
 		return "gameStatistics";
 	}
-
+	
+	//Generates Comments page
 	@RequestMapping("/showComments")
 	public String showComments(Model model, @RequestParam int quizId) {
 		List<Comment> comments = commentRepository.findByQuizId(quizId);
@@ -82,12 +77,12 @@ public class QuizController {
 		return "showComments";
 	}
 
+	//Saves comment and rating 
 	@RequestMapping(value = "/saveRatings", method = RequestMethod.POST)
 	@Transactional
 	public String saveRatings(@RequestParam String comment, @RequestParam int rating,
 			@RequestParam(value = "gid", required = false) int gid, Model model) {
 
-		
 		Comment myComment = new Comment();
 		QuizModel quiz = quizRepository.findById(gid).get();
 		
@@ -98,7 +93,6 @@ public class QuizController {
 		}
 		else
 		{
-			
 			myComment.setComment(comment);
 			myComment.setRating(rating);
 			myComment.setQuiz(quiz);
@@ -106,8 +100,6 @@ public class QuizController {
 			commentRepository.save(myComment);
 			return "redirect:showComments";
 		}
-		
-		
 	}
 
 	@RequestMapping("/")
