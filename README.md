@@ -15,7 +15,7 @@
 4. Modify Java Build Path of the project as needed
 5. Change jpa-properties in dispatcher-servlet.xml to required attributes (``validate``, ``update``, or ``create-drop``)
 6. Start project in eclipse (Tomcat)
-7. If the database is empty, the demo users have to be created by accessing the url http://localhost:8080/fillUsers only ONCE.
+7. If the database is empty, the demo users have to be created by accessing the url /fillUsers (e.g. http://localhost:8080/GuessTheSong/fillUsers) only ONCE.
 8. Afterwards the application can be accessed by http://localhost:8080/GuessTheSong/
 
 Please note that some features are blocked by modern browsers, for example autoplay of songs or custom timespan of playback.
