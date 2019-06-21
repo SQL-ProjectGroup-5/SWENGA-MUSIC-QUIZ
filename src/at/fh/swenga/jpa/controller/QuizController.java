@@ -55,14 +55,14 @@ public class QuizController {
 	UserRoleDao userRoleRepository;
 	@Autowired
 	CommentRepository commentRepository;
-
+/*
 	@RequestMapping(value = { "/quizzes", "listquizzes" })
 	public String index(Model model) {
 		List<QuizModel> quizzes = quizRepository.findAll();
 		model.addAttribute("quizzes", quizzes);
 		return "indexQuiz";
 	}
-
+*/
 	@RequestMapping("/statistics")
 	public String handleStatistics(@RequestParam(value = "gid") int gid,
 			@RequestParam(value = "nickname") String nickname, @RequestParam(value = "qid", required = false) int qid,
@@ -71,12 +71,6 @@ public class QuizController {
 		List<ResultModel> results = resultRepository
 				.findBySessionIDAndQuizId(RequestContextHolder.currentRequestAttributes().getSessionId(), gid);
 		model.addAttribute("results", results);
-
-		/*
-		 * Comment findComments = commentRepository.findTop3ById(principal);
-		 * model.addAttribute("findComments", findComments);
-		 */
-
 		return "gameStatistics";
 	}
 
@@ -201,7 +195,7 @@ public class QuizController {
 		quizRepository.save(quizModel);
 		return "forward:quizManagement";
 	}
-
+	//Actual gameplay method
 	@RequestMapping(value = "/play")
 	public String handlePlay(@RequestParam(value = "gid") String gids,
 			@RequestParam(value = "nickname") String nickname, @RequestParam(value = "qid", required = false) int qid,
@@ -305,7 +299,7 @@ public class QuizController {
 		model.addAttribute("quizId", quizId);
 		return "editQuiz";
 	}
-
+	//This url generates an QR code which contains a link to the login page where the "pin" field is prefilled
 	@RequestMapping(value = "qrcode/{id}", method = RequestMethod.GET)
 	public void qrcode(@PathVariable("id") String id, HttpServletResponse response, HttpServletRequest request)
 			throws Exception {

@@ -81,7 +81,7 @@ public class ResultController {
 		
 		return "admin";
 	}
-	//Creates an result
+	//Creates an result and is called via the play view
 	@RequestMapping(value = "/createResult", method = RequestMethod.POST)
 	@Transactional
 	public String handleResult(@RequestParam(value = "gid") int gid, @RequestParam(value = "nickname") String nickname,
