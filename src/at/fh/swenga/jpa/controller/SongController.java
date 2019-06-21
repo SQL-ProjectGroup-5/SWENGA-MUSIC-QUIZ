@@ -72,12 +72,13 @@ public class SongController {
 							{"I Cant Get No Satisfaction","Rolling Stones"}, {"What’s Going On","Marvin Gaye"},
 							{"Respect"," Aretha Franklin"}, {"Good Vibrations","Beach Boys"}, 
 							{"Johnny B. Goode"," Chuck Berry"}, {"Hey Jude","Beatles"}, {"Smells Like Teen Spirit","Nirvana"},
-							{"Whatd I Say","Ray Charles"},{"My Generation","The Who"}};
+							{"Whatd I Say","Ray Charles"},{"My Generation","The Who"},{"Dr. Dre ft. Snoop Dogg","Dr. DRE"},
+							{"Walk It Talk It","Migos"},{"Party Up","DMX"},{"Gods Plan","Drake"}};
 		
 		String wrongAnswers[] = {"Rise like a Phoenix","I want it that way","Spring time","Give up","Baby dont go","I love weed",
 				"Scream","Drop it like its hot","Love is all around me","Down under"};
 		
-		String genre[] = {"Blues","Folk","Brutal Metal","Heavy Metal","Soft Metal","Love","Rock","Pop","Classic"};
+		String genre[] = {"Blues","Folk","Brutal Metal","Heavy Metal","Soft Metal","Love","Rock","Pop","Classic","Rap"};
 		
 
 		int number = df.getNumberBetween(0, answers.length);
