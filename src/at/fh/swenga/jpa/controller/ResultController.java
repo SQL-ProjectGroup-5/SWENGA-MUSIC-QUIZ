@@ -39,15 +39,8 @@ public class ResultController {
 	DocumentRepository documentRepository;
 	@Autowired
 	CommentRepository commentRepository;
-	/*
-	@RequestMapping(value = { "/results", "listresults" })
-	public String index(Model model) {
-		List<ResultModel> results = resultRepository.findAll();
-		model.addAttribute("results", results);
-		return "indexResults";
-	}
-*/
-	//Displays the dashboard and
+	
+	//Displays the dashboard and fills it with statistical data
 	@RequestMapping("/admin")
 	@Transactional
 	public String showAdmin(Model model) {

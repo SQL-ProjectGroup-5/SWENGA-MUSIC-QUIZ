@@ -121,7 +121,7 @@ public class SongController {
 			
 			model.addAttribute("message", "Added song: " + songModel.getTitle());
 			songRepository.save(songModel);
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Invalid Input");
 		}
 		return "forward:songAdmin";
