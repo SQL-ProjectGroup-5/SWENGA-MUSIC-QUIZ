@@ -47,7 +47,7 @@ public class ResultController {
 		return "indexResults";
 	}
 */
-	//Displays the dashboard
+	//Displays the dashboard and
 	@RequestMapping("/admin")
 	@Transactional
 	public String showAdmin(Model model) {
