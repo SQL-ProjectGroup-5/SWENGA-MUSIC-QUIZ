@@ -22,10 +22,10 @@ public interface SongRepository extends JpaRepository<SongModel, Integer> {
 
 	List<SongModel> findByUserId(int userId);
 
-	@Query("SELECT s FROM SongModel s LEFT JOIN FETCH s.results sr")
+	@Query("SELECT DISTINCT s FROM SongModel s LEFT JOIN FETCH s.results sr")
 	List<SongModel> findAllWithResults();
 
-	@Query("SELECT s FROM SongModel s LEFT JOIN FETCH s.results WHERE s.user.id =:id")
+	@Query("SELECT DISTINCT s FROM SongModel s LEFT JOIN FETCH s.results WHERE s.user.id =:id")
 	List<SongModel> findByUserIdWithResults(@Param("id") int userId);
 
 	// for Admin, list all with document

@@ -306,7 +306,7 @@ public class QuizController {
 		response.setContentType("image/png");
 		OutputStream outputStream = response.getOutputStream();
 		String reqSrc = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-				+ "/?qid=";
+				+ "/GuessTheSong"+"/?qid=";
 		outputStream.write(ZXingHelper.getQRCodeImage(reqSrc + id, 400, 400));
 		outputStream.flush();
 		outputStream.close();
