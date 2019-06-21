@@ -41,6 +41,13 @@ public class SecurityController {
 	@Transactional
 	public String addUserPost(@RequestParam(value = "isAdmin", required = false) Boolean isAdmin,
 			@Valid User newUserModel, BindingResult bindingResult, Model model) {
+		
+		if(newUserModel.getUserName().isEmpty() || newUserModel.getPassword().isEmpty()) {
+			model.addAttribute("errorMessage", "Invalid name or password!");
+			List<User> myUsers = userDao.findAll();
+			model.addAttribute("users", myUsers);
+			return "createUser";
+		}
 		User newUser = new User(newUserModel.getUserName(), newUserModel.getPassword(), true);
 		if (!userDao.findByUsername(newUserModel.getUserName()).isEmpty())
 		{
