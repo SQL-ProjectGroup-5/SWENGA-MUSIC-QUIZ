@@ -109,14 +109,5 @@ public class ResultController {
 		}
 		return "forward:/play";
 	}
-/*
-	@RequestMapping("/fillresults")
-	@Transactional
-	public String fillData(Model model) {
-		SongModel theSong = songRepository.findTopById(1);
-		QuizModel theQuiz = quizRepository.findTopById(1);
-		ResultModel resultModel = new ResultModel(theQuiz, theSong, "EinQuizUser", true, 1.2f);
-		resultRepository.save(resultModel);
-		return "forward:listresults";
-	}*/
+
 }

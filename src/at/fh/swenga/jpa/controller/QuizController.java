@@ -1,5 +1,4 @@
 package at.fh.swenga.jpa.controller;
-
 import java.io.OutputStream;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -102,13 +101,13 @@ public class QuizController {
 			return "redirect:showComments";
 		}
 	}
-
+	//starting login page
 	@RequestMapping("/")
 	public String showIndex(@RequestParam(value = "qid", required = false) Integer qid, Model model) {
 		model.addAttribute("preDef", qid);
 		return "login";
 	}
-
+	//deletes a quiz, with a message
 	@RequestMapping("/deletequiz")
 	@Transactional
 	public String deleteQuiz(Model model, @RequestParam int quizId) {
@@ -116,7 +115,8 @@ public class QuizController {
 		model.addAttribute("message", String.format("Deleted Quiz with ID: %d", quizId));
 		return "forward:quizManagement";
 	}
-
+	//adds a song to the quiz savely
+	//only if songs are selected, a song can be added to the quiz
 	@RequestMapping("/addsongtoquiz")
 	@Transactional
 	public String addsong(Model model, @RequestParam int quizId,
@@ -147,7 +147,8 @@ public class QuizController {
 
 		return "forward:editQuiz";
 	}
-
+	//removing the songs of a quiz
+	//gets all songs from q quiz, and removes those that are selected and saves the quiz afterwards
 	@RequestMapping("/removesongfromquiz")
 	@Transactional
 	public String deletesongfromquiz(Model model, @RequestParam int songId, @RequestParam int quizId) {
@@ -161,10 +162,13 @@ public class QuizController {
 		model.addAttribute("message", String.format("Removed song with ID %d from the Quiz:", songId));
 		return "forward:editQuiz";
 	}
-
+	
+	//lists all songs with uploaded file, user is able to create a quiz with the songs.
+	//However, if a user creates a quiz, it can only be seen by the creator, except the admin
+	//saves the quiz savely, can only be safed with songs selected and the quizname cannot be empty!
+	//Warning messages will occur if a user transgresses against the business logic 
 	@RequestMapping(value = "/savequiz", method = RequestMethod.POST)
 	@Transactional
-
 	public String saveData(@RequestParam String quizname,
 			@RequestParam(name = "songId", required = false) List<Integer> songIds, @RequestParam int difficulty,
 			Model model, Principal principal) {
@@ -234,12 +238,15 @@ public class QuizController {
 			return "game";
 		}
 	}
-
+	//shows the statistic of the quiz
 	@RequestMapping("/quizStatistics")
 	public String showQStatistics(Model model) {
 		return "quizmaster";
 	}
-
+	
+	//lists all quizzes and songs available (only with uploaded file)
+	//the user can edit the quizzes and add songs!
+	//However the quiz name ID and name cannot be changed
 	@RequestMapping("/quizAdmin")
 	@Transactional
 	public String showQuizAdmin(Model model, Principal principal) {
@@ -255,7 +262,7 @@ public class QuizController {
 		model.addAttribute("songs", songs);
 		return "quiz";
 	}
-
+	//shows all quizzes, lists only quizzes with an uploaded song. user can only see their own quizzes except the admin!
 	@RequestMapping("/quizManagement")
 	@Transactional
 	public String showQuizzes(Model model, Principal principal) {
@@ -271,7 +278,7 @@ public class QuizController {
 		model.addAttribute("quizzes", quizzes);
 		return "quizManagement";
 	}
-
+	//display page to edit the quiz,checks the user role, admin role can see and edit all quizzes
 	@RequestMapping("/editQuiz")
 	@Transactional
 	public String editQuiz(@RequestParam int quizId, Model model, Principal principal) {
