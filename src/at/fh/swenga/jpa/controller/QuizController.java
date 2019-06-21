@@ -84,8 +84,7 @@ public class QuizController {
 	
 	@RequestMapping("/showComments")
 	public String showComments(Model model, @RequestParam int quizId) {
-		
-		List<Comment> comments = commentRepository.findTop3ById(quizId);
+		List<Comment> comments = commentRepository.findTop3ByQuizId(quizId);
 		model.addAttribute("comments", comments);
 		
 		return "showComments";

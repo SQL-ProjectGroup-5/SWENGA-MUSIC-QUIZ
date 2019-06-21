@@ -29,7 +29,7 @@ public class QuizModel implements java.io.Serializable {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Collection<SongModel> songs;
 
-	@OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
 	private Collection<Comment> comments;
 
 	@OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
