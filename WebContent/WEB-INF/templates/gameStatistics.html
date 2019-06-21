@@ -149,13 +149,31 @@
 
 
 
-	
+
 
 
 
 
 	<form class="form-horizontal" role="form" action="./saveRatings"
 		method="post">
+
+		<center>
+			<a th:href="@{/showComments(quizId=${gameIndex})}"
+				class="btn btn-xs btn-info"> <span
+				class="fa fa-fw fa-commenting" aria-hidden="true"></span> Show
+				Comments
+			</a>
+		</center>
+		<br>
+
+		<center>
+			<a th:href="@{/login}" class="btn btn-xs btn-info"> <span
+				class="glyphicon glyphicon-edit" aria-hidden="true"></span> Back to
+				Login
+			</a>
+		</center>
+
+
 
 		<input type="hidden" id="cid" name="cid" th:value="${commentIndex}">
 
@@ -166,6 +184,9 @@
 
 			<input type="hidden" id="qid" name="qid" th:value="${questionIndex}">
 			<input type="hidden" id="gid" name="gid" th:value="${gameIndex}">
+			<input type="hidden" id="quizId" name="quizId" th:value="${quizIndex}">
+
+
 
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-2 control-label">Comment:</label>
@@ -188,21 +209,15 @@
 					</select>
 				</div>
 
+
+
+
 				<div class="box-body pad table-responsive">
 					<button type="submit" class="btn btn-block btn-primary">Submit</button>
 				</div>
 
 
 			</div>
-			
-			<center>
-				<a th:href="@{/showComments(quizId=${gameIndex})}">Show Comments</a>
-			</center>
-			<br>
-			<center>
-			
-				<a th:href="@{/login}">Back to Login</a>
-			</center>
 	</form>
 
 

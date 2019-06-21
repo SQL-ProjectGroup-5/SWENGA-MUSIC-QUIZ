@@ -65,28 +65,26 @@ public class QuizController {
 
 	@RequestMapping("/statistics")
 	public String handleStatistics(@RequestParam(value = "gid") int gid,
-			@RequestParam(value = "nickname") String nickname, @RequestParam(value = "qid", required = false) int qid, 
-			Principal principal,
-			Model model) {
+			@RequestParam(value = "nickname") String nickname, @RequestParam(value = "qid", required = false) int qid,
+			Principal principal, Model model) {
 		model.addAttribute("gameIndex", gid);
 		List<ResultModel> results = resultRepository
 				.findBySessionIDAndQuizId(RequestContextHolder.currentRequestAttributes().getSessionId(), gid);
 		model.addAttribute("results", results);
-		
-		
-		
+
 		/*
-		Comment findComments = commentRepository.findTop3ById(principal);
-		model.addAttribute("findComments", findComments);*/
-		
+		 * Comment findComments = commentRepository.findTop3ById(principal);
+		 * model.addAttribute("findComments", findComments);
+		 */
+
 		return "gameStatistics";
 	}
-	
+
 	@RequestMapping("/showComments")
 	public String showComments(Model model, @RequestParam int quizId) {
-		List<Comment> comments = commentRepository.findTop3ByQuizId(quizId);
+		List<Comment> comments = commentRepository.findByQuizId(quizId);
 		model.addAttribute("comments", comments);
-		
+
 		return "showComments";
 	}
 
@@ -95,17 +93,27 @@ public class QuizController {
 	public String saveRatings(@RequestParam String comment, @RequestParam int rating,
 			@RequestParam(value = "gid", required = false) int gid, Model model) {
 
+		
 		Comment myComment = new Comment();
 		QuizModel quiz = quizRepository.findById(gid).get();
-		myComment.setComment(comment);
-		myComment.setRating(rating);
-		myComment.setQuiz(quiz);
-		model.addAttribute("gameIndex", gid);
-		commentRepository.save(myComment);
+		
+		if (comment == null || comment.isEmpty()) {
+			model.addAttribute("quizId", gid);
+			model.addAttribute("errorMessage", "Please enter a comment!");
+			return "redirect:showComments";
+		}
+		else
+		{
+			
+			myComment.setComment(comment);
+			myComment.setRating(rating);
+			myComment.setQuiz(quiz);
+			model.addAttribute("quizId", gid);
+			commentRepository.save(myComment);
+			return "redirect:showComments";
+		}
 		
 		
-
-		return "redirect:login";
 	}
 
 	@RequestMapping("/")
