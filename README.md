@@ -3,9 +3,9 @@
 
 | Team Member       | Workload                                                              |
 | ------------------|:---------------------------------------------------------------------:|
-| Christoph Tripolt | Templates (AdminLTE, Bootstrap and JavaScript), data model, spring security, testing                       |
+| Christoph Tripolt | Templates (AdminLTE, Bootstrap and JavaScript), data model, spring security concept, testing                       |
 | Anja Stadlhofer   | Comment and rate function, data model, dashboard                      |
-| Michael Pölzl     | Quizmanagement, data model, management                                |
+| Michael Pölzl     | Quizmanagement, data model, projectmanagement                                |
 | Gerhard Zeisler   | Data model, usermanagement, actual gameplay, songmanagement           |
 
 ## Installation
