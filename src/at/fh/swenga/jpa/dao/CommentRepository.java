@@ -6,12 +6,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import at.fh.swenga.jpa.model.Comment;
 import at.fh.swenga.jpa.model.QuizModel;
 
 @Repository
 @Transactional
-public interface QuizRepository extends JpaRepository<QuizModel, Integer> {
-	QuizModel findTopById(int id);
+public interface CommentRepository extends JpaRepository<Comment, Integer> 
+{
+	public List<Comment> findTop3ByQuizId(int id);
+	
+	public List<Comment> findByQuizId(int id);
 
-	List<QuizModel> findByUserId(int userId);
+	
+	Comment findTopById(int id);
 }

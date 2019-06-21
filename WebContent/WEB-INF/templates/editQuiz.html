@@ -9,6 +9,9 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <title>Create Quiz</title>
 <div th:replace="~{includes/adminLTE :: AdminLTECSS}" />
+
+
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -30,7 +33,7 @@
 		<div class="content-wrapper">
 			<div class="box box-info">
 				<div class="box-header with-border">
-					<h3 class="box-title">Enter a new Quiz</h3>
+					<h3 class="box-title">Change Quiz</h3>
 				</div>
 
 				<!--  Error message ----------------------------------------------------------- -->
@@ -50,42 +53,70 @@
 					class="alert alert-success" role="warning"></div>
 				<!--   message ----------------------------------------------------------- -->
 
-				<form class="form-horizontal" role="form" action="./savequiz"
+				<form class="form-horizontal" role="form" action="./addsongtoquiz"
 					method="post">
 					<div class="box-body">
 						<div class="form-group">
 							<label for="inputEmail3" class="col-sm-2 control-label">Name:</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="quizname"
-									placeholder="Enter a name">
+								<input type="text" class="form-control" name="quizname" th:value="${title}" th:readonly="${title}">
 							</div>
 						</div>
 						<div class="form-group">
-						<label for="searchType" class="col-sm-2 control-label">Difficulty:</label> 
-						<div class="col-sm-10">
-						<select id="searchType" class="form-control" name="difficulty" >
-							<option th:value="1" selected="selected">1</option>							
-							<option th:value="2" >2</option>
-							<option th:value="3">3</option>
-							<option th:value="4">4</option>
-							<option th:value="5">5</option>
-							<option th:value="6">6</option>
-							<option th:value="7">7</option>
-							<option th:value="8">8</option>
-							<option th:value="9">9</option>
-							<option th:value="10">10</option>
-						</select>
+							<label for="inputEmail3" class="col-sm-2 control-label">ID:</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="quizId" th:value="${quizId}" th:readonly="${quizId}">
+							</div>
 						</div>
-						</div>
-						
 					</div>
 					<div class="box">
 						<div class="box-header">
-							<h3 class="box-title">Table of questions ONLY with uploaded song</h3>
+							<h3 class="box-title">Table of Questions of the current Quiz</h3>
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
 							<table id="example1" class="table table-bordered table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Title</th>
+										<th>Interpret</th>
+										<th>Publish Date</th>
+										<th>Answer 1</th>
+										<th>Answer 2</th>
+										<th>Answer 3</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="song : ${songs}">
+										<td th:text="${song.id}"></td>
+										<td th:text="${song.title}"></td>
+										<td th:text="${song.interpret}"></td>
+										<td
+											th:text="${#calendars.format(song.publishDate,'dd.MM.yyyy')}"></td>
+										<td th:text="${song.answer1}"></td>
+										<td th:text="${song.answer2}"></td>
+										<td th:text="${song.answer3}"></td>
+										<td><a th:href="@{/removesongfromquiz(songId=${song.id},quizId=${quizId})}"
+											class="btn btn-xs btn-danger"> <span
+												class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+												Delete
+										</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					
+					<div class="box">
+						<div class="box-header">
+							<h3 class="box-title">Table of questions ONLY with uploaded song</h3>
+			
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<table id="example11" class="table table-bordered table-striped">
 								<thead>
 									<tr>
 										<th></th>
@@ -95,11 +126,10 @@
 										<th>Answer 1</th>
 										<th>Answer 2</th>
 										<th>Answer 3</th>
-										<th>Genre</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:each="song : ${songs}">
+									<tr th:each="song : ${allsongs}">
 										<td><input type="checkbox" name="songId"
 											th:value=" ${song.id}"></td>
 										<td th:text="${song.title}"></td>
@@ -109,16 +139,16 @@
 										<td th:text="${song.answer1}"></td>
 										<td th:text="${song.answer2}"></td>
 										<td th:text="${song.answer3}"></td>
-										<td th:text="${song.genre}"></td>
-									</tr>
+								</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
+					
 					<!-- /.box-body -->
 					<div class="box-body pad table-responsive">
-						<a href="savequiz">
-							<button type="submit" class="btn btn-block btn-primary">Create
+						<a href="addsongtoquiz">
+							<button type="submit" class="btn btn-block btn-primary">Add song
 								Quiz</button>
 						</a>
 						<!-- /.col -->
@@ -126,25 +156,34 @@
 				</form>
 
 			</div>
+			<!-- /.col -->
 		</div>
-
-		<footer class="main-footer">
-			<strong>Guess the Song &copy; 2019</strong> All rights reserved.
-		</footer>
-
-		<!-- Control Sidebar -->
-		<aside class="control-sidebar control-sidebar-dark"
-			style="display: none;">
-			<!-- Create the tabs -->
-			<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-				<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i
-						class="fa fa-home"></i></a></li>
-				<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
-						class="fa fa-gears"></i></a></li>
-			</ul>
-
-		</aside>
 	</div>
+	<!-- /.box -->
+	</div>
+	<!-- /.row -->
+	</section>
+	<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+
+	<footer class="main-footer">
+		<strong>Guess the Song &copy; 2019</strong> All rights reserved.
+	</footer>
+
+	<!-- Control Sidebar -->
+	<aside class="control-sidebar control-sidebar-dark"
+		style="display: none;">
+		<!-- Create the tabs -->
+		<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+			<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i
+					class="fa fa-home"></i></a></li>
+			<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
+					class="fa fa-gears"></i></a></li>
+		</ul>
+
+	</aside>
+
 
 
 	<!-- /.control-sidebar -->
@@ -176,6 +215,7 @@
 	<script>
 		$(function() {
 			$('#example1').DataTable()
+			$('#example11').DataTable()
 			$('#example2').DataTable({
 				'paging' : true,
 				'lengthChange' : false,

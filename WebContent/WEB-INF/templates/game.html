@@ -36,11 +36,16 @@
 <!-- bootstrap wysihtml5 - text editor -->
 <link rel="stylesheet"
 	href="static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+<link rel="stylesheet" type="text/css" href="static/dist/css/game.css">
 <title>Game</title>
 <div th:replace="~{includes/adminLTE :: AdminLTECSS}" />
 </head>
 
-<body>
+<body style="background-color: #d2d6de">
+
+
+
+
 
 	<div class="row align-items-middle">
 		<div class="text-center">
@@ -59,26 +64,55 @@
 			<div th:unless="${message} == null" th:utext="${message}"
 				class="alert alert-success" role="warning"></div>
 			<!--   message ----------------------------------------------------------- -->
-			<p th:text="'Hello ' + ${nickname}"></p>
-			<p
-				th:text="'This is Quiz ' + ${gameIndex} + ' and Question ' + ${questionIndex}"></p>
-			<audio controls="controls">
+
+			<p class="shadow text2">Guess</p>
+			<p class="script">
+				<span>the Song</span>
+			</p>
+			<p class="shadow text1" th:text="'Hello ' + ${nickname}"></p>
+			<h3
+				th:text="'This is Quiz ' + ${gameIndex} + ' and Question ' + ${questionIndex}"></h3>
+			<div style="margin:60px">
+			<audio controls="controls" id="thesong" autoplay="autoplay">
 				<source th:src="@{/download(documentId=${currDocument})}"
 					type="audio/mpeg" />
 				Your browser does not support the audio element.
 			</audio>
-			<div class="row">
+			</div>
+
+			<div class="row" style="margin: 30px">
 				<form action="./createResult" method="post">
 					<input type="hidden" id="qid" name="qid"
 						th:value="${questionIndex}"> <input type="hidden" id="qid"
 						name="gid" th:value="${gameIndex}"> <input type="hidden"
-						id="qid" name="nickname" th:value="${nickname}">
-
+						id="qid" name="nickname" th:value="${nickname}"> <input
+						type="hidden" id="tid" name="timer" th:value="${timer}"> <input
+						type="hidden" id="startTime" name="startTime"
+						th:value="${startTime}"> <input type="hidden"
+						id="playbackStart" name="playbackStart"
+						th:value="${playbackStart}">
 					<button type="submit" th:each="answer : ${possibleAnswers}"
 						th:text="${answer}" name="result" th:value="${answer}"
-						class="btn bg-maroon margin" style="height: 50px; width: 200px"></button>
+						class="btn bg-black margin" onclick="myStopFunction()"
+						style="height: 50px; width: 200px"></button>
+				</form>
+
+				<div th:name="correctanswers" th:value="${correctanswers}"></div>
 			</div>
-			</form>
+
+			<div style="margin-top:100px">
+				<div class="flex-c">
+					<div class="flex-col-c-m size2 how-countdown">
+						<span id="minutes" class="l1-txt1 p-b-9 hours">00</span><span
+							class="s1-txt1">Minutes</span>
+					</div>
+
+					<div class="flex-col-c-m size2 how-countdown">
+						<span id="seconds" class="l1-txt1 p-b-9 seconds">00</span><span
+							class="s1-txt1">Seconds</span>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -128,6 +162,31 @@
 	<script src="static/dist/js/pages/dashboard.js"></script>
 	<!-- AdminLTE for demo purposes -->
 	<script src="static/dist/js/demo.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		var sec = document.getElementById('tid').value;
+		//var start_time = <?php echo $_POST['my_post'] ?>;
+		var mybutton = document.getElementById('tid').value;
+		function pad(val) {
+			if (val === -1) {
+				clearInterval(myTimer);
+				val = 0;
+				document.body.style.backgroundColor = "#FF0000";
+				alert('TIME IS UP!')
+			}
+			return val > 9 ? val : "0" + val;
+		}
+		var myTimer = setInterval(function() {
+			$("#seconds").html(pad(--sec % 60));
+			$("#minutes").html(pad(parseInt(sec / 60, 10)));
+		}, 1000);
+	</script>
+	<script type="text/javascript">
+		var vid = document.getElementById("thesong");
+		vid.currentTime = document.getElementById('playbackStart').value;
+		vid.play();
+	</script>
 	<div th:replace="~{includes/adminLTE :: AdminLTEJS}" />
 </body>
 

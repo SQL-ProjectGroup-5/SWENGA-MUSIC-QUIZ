@@ -32,12 +32,19 @@
 <!-- Google Font -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+<link rel="stylesheet" type="text/css" href="static/dist/css/game.css">
 </head>
 <body class="hold-transition register-page">
+	<div class="shadow text2">
+		<a>Guess</a>
+	</div>
+	<div class="script">
+		<span>the Song</span>
+	</div>
 	<div class="register-box">
 		<div class="register-logo">
 
-			<a><b>Guess</b> the Song</a>
+
 
 			<!--  Error message ----------------------------------------------------------- -->
 			<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
@@ -57,7 +64,7 @@
 
 		</div>
 		<div class="register-box-body">
-			<p class="login-box-msg">Register</p>
+			<h2 class="login-box-msg">Register</h2>
 			<form th:action="@{/register}" method="post">
 				<div class="form-group has-feedback">
 					<input type="text" class="form-control" placeholder="Username"
@@ -65,13 +72,13 @@
 						class="glyphicon glyphicon-user form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
-					<input type="password" class="form-control" placeholder="Password"
-						name="password"> <span
+					<input id="password" type="password" class="form-control"
+						placeholder="Password" name="password"> <span
 						class="glyphicon glyphicon-lock form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
-					<input type="password" class="form-control"
-						placeholder="Retype password" name="passwordRetype"> <span
+					<input id="password" type="password" class="form-control"
+						placeholder="Retype Password" name="passwordRetype"> <span
 						class="glyphicon glyphicon-log-in form-control-feedback"></span>
 				</div>
 				<div class="row">
@@ -82,7 +89,8 @@
 					<!-- /.col -->
 				</div>
 			</form>
-			<a href="@{/login}" class="text-center">I already have an account</a>
+			<a th:href="@{/login}" class="text-center">I already have an
+				account</a>
 		</div>
 		<!-- /.form-box -->
 	</div>
@@ -101,6 +109,16 @@
 				increaseArea : '20%' /* optional */
 			});
 		});
+	</script>
+	<script>
+		// Compare two input fields in js
+		function compare_input() {
+			var f_input = document.getElementById('password').value;
+			var s_input = document.getElementById('passwordRetype').value;
+			if (f_input !== s_input) {
+				alert('Passwords are not the same!');
+			}
+		}
 	</script>
 </body>
 </html>

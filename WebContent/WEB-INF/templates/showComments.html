@@ -58,7 +58,7 @@
 
 
 
-<title>Game</title>
+<title>Comments</title>
 <div th:replace="~{includes/adminLTE :: AdminLTECSS}" />
 </head>
 
@@ -82,151 +82,45 @@
 				class="alert alert-success" role="warning"></div>
 			<!--   message ----------------------------------------------------------- -->
 			<br>
-			<!--  
-			<p
-				th:text="'Your Statistics of Quiz ' + ${gameIndex}">
-			</p>-->
-			<!--  
-			<div class="row">
-				<form action="./createResult" method="post">
-					<input type="hidden" id="qid" name="qid"
-						th:value="${questionIndex}"> <input type="hidden" id="qid"
-						name="gid" th:value="${gameIndex}"> <input type="hidden"
-						id="qid" name="nickname" th:value="${nickname}">-->
-			<!--  
-					<button type="submit" th:each="answer : ${possibleAnswers}"
-						th:text="${answer}" name="result" th:value="${answer}"
-						class="btn bg-maroon margin" style="height: 50px; width: 200px"></button>-->
-
 
 		</div>
-		</form>
-
 
 	</div>
 	</div>
-
 
 	<div class="box">
-		<div class="box-header with-border">
-			<h3 class="box-title">
-				<p th:text="'Score of Quiz ' + ${gameIndex}"></p>
-
-			</h3>
+		<div class="box-header">
+			<h3 class="box-title">Comments and Ratings of this Quiz:</h3>
 		</div>
 		<!-- /.box-header -->
 		<div class="box-body">
-			<div class="col-md-10 col-md-offset-1">
-				<table class="table table-bordered">
+			<table class="table table-bordered table-striped">
+				<thead>
 					<tr>
-						<th>#</th>
-						<th>Correct/Wrong</th>
-						<th>Time</th>
-
+						<th>Comment</th>
+						<th>Rating</th>
 					</tr>
-					<tr th:each="result : ${results}">
-						<td th:utext="${'Question: ' + result.tmpQid}"></td>
-						<td>
-							<div th:switch="${result.correct}">
-								<p th:case="true">
-									<span class="label label-success">Correct</span>
-								</p>
-								<p th:case="false">
-									<span class="label label-danger">Wrong</span>
-								</p>
-								<p th:case="*">nix</p>
-							</div>
-						</td>
-						<td th:text="${result.time + ' seconds'}"></td>
-
+				</thead>
+				<tbody>
+					<tr th:each="comment : ${comments}">
+						<td th:text="${comment.comment}"></td>
+						<td th:text="${comment.rating}"></td>
 					</tr>
-				</table>
-
-			</div>
-			<!-- /.box-body -->
+				</tbody>
+			</table>
 		</div>
+
 	</div>
 
-
-
-
-
-
-
-
-	<form class="form-horizontal" role="form" action="./saveRatings"
-		method="post">
-
-		<center>
-			<a th:href="@{/showComments(quizId=${gameIndex})}"
-				class="btn btn-xs btn-info"> <span
-				class="fa fa-fw fa-commenting" aria-hidden="true"></span> Show
-				Comments
-			</a>
-		</center>
-		<br>
-
-		<center>
+	<center>
 			<a th:href="@{/login}" class="btn btn-xs btn-info"> <span
 				class="glyphicon glyphicon-edit" aria-hidden="true"></span> Back to
 				Login
 			</a>
 		</center>
-
-
-
-		<input type="hidden" id="cid" name="cid" th:value="${commentIndex}">
-
-
-
-
-		<div class="box-body">
-
-			<input type="hidden" id="qid" name="qid" th:value="${questionIndex}">
-			<input type="hidden" id="gid" name="gid" th:value="${gameIndex}">
-			<input type="hidden" id="quizId" name="quizId" th:value="${quizIndex}">
-
-
-
-			<div class="form-group">
-				<label for="inputEmail3" class="col-sm-2 control-label">Comment:</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" name="comment"
-						placeholder="Write a comment">
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="searchType" class="col-sm-2 control-label">Rating:</label>
-				<div class="col-sm-10">
-					<select id="searchType" class="form-control" name="rating">
-						<option th:value="1" selected="selected">1</option>
-						<option th:value="2">2</option>
-						<option th:value="3">3</option>
-						<option th:value="4">4</option>
-						<option th:value="5">5</option>
-
-					</select>
-				</div>
-
-
-
-
-				<div class="box-body pad table-responsive">
-					<button type="submit" class="btn btn-block btn-primary">Submit</button>
-				</div>
-
-
-			</div>
-	</form>
-
-
-	<center>
-
 		<br>
-		<!--  <a th:href="@{/login}">Back to Start Screen</a>-->
-	</center>
-	<br>
+	
+
 
 
 	<!-- ./wrapper -->

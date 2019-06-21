@@ -19,10 +19,14 @@ public class ResultModel implements java.io.Serializable {
 	private String synonym;
 	private boolean correct;
 	private float time;
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	SongModel song;
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	QuizModel quiz;
+	
+	private int tmpQid;
+	
+	
 	
 	private String sessionID; 
 	public ResultModel() {
@@ -102,6 +106,15 @@ public class ResultModel implements java.io.Serializable {
 	public void setQuiz(QuizModel quiz) {
 		this.quiz = quiz;
 	}
+	
+	public int getTmpQid() {
+		return tmpQid;
+	}
+
+	public void setTmpQid(int tmpQid) {
+		this.tmpQid = tmpQid;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

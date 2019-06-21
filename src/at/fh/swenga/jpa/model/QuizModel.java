@@ -3,6 +3,7 @@ package at.fh.swenga.jpa.model;
 import java.util.Calendar;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,12 +11,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Quiz")
-public class QuizModel implements java.io.Serializable{
+public class QuizModel implements java.io.Serializable {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,58 +25,94 @@ public class QuizModel implements java.io.Serializable{
 	private String title;
 	private int difficulty;
 	private Calendar creationDate;
-	
-	@ManyToMany (fetch =FetchType.EAGER)
-    private Collection<SongModel> songs;
-	
-	@OneToMany(mappedBy="quiz")
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Collection<SongModel> songs;
+
+	@OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+	private Collection<Comment> comments;
+
+	@OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
 	private Collection<ResultModel> results;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private User user;
+
 	public QuizModel(String title, int difficulty, Calendar creationDate) {
 		super();
 		this.title = title;
 		this.difficulty = difficulty;
 		this.creationDate = creationDate;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Collection<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Collection<Comment> comments) {
+		this.comments = comments;
+	}
+
 	public QuizModel() {
 		super();
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public Collection<ResultModel> getResults() {
 		return results;
 	}
+
 	public void setResults(Collection<ResultModel> results) {
 		this.results = results;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public int getDifficulty() {
 		return difficulty;
 	}
+
 	public void setDifficulty(int difficulty) {
 		this.difficulty = difficulty;
 	}
+
 	public Calendar getCreationDate() {
 		return creationDate;
 	}
+
 	public void setCreationDate(Calendar creationDate) {
 		this.creationDate = creationDate;
 	}
-	
+
 	public Collection<SongModel> getSongs() {
 		return songs;
 	}
+
 	public void setSongs(Collection<SongModel> songs) {
 		this.songs = songs;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -82,6 +120,7 @@ public class QuizModel implements java.io.Serializable{
 		result = prime * result + id;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -95,6 +134,5 @@ public class QuizModel implements java.io.Serializable{
 			return false;
 		return true;
 	}
-	
-	
+
 }

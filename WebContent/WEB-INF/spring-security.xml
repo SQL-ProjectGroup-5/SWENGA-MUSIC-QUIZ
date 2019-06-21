@@ -14,13 +14,19 @@
 		
 		<intercept-url pattern="/admin" access="hasRole('USER')"/>
 		<intercept-url pattern="/adduser" access="hasRole('ADMIN')"/>
-		<!--intercept-url pattern="/*" access="permitAll" /-->
 		<intercept-url pattern="/play/*" access="permitAll" />
+		<intercept-url pattern="/play" access="permitAll" />
+		<intercept-url pattern="/register" access="permitAll" />
+		<intercept-url pattern="/createResult" access="permitAll" />
+		<intercept-url pattern="/download" access="permitAll" />
 		<intercept-url pattern="/static/**" access="permitAll" />
 		<intercept-url pattern="/static/**/**" access="permitAll" />
 		<intercept-url pattern="/static/**/**/**" access="permitAll" />
 		
 		
+		<intercept-url pattern="/showComments" access="permitAll" />
+		<intercept-url pattern="/statistics" access="permitAll" />
+		<intercept-url pattern="/saveRatings" access="permitAll" />
 		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/fillUsers" access="permitAll" />
 		<intercept-url pattern="/images/**" access="permitAll" />

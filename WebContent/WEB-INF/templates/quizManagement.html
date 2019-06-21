@@ -33,87 +33,88 @@
 				<div class="box-header">
 					<h3 class="box-title">Table of Quizzes</h3>
 				</div>
+				<!--  Error message ----------------------------------------------------------- -->
+				<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
+					class="alert alert-danger" role="alert"></div>
+				<!--  Error message ----------------------------------------------------------- -->
+
+				<!--  Warning message ----------------------------------------------------------- -->
+				<div th:unless="${warningMessage} == null"
+					th:utext="${warningMessage}" class="alert alert-warning"
+					role="warning"></div>
+				<!--  Warning message ----------------------------------------------------------- -->
+
+				<!--   message ----------------------------------------------------------- -->
+				<div th:unless="${message} == null" th:utext="${message}"
+					class="alert alert-success" role="warning"></div>
+
+
 				<!-- /.box-header -->
-				<div class="box-body">
-					
-						<table id="example1" class="table table-bordered table-striped">
-							<thead>
-								<tr>
-									<th>Select</th>
-									<th>Title</th>
-									<th>Difficulty</th>
-									<th>Creation Date</th>
-									<th>Number of Questions</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
+				<div class="box-body" >
 
-								<tr th:each="quiz : ${quizzes}">
-									<td><input type="checkbox" name="quizId"
-										th:value="${quiz.id}"></td>
-									<td th:text="${quiz.title}"></td>
-									<td th:text="${quiz.difficulty}"></td>
-									<td
-										th:text="${#calendars.format(quiz.creationDate,'dd.MM.yyyy')}"></td>
-									<td th:text="${quiz.getSongs().size()}"></td>
-									<td><a th:href="@{/deletequiz(quizId=${quiz.id})}"
-										class="btn btn-xs btn-danger"> <span
-											class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-											Delete
-									</a></td>
-								</tr>
-							</tbody>
-						</table>
+					<table id="example1" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Title</th>
+								<th>Difficulty</th>
+								<th>Creation Date</th>
+								<th>Number of Questions</th>
+								<th>Comments</th>
+								<th>Game</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
 
-					
+							<tr th:each="quiz : ${quizzes}">
+								<td th:text="${quiz.id}"></td>
+								<td th:text="${quiz.title}"></td>
+								<td th:text="${quiz.difficulty}"></td>
+								<td
+									th:text="${#calendars.format(quiz.creationDate,'dd.MM.yyyy')}"></td>
+								<td th:text="${quiz.getSongs().size()}"></td>
+								<td> <a th:href="@{/showComments(quizId=${quiz.id})}">Comment</a></td>
+								<td><a th:href="@{/(qid=${quiz.id})}"
+									class="btn btn-xs btn-primary"> <span
+										class="fa fa-fw fa-play" aria-hidden="true"></span> Play Quiz
+								</a> <a th:href="@{${'qrcode/' + quiz.id}}"
+									class="btn btn-xs btn-info"> <span
+										class="fa fa-fw fa-qrcode" aria-hidden="true"></span> Generate
+										QR Code
+								</a></td>
+								<td><a th:href="@{/editQuiz(quizId=${quiz.id})}"
+									class="btn btn-xs btn-success"> <span
+										class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+										Edit
+								</a> <a th:href="@{/deletequiz(quizId=${quiz.id})}"
+									class="btn btn-xs btn-danger"> <span
+										class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+										Delete
+								</a></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
-				<form role="form" action="./qrcode/" method="post">
-				<!-- /.box-body -->
-				<div class="box-body pad table-responsive">
-						<button type="submit" class="btn btn-block btn-primary">Generate QR Code</button>
-					</div>
-					</form>
-					<!-- /.col -->
-				
-
-				</form>
 
 			</div>
 			<!-- /.col -->
 		</div>
+		<footer class="main-footer">
+			<strong>Guess the Song &copy; 2019</strong> All rights reserved.
+		</footer>
+		<aside class="control-sidebar control-sidebar-dark"
+			style="display: none;">
+			<!-- Create the tabs -->
+			<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+				<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i
+						class="fa fa-home"></i></a></li>
+				<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
+						class="fa fa-gears"></i></a></li>
+			</ul>
+
+		</aside>
 	</div>
-	<!-- /.box -->
-
-	</div>
-
-
-	<!-- /.row -->
-	</section>
-
-
-
-	<!-- /.content -->
-	</div>
-	<!-- /.content-wrapper -->
-
-	<footer class="main-footer">
-		<strong>Guess the Song &copy; 2019</strong> All rights reserved.
-	</footer>
-
-	<!-- Control Sidebar -->
-	<aside class="control-sidebar control-sidebar-dark"
-		style="display: none;">
-		<!-- Create the tabs -->
-		<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-			<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i
-					class="fa fa-home"></i></a></li>
-			<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
-					class="fa fa-gears"></i></a></li>
-		</ul>
-
-	</aside>
-
 
 
 	<!-- /.control-sidebar -->
