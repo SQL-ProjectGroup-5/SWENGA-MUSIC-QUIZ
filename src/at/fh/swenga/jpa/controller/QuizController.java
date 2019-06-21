@@ -55,14 +55,7 @@ public class QuizController {
 	UserRoleDao userRoleRepository;
 	@Autowired
 	CommentRepository commentRepository;
-/*
-	@RequestMapping(value = { "/quizzes", "listquizzes" })
-	public String index(Model model) {
-		List<QuizModel> quizzes = quizRepository.findAll();
-		model.addAttribute("quizzes", quizzes);
-		return "indexQuiz";
-	}
-*/
+
 	@RequestMapping("/statistics")
 	public String handleStatistics(@RequestParam(value = "gid") int gid,
 			@RequestParam(value = "nickname") String nickname, @RequestParam(value = "qid", required = false) int qid,
