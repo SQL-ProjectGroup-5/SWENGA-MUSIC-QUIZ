@@ -28,7 +28,7 @@ public class SecurityController {
 
 	@Autowired
 	UserRoleDao userRoleDao;
-
+	//Displays the form for adding a user
 	@RequestMapping(value = "/adduser", method = RequestMethod.GET)
 	public String addUserGet(Model model) {
 		List<User> myUsers = userDao.findAll();
@@ -36,7 +36,7 @@ public class SecurityController {
 		return "createUser";
 
 	}
-
+	//Adds an user
 	@RequestMapping(value = "/adduser", method = RequestMethod.POST)
 	@Transactional
 	public String addUserPost(@RequestParam(value = "isAdmin", required = false) Boolean isAdmin,
@@ -76,7 +76,7 @@ public class SecurityController {
 		
 	
 	}
-
+	//This mapping has to be called ONCE to create the default users as described in the readme
 	@RequestMapping("/fillUsers")
 	@Transactional
 	public String fillData(Model model) {
@@ -102,12 +102,12 @@ public class SecurityController {
 
 		return "forward:login";
 	}
-
+	//shows the register form
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String handleRegisterGet(Model model) {
 		return "register";
 	}
-
+	//Registers the user, basically the same as the addUser mapping without the ability to create admin users
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@Transactional
 	public String handleRegisterPost(@RequestParam String username, @RequestParam String password,
@@ -138,12 +138,12 @@ public class SecurityController {
 		}
 		
 	}
-
+	//displays the login form
 	@RequestMapping(value = "/login")
 	public String handleLogin(Model model) {
 		return "login";
 	}
-
+	//deletes a user. A possible improvement would be to set the invalid bit
 	@RequestMapping("/deleteUser")
 	public String deleteData(Model model, @RequestParam int id) {
 		userDao.delete(id);
