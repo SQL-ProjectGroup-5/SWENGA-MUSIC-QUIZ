@@ -31,6 +31,7 @@
 		</header>
 		<nav th:replace="~{includes/navBar :: sidebar(songAdmin='a')}"></nav>
 		<div class="content-wrapper">
+		<div class="box box-info">
 			<!--  Error message ----------------------------------------------------------- -->
 			<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
 				class="alert alert-danger" role="alert"></div>
@@ -46,8 +47,8 @@
 			<div th:unless="${message} == null" th:utext="${message}"
 				class="alert alert-success" role="warning"></div>
 
-			<div class="box" style="margin-left: 40px">
-				<div class="box-header">
+			<div class="box">
+				<div class="box-header with-border">
 					<h3 th:text="${preFilledSong}? 'Change Song' : 'New Song'"
 						class="box-title">Create a new Song</h3>
 				</div>
@@ -110,16 +111,13 @@
 							</div>
 						</div>
 					</form>
-
-
 				</div>
 			</div>
 
-			<div class="box" style="margin-left: 40px">
+			<div class="box">
 				<div class="box-header">
 					<h3 class="box-title">Add a Song</h3>
 				</div>
-
 				<div class="box-body">
 					<div class="box-body pad table-responsive">
 						<div class="col-xs-4">
@@ -198,7 +196,7 @@
 				</div>
 			</div>
 			<!-- /.box -->
-		</div>
+		</div></div>
 
 		<!-- /.content-wrapper -->
 		<footer class="main-footer">
