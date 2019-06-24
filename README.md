@@ -17,6 +17,7 @@
 6. Start project in eclipse (deploy to tomcat, "Run on Server")
 7. If the database is empty, the demo users have to be created by accessing the url /fillUsers (e.g. http://localhost:8080/GuessTheSong/fillUsers) only ONCE.
 8. Afterwards the application can be accessed by http://localhost:8080/GuessTheSong/
+9. Login with either user/password or admin/password
 
 Please note that some features are blocked by modern browsers, for example autoplay of songs or custom timespan of playback.
 
